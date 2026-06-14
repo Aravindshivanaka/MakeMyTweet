@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;         /* #F8FAFC (Light background) */
+    --foreground: 222 47% 11.2%;       /* #0F172A (Dark text) */
+    
+    --card: 0 0% 100%;                 /* #FFFFFF (White panel) */
+    --card-foreground: 222 47% 11.2%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11.2%;
+    
+    --primary: 217 85% 52%;           /* #1D6FEB (Cobalt Blue) */
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 22% 5%;
+    
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 13% 91%;            /* #E2E8F0 (Light border) */
+    --input: 220 13% 91%;             /* #E2E8F0 (Light input border) */
+    --ring: 217 85% 52%;
+    
+    --radius: 0.5rem;
+
+    /* Custom color tokens exposed explicitly */
+    --primary-bg: #F8FAFC;
+    --panel-bg: #FFFFFF;
+    --input-bg: #F1F5F9;
+    --border-color: #E2E8F0;
+    --primary-accent: #1D6FEB;
+    --rich-blue-frame: #0F2356;
+    --white: #FFFFFF;
+    --tweet-primary-text: #0A0A0A;
+    --tweet-secondary-text: #64748B;
+    --success: #22C55E;
+    --error: #EF4444;
+  }
+
+  .dark {
+    --background: 220 58% 7%;         /* #080F1E */
+    --foreground: 210 40% 98%;        /* White/light grey for main UI text */
+    
+    --card: 222 47% 10%;              /* #0D1425 (Panel background) */
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 222 47% 10%;           /* #0D1425 */
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 217 85% 52%;           /* #1D6FEB (Cobalt Blue) */
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 222 47% 15%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 215 25% 27%;
+    --muted-foreground: 215 16% 47%;  /* #64748B (Secondary Text) */
+    
+    --accent: 217 85% 52%;            /* #1D6FEB */
+    --accent-foreground: 210 40% 98%;
+    
+    --destructive: 0 84.2% 60.2%;     /* #EF4444 */
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 221 42% 20%;            /* #1E2D4A (Border Color) */
+    --input: 220 37% 11%;             /* #111827 (Input Background) */
+    --ring: 217 85% 52%;              /* #1D6FEB */
+
+    /* Custom color tokens exposed explicitly */
+    --primary-bg: #080F1E;
+    --panel-bg: #0D1425;
+    --input-bg: #111827;
+    --border-color: #1E2D4A;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom scrollbar utility to hide scrollbars */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Theme support overrides for hardcoded utility classes in Sidebar */
+.bg-\[\#111827\] {
+  background-color: var(--input-bg) !important;
+}
+.border-\[\#1E2D4A\] {
+  border-color: var(--border-color) !important;
+}
+.bg-\[\#0D1425\] {
+  background-color: var(--panel-bg) !important;
+}
+.hover\:bg-\[\#1E2D4A\]\/50:hover {
+  background-color: var(--border-color) !important;
+}
+.hover\:bg-\[\#1E2D4A\]\/30:hover {
+  background-color: rgba(var(--border), 0.3) !important;
+}
+
+/* Specific text inputs, selects, textareas */
+input, select, textarea {
+  color: hsl(var(--foreground)) !important;
+}
+
+/* Adapt slate colors to theme foreground opacities */
+.text-slate-100 {
+  color: hsl(var(--foreground)) !important;
+}
+.text-slate-200 {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.95;
+}
+.text-slate-300 {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.85;
+}
+.text-slate-400 {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.65;
+}
