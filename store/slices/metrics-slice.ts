@@ -17,9 +17,9 @@ export const createMetricsSlice: StateCreator<
 
   // Actions
   toggleMetrics: () => set((state) => ({ showMetrics: !state.showMetrics })),
-  setLikes: (likes) => set({ likes }),
-  setComments: (comments) => set({ comments }),
-  setRetweets: (retweets) => set({ retweets }),
-  setViews: (views) => set({ views }),
-  setBookmarks: (bookmarks) => set({ bookmarks }),
+  setLikes: (likes) => set({ likes: Math.min(Math.max(0, likes), 99000000) }),
+  setComments: (comments) => set({ comments: Math.min(Math.max(0, comments), 99000000) }),
+  setRetweets: (retweets) => set({ retweets: Math.min(Math.max(0, retweets), 99000000) }),
+  setViews: (views) => set({ views: Math.min(Math.max(0, views), 99000000) }),
+  setBookmarks: (bookmarks) => set({ bookmarks: Math.min(Math.max(0, bookmarks), 99000000) }),
 });

@@ -13,6 +13,7 @@ export default function PreviewWorkspace() {
     selectedLogo,
     showLogo,
     tweetText,
+    tweetTheme,
     showMetrics,
     comments,
     retweets,
@@ -29,6 +30,8 @@ export default function PreviewWorkspace() {
     backgroundType,
     backgroundImage,
     exportFormat,
+    showBorder,
+    borderColor,
   } = useAppStore();
 
   const formatTimestamp = () => {
@@ -103,7 +106,7 @@ export default function PreviewWorkspace() {
               showDate={showDate}
               showTime={showTime}
               tweetText={tweetText || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."}
-              fontSize={15}
+              fontSize={18}
               hasMedia={false}
               showMetrics={showMetrics}
               comments={comments}
@@ -111,6 +114,10 @@ export default function PreviewWorkspace() {
               likes={likes}
               views={views}
               bookmarks={bookmarks}
+              exportFormat={exportFormat}
+              tweetTheme={tweetTheme}
+              showBorder={showBorder}
+              borderColor={borderColor}
             />
           </RichBlueFrame>
         </div>

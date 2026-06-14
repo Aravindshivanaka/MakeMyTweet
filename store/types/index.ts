@@ -13,19 +13,25 @@ export interface ProfileSliceActions {
 export interface TweetSliceState {
   tweetText: string;
   characterCount: number;
+  tweetTheme: "light" | "dark";
+  showBorder: boolean;
+  borderColor: string;
 }
 
 export interface TweetSliceActions {
   setTweetText: (text: string) => void;
+  setTweetTheme: (theme: "light" | "dark") => void;
+  setShowBorder: (show: boolean) => void;
+  setBorderColor: (color: string) => void;
 }
 
 export interface LogoSliceState {
-  selectedLogo: "x" | "twitter";
+  selectedLogo: "x" | "twitter" | "grok";
   showLogo: boolean;
 }
 
 export interface LogoSliceActions {
-  setSelectedLogo: (logo: "x" | "twitter") => void;
+  setSelectedLogo: (logo: "x" | "twitter" | "grok") => void;
   setShowLogo: (show: boolean) => void;
 }
 

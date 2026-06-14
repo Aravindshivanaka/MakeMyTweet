@@ -17,12 +17,16 @@ export default function RichBlueFrame({
 }: RichBlueFrameProps) {
   const isCustomBg = backgroundType === "solid" || backgroundType === "custom" || backgroundType === "preset";
 
-  // Map format to specific aspect ratio and padding classes
-  let formatClasses = "max-w-[640px] aspect-[16/9] p-10";
+  // Per-format layout rules — each format has unique card width, padding, and aspect ratio
+  let formatClasses = "max-w-[680px] aspect-[16/9] p-12";
+  let cardWidthStyle: React.CSSProperties = {};
+
   if (exportFormat === "square") {
-    formatClasses = "max-w-[560px] aspect-square p-8";
+    formatClasses = "max-w-[600px] aspect-square p-10";
   } else if (exportFormat === "story") {
-    formatClasses = "max-w-[360px] aspect-[9/16] p-6";
+    // Story format: taller canvas, generous horizontal padding, card fills width comfortably
+    formatClasses = "max-w-[420px] aspect-[9/16] px-6 py-10";
+    cardWidthStyle = { maxWidth: "92%" };
   }
 
   const customStyles: React.CSSProperties = {};
@@ -46,7 +50,9 @@ export default function RichBlueFrame({
       role="img"
       aria-label="Rich Blue Tweet Card Frame"
     >
-      {children}
+      <div style={cardWidthStyle} className="w-full flex items-center justify-center">
+        {children}
+      </div>
     </div>
   );
 }
