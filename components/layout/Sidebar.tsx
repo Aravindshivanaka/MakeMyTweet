@@ -63,6 +63,12 @@ export default function Sidebar() {
     setBackgroundImage,
     exportFormat,
     setExportFormat,
+    tweetTheme,
+    setTweetTheme,
+    showBorder,
+    setShowBorder,
+    borderColor,
+    setBorderColor,
   } = useAppStore();
 
   const backdropPresets = [
@@ -244,6 +250,35 @@ export default function Sidebar() {
     }
   };
 
+  const handleCopyImage = async () => {
+    const node = document.getElementById("export-canvas");
+    if (!node) {
+      alert("Error: Preview canvas not found!");
+      return;
+    }
+    try {
+      const blob = await htmlToImage.toBlob(node, {
+        pixelRatio: 3,
+        style: {
+          transform: "scale(1)",
+          transformOrigin: "top left",
+          width: node.offsetWidth + "px",
+          height: node.offsetHeight + "px",
+        },
+      });
+      if (!blob) throw new Error("Failed to generate blob from canvas");
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          [blob.type]: blob,
+        }),
+      ]);
+      alert("Success: Image copied to clipboard!");
+    } catch (err) {
+      console.error("Oops, Copy Image failed!", err);
+      alert("Oops, copy image failed! Please try downloading the PNG instead.");
+    }
+  };
+
   const handleDownload = async () => {
     const node = document.getElementById("export-canvas");
     if (!node) {
@@ -392,11 +427,12 @@ export default function Sidebar() {
               <select
                 id="platformLogoSelect"
                 value={selectedLogo}
-                onChange={(e) => setSelectedLogo(e.target.value as "x" | "twitter")}
+                onChange={(e) => setSelectedLogo(e.target.value as "x" | "twitter" | "grok")}
                 className="h-10 px-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer"
               >
                 <option value="x">X Logo</option>
                 <option value="twitter">Twitter Bird Logo</option>
+                <option value="grok">Grok Logo</option>
               </select>
             </div>
           </div>
@@ -413,19 +449,47 @@ export default function Sidebar() {
               id="tweetTextarea"
               placeholder="Write your mock tweet content here..."
               value={tweetText}
-              onChange={(e) => setTweetText(e.target.value)}
+              onChange={(e) => { if (e.target.value.length <= 280) setTweetText(e.target.value); }}
+              maxLength={280}
               className="w-full min-h-[90px] p-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-white text-sm focus:border-[#1D6FEB] focus:outline-none resize-none"
             />
             <div className="text-[11px] text-right font-semibold text-[#64748B]">
-              {characterCount} / 280
+              <span className={characterCount >= 260 ? (characterCount >= 280 ? 'text-red-500' : 'text-amber-500') : ''}>{characterCount}</span> / 280
             </div>
           </div>
         </SectionCard>
 
-        {/* 3. Engagement Controls */}
+        {/* 3. Tweet Card Theme */}
+        <SectionCard
+          id="tweet-card-theme-section"
+          title="3. Tweet Card Theme"
+          description="Switch the mockup card between Light and Dark mode styles."
+        >
+          <div className="grid grid-cols-2 gap-2">
+            {[
+              { theme: "light", label: "Light" },
+              { theme: "dark", label: "Dark" },
+            ].map(({ theme, label }) => (
+              <button
+                key={theme}
+                type="button"
+                onClick={() => setTweetTheme(theme as "light" | "dark")}
+                className={`py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
+                  tweetTheme === theme
+                    ? "bg-[#1D6FEB] border-[#1D6FEB] text-white"
+                    : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/30"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </SectionCard>
+
+        {/* 4. Engagement Controls */}
         <SectionCard
           id="engagement-controls-section"
-          title="3. Engagement Controls"
+          title="4. Engagement Controls"
           description="Enable metrics and customize counter values."
         >
           <div className="flex flex-col gap-4">
@@ -460,7 +524,8 @@ export default function Sidebar() {
                     value={comments === 0 ? "" : comments.toString()}
                     onChange={(e) => {
                       const val = e.target.value.replace(/[^0-9]/g, "");
-                      setComments(val === "" ? 0 : parseInt(val, 10));
+                      const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
+                      setComments(num);
                     }}
                     className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
                   />
@@ -479,7 +544,8 @@ export default function Sidebar() {
                     value={retweets === 0 ? "" : retweets.toString()}
                     onChange={(e) => {
                       const val = e.target.value.replace(/[^0-9]/g, "");
-                      setRetweets(val === "" ? 0 : parseInt(val, 10));
+                      const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
+                      setRetweets(num);
                     }}
                     className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
                   />
@@ -498,7 +564,8 @@ export default function Sidebar() {
                     value={likes === 0 ? "" : likes.toString()}
                     onChange={(e) => {
                       const val = e.target.value.replace(/[^0-9]/g, "");
-                      setLikes(val === "" ? 0 : parseInt(val, 10));
+                      const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
+                      setLikes(num);
                     }}
                     className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
                   />
@@ -517,7 +584,8 @@ export default function Sidebar() {
                     value={views === 0 ? "" : views.toString()}
                     onChange={(e) => {
                       const val = e.target.value.replace(/[^0-9]/g, "");
-                      setViews(val === "" ? 0 : parseInt(val, 10));
+                      const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
+                      setViews(num);
                     }}
                     className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
                   />
@@ -537,7 +605,8 @@ export default function Sidebar() {
                     value={bookmarks === 0 ? "" : bookmarks.toString()}
                     onChange={(e) => {
                       const val = e.target.value.replace(/[^0-9]/g, "");
-                      setBookmarks(val === "" ? 0 : parseInt(val, 10));
+                      const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
+                      setBookmarks(num);
                     }}
                     className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
                   />
@@ -570,10 +639,10 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 4. Timestamp Controls */}
+        {/* 5. Timestamp Controls */}
         <SectionCard
           id="timestamp-controls-section"
-          title="4. Timestamp Controls"
+          title="5. Timestamp Controls"
           description="Adjust mock timestamp."
         >
           <div className="grid grid-cols-5 gap-2">
@@ -669,10 +738,10 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 5. Background Controls */}
+        {/* 6. Background Controls */}
         <SectionCard
           id="background-controls-section"
-          title="5. Background Controls"
+          title="6. Background Controls"
           description="Select solid gradient presets or upload image."
         >
           <div className="flex flex-col gap-3">
@@ -733,10 +802,85 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 6. Export Format */}
+        {/* 7. Tweet Card Border */}
+        <SectionCard
+          id="tweet-card-border-section"
+          title="7. Tweet Card Border"
+          description="Apply a colorful border wrapper around the card."
+        >
+          <div className="flex flex-col gap-4">
+            {/* Border Toggle Switch */}
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-300">
+                Border Wrapper Toggle
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowBorder(!showBorder)}
+                className={`w-9 h-5 rounded-full p-0.5 transition-colors cursor-pointer flex items-center ${
+                  showBorder ? "bg-[#1D6FEB] justify-end" : "bg-slate-700 justify-start"
+                }`}
+                aria-label="Toggle card border wrapper"
+              >
+                <div className="w-4 h-4 bg-white rounded-full shadow-sm" />
+              </button>
+            </div>
+
+            {/* Border Colors (Presets & Custom) */}
+            {showBorder && (
+              <div className="flex flex-col gap-3 pt-3 border-t border-[#1E2D4A]">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                  Border Color Presets
+                </span>
+                <div className="flex items-center gap-2 overflow-x-auto pb-1">
+                  {[
+                    { color: "#38BDF8", label: "Blue" },
+                    { color: "#8B5CF6", label: "Purple" },
+                    { color: "#06B6D4", label: "Cyan" },
+                    { color: "#F97316", label: "Orange" },
+                  ].map(({ color, label }) => (
+                    <button
+                      key={color}
+                      type="button"
+                      onClick={() => setBorderColor(color)}
+                      className={`w-8 h-8 rounded-full cursor-pointer flex-shrink-0 border transition-all hover:scale-110 ${
+                        borderColor.toLowerCase() === color.toLowerCase()
+                          ? "border-white scale-105"
+                          : "border-[#1E2D4A]"
+                      }`}
+                      style={{ backgroundColor: color }}
+                      aria-label={`Select border color ${label}`}
+                    />
+                  ))}
+                </div>
+
+                {/* Custom Color Input */}
+                <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
+                  <label htmlFor="customBorderColorInput" className="text-[10px] font-bold uppercase text-slate-400">
+                    Custom Border Color
+                  </label>
+                  <div className="flex items-center gap-3">
+                    <input
+                      id="customBorderColorInput"
+                      type="color"
+                      value={borderColor}
+                      onChange={(e) => setBorderColor(e.target.value)}
+                      className="w-10 h-8 rounded-md bg-[#111827] border border-[#1E2D4A] cursor-pointer"
+                    />
+                    <span className="text-xs font-mono text-slate-300">
+                      {borderColor.toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </SectionCard>
+
+        {/* 8. Export Format */}
         <SectionCard
           id="export-format-section"
-          title="6. Export Format"
+          title="8. Export Format"
           description="Choose canvas layout dimensions."
         >
           <div className="grid grid-cols-3 gap-2">
@@ -761,12 +905,19 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 7. Download Button */}
-        <div className="pt-2 border-t border-[#1E2D4A]">
+        {/* 7. Download & Copy Buttons */}
+        <div className="pt-2 border-t border-[#1E2D4A] grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={handleCopyImage}
+            className="py-3.5 rounded-xl bg-[#111827] border border-[#1E2D4A] hover:bg-[#1E2D4A]/50 text-slate-200 text-center text-sm font-semibold transition-colors shadow-md cursor-pointer"
+          >
+            Copy Image
+          </button>
           <button
             type="button"
             onClick={handleDownload}
-            className="w-full py-3.5 rounded-xl bg-[#1D6FEB] hover:bg-[#155fc7] text-white text-center text-sm font-semibold transition-colors shadow-md cursor-pointer"
+            className="py-3.5 rounded-xl bg-[#1D6FEB] hover:bg-[#155fc7] text-white text-center text-sm font-semibold transition-colors shadow-md cursor-pointer"
           >
             Download PNG
           </button>

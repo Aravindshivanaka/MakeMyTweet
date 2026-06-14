@@ -6,10 +6,12 @@ export default function MobilePreviewWorkspace() {
   const accordionSections = [
     "1. Profile Settings",
     "2. Tweet Content",
-    "3. Engagement Controls",
-    "4. Timestamp Controls",
-    "5. Background Controls",
-    "6. Export Format",
+    "3. Tweet Card Theme",
+    "4. Engagement Controls",
+    "5. Timestamp Controls",
+    "6. Background Controls",
+    "7. Tweet Card Border",
+    "8. Export Format",
   ];
 
   return (
