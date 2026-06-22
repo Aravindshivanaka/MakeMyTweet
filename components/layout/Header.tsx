@@ -26,7 +26,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full h-16 bg-panel-bg border-b border-border px-6 flex items-center justify-between shrink-0 select-none transition-colors duration-200">
+    <header className="w-full h-16 bg-panel-bg border-b border-[#1E2D4A] px-6 flex items-center justify-between shrink-0 select-none transition-colors duration-200">
       {/* Left Side: Brand Logo and Brand Name */}
       <div className="flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-lg bg-[#1D6FEB] flex items-center justify-center font-bold text-white text-base">

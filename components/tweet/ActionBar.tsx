@@ -65,30 +65,37 @@ export default function ActionBar({
 }: ActionBarProps) {
   if (!showMetrics) return null;
 
-  // Format adjustments (unconstrained full width spacing)
-  let containerClass = "w-full mt-4 -ml-2 -mr-2";
-  let iconSizeClass = "w-[18px] h-[18px]";
+  // Format adjustments
+  let iconSize = 18;
   let countTextClass = "text-[13px]";
   let paddingClass = "p-2";
-  let buttonGapClass = "gap-1";
+  let buttonGapClass = "gap-1.5";
+  let containerGapClass = "";
 
-  if (exportFormat === "square") {
-    containerClass = "w-full mt-3.5 -ml-1.5 -mr-1.5";
-    iconSizeClass = "w-[17px] h-[17px]";
-    countTextClass = "text-[12.5px]";
+  if (exportFormat === "landscape") {
+    iconSize = 18;
+    countTextClass = "text-[13px]";
     paddingClass = "p-1.5";
     buttonGapClass = "gap-1";
-  } else if (exportFormat === "story") {
-    containerClass = "w-full mt-3 -ml-1 -mr-1";
-    iconSizeClass = "w-[16px] h-[16px]";
+    containerGapClass = "";
+  } else if (exportFormat === "square") {
+    iconSize = 16;
     countTextClass = "text-[12px]";
     paddingClass = "p-1";
-    buttonGapClass = "gap-0.5";
+    buttonGapClass = "gap-1";
+    containerGapClass = "";
+  } else if (exportFormat === "story") {
+    iconSize = 16;
+    countTextClass = "text-[13px]";
+    paddingClass = "p-1";
+    buttonGapClass = "gap-1";
+    containerGapClass = "";
   }
 
+  const iconSizeStyle = { width: `${iconSize}px`, height: `${iconSize}px`, minWidth: `${iconSize}px`, minHeight: `${iconSize}px` };
+
   // Theme styling overrides
-  const isDark = tweetTheme === "dark";
-  const defaultColorClass = isDark ? "text-[#71767b]" : "text-[#536471]";
+  const defaultColorClass = tweetTheme === "dark" ? "text-[#71767b]" : "text-[#536471]";
 
   const actions: ActionItemConfig[] = [
     {
@@ -135,20 +142,27 @@ export default function ActionBar({
     },
   ];
 
-  // Under 9:16 Story format, display only: Comment, Retweet, Like, Views
-  const visibleActions = exportFormat === "story"
-    ? actions.filter(
-        (a) =>
-          a.label === "Reply" ||
-          a.label === "Retweet" ||
-          a.label === "Like" ||
-          a.label === "Views"
-      )
-    : actions;
+  // Story (9:16) and Square (1:1): show only Comment, Retweet, Like, Views
+  // Landscape (16:9): show all 6 metrics
+  const visibleActions =
+    exportFormat === "story" || exportFormat === "square"
+      ? actions.filter(
+          (a) =>
+            a.label === "Reply" ||
+            a.label === "Retweet" ||
+            a.label === "Like" ||
+            a.label === "Views"
+        )
+      : actions;
 
   return (
     <div
-      className={`flex items-center justify-between ${containerClass}`}
+      className={`flex items-center justify-between w-full mt-0 px-1 ${containerGapClass}`}
+      style={{
+        boxSizing: "border-box",
+        overflow: "hidden",
+        flexWrap: "nowrap",
+      }}
       role="group"
       aria-label="Tweet actions"
     >
@@ -157,18 +171,20 @@ export default function ActionBar({
           key={label}
           type="button"
           className={`group flex items-center ${buttonGapClass} ${defaultColorClass} transition-colors cursor-pointer`}
+          style={{ flexShrink: 1, minWidth: 0, whiteSpace: "nowrap" }}
           aria-label={count ? `${count} ${label.toLowerCase()}` : label}
         >
-          <div className={`${paddingClass} rounded-full transition-colors ${hoverBg}`}>
+          <div className={`${paddingClass} rounded-full transition-colors ${hoverBg}`} style={{ flexShrink: 0 }}>
             <svg
               viewBox="0 0 24 24"
-              className={`${iconSizeClass} fill-current transition-colors ${hoverColor}`}
+              style={iconSizeStyle}
+              className={`fill-current transition-colors ${hoverColor}`}
             >
               {icon}
             </svg>
           </div>
           {count !== null && (
-            <span className={`${countTextClass} leading-4 tabular-nums transition-colors ${hoverColor}`}>
+            <span className={`${countTextClass} leading-4 tabular-nums transition-colors ${hoverColor}`} style={{ flexShrink: 1, overflow: "hidden", textOverflow: "ellipsis" }}>
               {count}
             </span>
           )}

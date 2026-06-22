@@ -10,9 +10,10 @@ export const createTweetSlice: StateCreator<
   // State
   tweetText: "This is a mockup tweet! Type your content in the sidebar to see it update here in real-time. #mockup #generator",
   characterCount: 108,
-  tweetTheme: "light",
+  tweetTheme: "dark",
   showBorder: false,
-  borderColor: "#38BDF8",
+  borderColor: "#1D6FEB",
+  borderSize: 10,
 
   // Actions
   setTweetText: (tweetText) => {
@@ -25,4 +26,5 @@ export const createTweetSlice: StateCreator<
   setTweetTheme: (tweetTheme) => set({ tweetTheme }),
   setShowBorder: (showBorder) => set({ showBorder }),
   setBorderColor: (borderColor) => set({ borderColor }),
+  setBorderSize: (borderSize) => set({ borderSize }),
 });

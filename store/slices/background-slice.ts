@@ -8,12 +8,16 @@ export const createBackgroundSlice: StateCreator<
   BackgroundSliceState & BackgroundSliceActions
 > = (set) => ({
   // State
-  backgroundType: "solid",
-  backgroundColor: "#0F2356", // Matches Rich Blue Frame default
+  backgroundType: "preset",
+  backgroundColor: "#FFFFFF", // Matches Rich Blue Frame default
   backgroundImage: null,
+  showBackground: true,
+  showCardBackground: true,
 
   // Actions
   setBackgroundType: (backgroundType) => set({ backgroundType }),
   setBackgroundColor: (backgroundColor) => set({ backgroundColor }),
   setBackgroundImage: (backgroundImage) => set({ backgroundImage }),
+  setShowBackground: (showBackground) => set({ showBackground }),
+  setShowCardBackground: (showCardBackground) => set({ showCardBackground }),
 });

@@ -1,4 +1,5 @@
 import React from "react";
+import { useAppStore } from "@/store/use-app-store";
 
 interface RichBlueFrameProps {
   children?: React.ReactNode;
@@ -6,6 +7,7 @@ interface RichBlueFrameProps {
   backgroundType?: string;
   backgroundImage?: string | null;
   exportFormat?: "story" | "square" | "landscape";
+  showBackground?: boolean;
 }
 
 export default function RichBlueFrame({
@@ -14,45 +16,63 @@ export default function RichBlueFrame({
   backgroundType,
   backgroundImage,
   exportFormat = "landscape",
+  showBackground: propShowBackground,
 }: RichBlueFrameProps) {
-  const isCustomBg = backgroundType === "solid" || backgroundType === "custom" || backgroundType === "preset";
+  const store = useAppStore();
+  const showBackground = propShowBackground ?? store.showBackground;
+
+  const isCustomBg = showBackground && (backgroundType === "solid" || backgroundType === "custom" || backgroundType === "preset");
 
   // Per-format layout rules — each format has unique card width, padding, and aspect ratio
-  let formatClasses = "max-w-[680px] aspect-[16/9] p-12";
-  let cardWidthStyle: React.CSSProperties = {};
+  let formatClasses = "max-w-[740px] aspect-[16/9] p-8";
+  let cardWidth = "80%";
 
   if (exportFormat === "square") {
-    formatClasses = "max-w-[600px] aspect-square p-10";
+    formatClasses = "max-w-[640px] aspect-square p-8";
+    cardWidth = "85%";
   } else if (exportFormat === "story") {
-    // Story format: taller canvas, generous horizontal padding, card fills width comfortably
-    formatClasses = "max-w-[420px] aspect-[9/16] px-6 py-10";
-    cardWidthStyle = { maxWidth: "92%" };
+    formatClasses = "max-w-[440px] aspect-[9/16] p-8";
+    cardWidth = "85%";
   }
 
   const customStyles: React.CSSProperties = {};
-  if (backgroundType === "solid" || backgroundType === "preset") {
-    if (backgroundColor) {
-      customStyles.backgroundColor = backgroundColor;
+  if (showBackground) {
+    if (backgroundType === "solid" || backgroundType === "preset") {
+      if (backgroundColor) {
+        if (backgroundColor.includes("gradient")) {
+          customStyles.background = backgroundColor;
+        } else {
+          customStyles.backgroundColor = backgroundColor;
+        }
+      }
+    } else if (backgroundType === "custom" && backgroundImage) {
+      customStyles.backgroundImage = `url(${backgroundImage})`;
+      customStyles.backgroundSize = "cover";
+      customStyles.backgroundPosition = "center";
     }
-  } else if (backgroundType === "custom" && backgroundImage) {
-    customStyles.backgroundImage = `url(${backgroundImage})`;
-    customStyles.backgroundSize = "cover";
-    customStyles.backgroundPosition = "center";
+  } else {
+    customStyles.backgroundColor = "#080F1E";
+    customStyles.background = "none";
+    customStyles.backgroundImage = "none";
   }
 
   return (
     <div 
       id="export-canvas"
       className={`rounded-[32px] flex items-center justify-center w-full shadow-2xl select-none transition-all duration-300 ${formatClasses} ${
-        isCustomBg ? "" : "bg-rich-blue-frame"
+        (showBackground && !isCustomBg) ? "bg-rich-blue-frame" : ""
       }`}
       style={customStyles}
       role="img"
       aria-label="Rich Blue Tweet Card Frame"
     >
-      <div style={cardWidthStyle} className="w-full flex items-center justify-center">
-        {children}
-      </div>
+      <style dangerouslySetInnerHTML={{__html: `
+        #export-canvas > article {
+          width: ${cardWidth} !important;
+          max-width: none !important;
+        }
+      `}} />
+      {children}
     </div>
   );
 }

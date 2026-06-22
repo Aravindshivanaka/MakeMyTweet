@@ -25,35 +25,35 @@ export default function TweetHeader({
 }: TweetHeaderProps) {
   // Responsive layout configs per export format
   let avatarSize = "w-12 h-12";
-  let displayNameSize = "text-[19px] leading-[23px]";
-  let usernameSize = "text-[14px] leading-[18px]";
-  let logoSize = "w-[20px] h-[20px] mt-[3px]";
+  let displayNameSize = "text-[16px] leading-[20px]";
+  let usernameSize = "text-[15px] leading-[20px]";
+  let logoSize = "w-[19px] h-[19px] mt-[2px]";
   let gapClass = "gap-3";
 
   if (exportFormat === "square") {
-    avatarSize = "w-11 h-11";
-    displayNameSize = "text-[18px] leading-[22px]";
-    usernameSize = "text-[13.5px] leading-[17px]";
-    logoSize = "w-[19px] h-[19px] mt-[2px]";
+    avatarSize = "w-12 h-12";
+    displayNameSize = "text-[16px] leading-[20px]";
+    usernameSize = "text-[15px] leading-[20px]";
+    logoSize = "w-[18px] h-[18px] mt-[2px]";
     gapClass = "gap-2.5";
   } else if (exportFormat === "story") {
-    avatarSize = "w-10 h-10";
-    displayNameSize = "text-[17.5px] leading-[21px]";
-    usernameSize = "text-[13px] leading-[16px]";
-    logoSize = "w-[18px] h-[18px] mt-[2px]";
+    avatarSize = "w-[44px] h-[44px]";
+    displayNameSize = "text-[15px] leading-[18px]";
+    usernameSize = "text-[14px] leading-[18px]";
+    logoSize = "w-[17px] h-[17px] mt-[2px]";
     gapClass = "gap-2";
   }
 
   // Theme styling overrides
   const isDark = tweetTheme === "dark";
-  const nameColorClass = isDark ? "text-[#f7f9f9]" : "text-[#0f1419]";
+  const nameColorClass = isDark ? "text-[#e7e9ea]" : "text-[#0f1419]";
   const usernameColorClass = isDark ? "text-[#71767b]" : "text-[#536471]";
-  const logoColorClass = isDark ? "text-[#e7e9ea]" : "text-[#536471]";
+  const logoColorClass = isDark ? "text-[#71767b]" : "text-[#536471]";
 
   return (
     <div className={`flex items-start ${gapClass} w-full`}>
       {/* Avatar */}
-      <div className={`${avatarSize} rounded-full overflow-hidden bg-[#cfd9de] flex-shrink-0 flex items-center justify-center`}>
+      <div className={`${avatarSize} rounded-full overflow-hidden ${isDark ? "bg-[#2f3336]" : "bg-[#cfd9de]"} flex-shrink-0 flex items-center justify-center`}>
         {profileImage ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -67,7 +67,7 @@ export default function TweetHeader({
       </div>
 
       {/* Name + Handle column */}
-      <div className="flex-1 min-w-0 flex flex-col gap-0.5 text-left">
+      <div className="flex-1 min-w-0 flex flex-col gap-[1px] text-left">
         {/* Row 1: Display Name + Verification Badges */}
         <div className="flex items-center gap-1 min-w-0">
           <span className={`font-bold truncate ${nameColorClass} ${displayNameSize}`}>
@@ -78,7 +78,7 @@ export default function TweetHeader({
           {isVerified && (
             <svg
               aria-label="Verified account"
-              className="w-[18px] h-[18px] text-[#1D9BF0] fill-current flex-shrink-0"
+              className="w-[18.75px] h-[18.75px] text-[#1D9BF0] fill-current flex-shrink-0 mt-[1.5px]"
               viewBox="0 0 22 22"
             >
               <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.143.271.586.702 1.084 1.24 1.438.54.354 1.167.551 1.813.568.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.225 1.261.272 1.894.142.634-.13 1.219-.437 1.69-.882.445-.47.749-1.055.878-1.69.13-.634.085-1.29-.138-1.893.587-.274 1.087-.705 1.443-1.245.355-.54.554-1.17.573-1.817zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z" />

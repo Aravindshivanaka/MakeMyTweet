@@ -14,6 +14,7 @@ export const createTimestampSlice: StateCreator<
   meridiem: "AM",
   showDate: true,
   showTime: true,
+  showTimestamp: true,
 
   // Actions
   setDate: (date) => set({ date }),
@@ -22,4 +23,5 @@ export const createTimestampSlice: StateCreator<
   setMeridiem: (meridiem) => set({ meridiem }),
   setShowDate: (showDate) => set({ showDate }),
   setShowTime: (showTime) => set({ showTime }),
+  setShowTimestamp: (showTimestamp) => set({ showTimestamp }),
 });

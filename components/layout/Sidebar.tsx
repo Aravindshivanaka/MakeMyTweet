@@ -55,12 +55,18 @@ export default function Sidebar() {
     setShowDate,
     showTime,
     setShowTime,
+    showTimestamp,
+    setShowTimestamp,
     backgroundColor,
     setBackgroundColor,
     backgroundType,
     setBackgroundType,
     backgroundImage,
     setBackgroundImage,
+    showBackground,
+    setShowBackground,
+    showCardBackground,
+    setShowCardBackground,
     exportFormat,
     setExportFormat,
     tweetTheme,
@@ -69,13 +75,19 @@ export default function Sidebar() {
     setShowBorder,
     borderColor,
     setBorderColor,
+    borderSize,
+    setBorderSize,
   } = useAppStore();
 
   const backdropPresets = [
-    "#FFFFFF", // White
-    "#000000", // Black
-    "#0F2356", // Sky Blue (Default)
-    "#6B7280", // Gray
+    { name: "Deep Navy", value: "#0F2356" },
+    { name: "Midnight Aurora", value: "linear-gradient(135deg, #0F2356 0%, #1a1a2e 50%, #16213e 100%)" },
+    { name: "Purple Haze", value: "linear-gradient(135deg, #1a0533 0%, #2d1b69 50%, #11022e 100%)" },
+    { name: "Ocean Deep", value: "linear-gradient(135deg, #0f3443 0%, #34e89e 100%)" },
+    { name: "Sunset Warm", value: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)" },
+    { name: "Golden Hour", value: "linear-gradient(135deg, #f7971e 0%, #ffd200 100%)" },
+    { name: "Pure Black", value: "#000000" },
+    { name: "Pure White", value: "#FFFFFF" },
   ];
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
@@ -84,6 +96,8 @@ export default function Sidebar() {
   // Crop local state
   const [rawImageForCrop, setRawImageForCrop] = React.useState<string | null>(null);
   const [isCropModalOpen, setIsCropModalOpen] = React.useState(false);
+  const [copyStatus, setCopyStatus] = React.useState<"idle" | "success" | "error">("idle");
+  const [downloadStatus, setDownloadStatus] = React.useState<"idle" | "success">("idle");
   const [crop, setCrop] = React.useState<Crop>({
     unit: "px",
     x: 0,
@@ -161,7 +175,7 @@ export default function Sidebar() {
 
     const image = imgRef.current;
     const canvas = document.createElement("canvas");
-    
+
     // Calculate the scale between the rendered image and the natural image
     const scaleX = image.naturalWidth / image.clientWidth;
     const scaleY = image.naturalHeight / image.clientHeight;
@@ -193,7 +207,7 @@ export default function Sidebar() {
 
     const croppedDataUrl = canvas.toDataURL("image/png");
     setProfileImage(croppedDataUrl);
-    
+
     // Close modal and clean up
     setIsCropModalOpen(false);
     setRawImageForCrop(null);
@@ -253,7 +267,8 @@ export default function Sidebar() {
   const handleCopyImage = async () => {
     const node = document.getElementById("export-canvas");
     if (!node) {
-      alert("Error: Preview canvas not found!");
+      setCopyStatus("error");
+      setTimeout(() => setCopyStatus("idle"), 2000);
       return;
     }
     try {
@@ -272,10 +287,12 @@ export default function Sidebar() {
           [blob.type]: blob,
         }),
       ]);
-      alert("Success: Image copied to clipboard!");
+      setCopyStatus("success");
+      setTimeout(() => setCopyStatus("idle"), 2000);
     } catch (err) {
       console.error("Oops, Copy Image failed!", err);
-      alert("Oops, copy image failed! Please try downloading the PNG instead.");
+      setCopyStatus("error");
+      setTimeout(() => setCopyStatus("idle"), 2000);
     }
   };
 
@@ -299,6 +316,8 @@ export default function Sidebar() {
       link.download = `tweet-ss-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
+      setDownloadStatus("success");
+      setTimeout(() => setDownloadStatus("idle"), 700);
     } catch (err) {
       console.error("Oops, PNG export failed!", err);
       alert("Oops, PNG export failed! See developer console for logs.");
@@ -307,10 +326,10 @@ export default function Sidebar() {
 
   return (
     <div
-      className="w-full h-full bg-panel-bg border-r border-border p-6 flex flex-col gap-6 select-none transition-colors duration-200"
+      className="w-full h-full bg-panel-bg border-r border-[#1E2D4A] shadow-[2px_0_8px_rgba(0,0,0,0.3)] p-4 flex flex-col gap-[12px] select-none transition-all duration-150 ease-in-out"
     >
-      <nav className="flex flex-col gap-5" aria-label="Controls Navigation">
-        
+      <nav className="flex flex-col gap-[12px]" aria-label="Controls Navigation">
+
         {/* 1. Profile Settings */}
         <SectionCard
           id="profile-settings-section"
@@ -364,71 +383,74 @@ export default function Sidebar() {
               </div>
             </div>
 
-            {/* Display Name Input */}
-            <div className="flex flex-col">
-              <label htmlFor="displayNameInput" className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                Display Name
-              </label>
-              <div className="relative">
-                <Input
-                  id="displayNameInput"
-                  placeholder="Display Name"
-                  value={displayName}
-                  onChange={(e) => setDisplayName(e.target.value)}
-                  className="pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm"
-                />
-                <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
+            {/* Display Name & Username Inputs */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Display Name Input */}
+              <div className="flex flex-col">
+                <label htmlFor="displayNameInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                  Display Name
+                </label>
+                <div className="relative">
+                  <Input
+                    id="displayNameInput"
+                    placeholder="Display Name"
+                    value={displayName}
+                    onChange={(e) => setDisplayName(e.target.value)}
+                    className="pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
+                  />
+                  <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
+                </div>
               </div>
-            </div>
 
-            {/* Username Input */}
-            <div className="flex flex-col">
-              <label htmlFor="usernameInput" className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                Username
-              </label>
-              <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1D6FEB] text-sm font-semibold">
-                  @
-                </span>
-                <Input
-                  id="usernameInput"
-                  placeholder="username"
-                  value={username}
-                  onChange={(e) => {
-                    const cleaned = e.target.value
-                      .toLowerCase()
-                      .replace(/\s+/g, "")
-                      .replace(/[^a-z0-9_-]/g, "");
-                    setUsername(cleaned);
-                  }}
-                  className="pl-7 pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm"
-                />
-                <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
+              {/* Username Input */}
+              <div className="flex flex-col">
+                <label htmlFor="usernameInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                  Username
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1D6FEB] text-sm font-semibold">
+                    @
+                  </span>
+                  <Input
+                    id="usernameInput"
+                    placeholder="username"
+                    value={username}
+                    onChange={(e) => {
+                      const cleaned = e.target.value
+                        .toLowerCase()
+                        .replace(/\s+/g, "")
+                        .replace(/[^a-z0-9_-]/g, "");
+                      setUsername(cleaned);
+                    }}
+                    className="pl-7 pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
+                  />
+                  <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
+                </div>
               </div>
             </div>
 
             {/* Platform Logo Dropdown and Toggle */}
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between">
-                <label htmlFor="platformLogoSelect" className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                <label htmlFor="platformLogoSelect" className="text-[11px] font-medium uppercase text-slate-400">
                   Platform Logo
                 </label>
                 <button
                   type="button"
                   onClick={() => setShowLogo(!showLogo)}
-                  className={`w-9 h-5 rounded-full p-0.5 transition-colors cursor-pointer flex items-center ${
-                    showLogo ? "bg-[#1D6FEB] justify-end" : "bg-slate-700 justify-start"
-                  }`}
+                  className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showLogo ? "bg-[#1D6FEB]" : "bg-slate-700"
+                    }`}
                   aria-label="Toggle platform logo visibility"
                 >
-                  <div className="w-4 h-4 bg-white rounded-full shadow-sm" />
+                  <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${showLogo ? "translate-x-4" : "translate-x-0"
+                    }`} />
                 </button>
               </div>
               <select
                 id="platformLogoSelect"
                 value={selectedLogo}
                 onChange={(e) => setSelectedLogo(e.target.value as "x" | "twitter" | "grok")}
-                className="h-10 px-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer"
+                className="h-10 px-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer transition-all duration-150 ease-in-out"
               >
                 <option value="x">X Logo</option>
                 <option value="twitter">Twitter Bird Logo</option>
@@ -438,82 +460,67 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 2. Tweet Content */}
+        {/* 2. Tweet Content & Theme */}
         <SectionCard
           id="tweet-content-section"
-          title="2. Tweet Content"
-          description="Write the mock post text."
-        >
-          <div className="flex flex-col gap-2">
-            <textarea
-              id="tweetTextarea"
-              placeholder="Write your mock tweet content here..."
-              value={tweetText}
-              onChange={(e) => { if (e.target.value.length <= 280) setTweetText(e.target.value); }}
-              maxLength={280}
-              className="w-full min-h-[90px] p-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-white text-sm focus:border-[#1D6FEB] focus:outline-none resize-none"
-            />
-            <div className="text-[11px] text-right font-semibold text-[#64748B]">
-              <span className={characterCount >= 260 ? (characterCount >= 280 ? 'text-red-500' : 'text-amber-500') : ''}>{characterCount}</span> / 280
-            </div>
-          </div>
-        </SectionCard>
-
-        {/* 3. Tweet Card Theme */}
-        <SectionCard
-          id="tweet-card-theme-section"
-          title="3. Tweet Card Theme"
-          description="Switch the mockup card between Light and Dark mode styles."
-        >
-          <div className="grid grid-cols-2 gap-2">
-            {[
-              { theme: "light", label: "Light" },
-              { theme: "dark", label: "Dark" },
-            ].map(({ theme, label }) => (
-              <button
-                key={theme}
-                type="button"
-                onClick={() => setTweetTheme(theme as "light" | "dark")}
-                className={`py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
-                  tweetTheme === theme
-                    ? "bg-[#1D6FEB] border-[#1D6FEB] text-white"
-                    : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/30"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
-        </SectionCard>
-
-        {/* 4. Engagement Controls */}
-        <SectionCard
-          id="engagement-controls-section"
-          title="4. Engagement Controls"
-          description="Enable metrics and customize counter values."
+          title="2. Tweet Content & Theme"
+          description="Write the mock post text and switch the mockup card theme style."
         >
           <div className="flex flex-col gap-4">
-            {/* Show Metrics Toggle */}
-            <div className="flex items-center justify-between border-b border-[#1E2D4A] pb-3">
-              <span className="text-xs font-semibold text-slate-300">
-                Show Engagement Metrics
-              </span>
-              <button
-                type="button"
-                onClick={toggleMetrics}
-                className={`w-9 h-5 rounded-full p-0.5 transition-colors cursor-pointer flex items-center ${
-                  showMetrics ? "bg-[#1D6FEB] justify-end" : "bg-slate-700 justify-start"
-                }`}
-                aria-label="Toggle metrics visibility"
-              >
-                <div className="w-4 h-4 bg-white rounded-full shadow-sm" />
-              </button>
+            <div className="flex flex-col gap-2">
+              <textarea
+                id="tweetTextarea"
+                placeholder="Write your mock tweet content here..."
+                value={tweetText}
+                onChange={(e) => { if (e.target.value.length <= 280) setTweetText(e.target.value); }}
+                onFocus={(e) => e.target.select()}
+                maxLength={280}
+                className="w-full min-h-[90px] p-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-white text-sm focus:border-[#1D6FEB] focus:outline-none resize-none"
+              />
+              <div className="text-[11px] text-right font-semibold text-[#64748B]">
+                <span className={characterCount >= 260 ? (characterCount >= 280 ? 'text-red-500' : 'text-amber-500') : ''}>{characterCount}</span> / 280
+              </div>
             </div>
+
+            <div className="flex flex-col gap-2 pt-3 border-t border-[#1E2D4A]">
+              <span className="text-[11px] font-medium uppercase text-slate-400">
+                Card Theme
+              </span>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  { theme: "light", label: "Light" },
+                  { theme: "dark", label: "Dark" },
+                ].map(({ theme, label }) => (
+                  <button
+                    key={theme}
+                    type="button"
+                    onClick={() => setTweetTheme(theme as "light" | "dark")}
+                    className={`py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${tweetTheme === theme
+                      ? "bg-[#1D6FEB] border-[#1D6FEB] text-white"
+                      : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/30"
+                      }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </SectionCard>
+
+        {/* 3. Engagement Controls */}
+        <SectionCard
+          id="engagement-controls-section"
+          title="3. Engagement Controls"
+          description="Enable metrics and customize counter values."
+          headerToggle={{ checked: showMetrics, onChange: toggleMetrics, ariaLabel: "Toggle metrics visibility" }}
+        >
+          <div className="flex flex-col gap-4">
 
             {/* Metrics inputs with corresponding left-aligned icons */}
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col">
-                <label htmlFor="input-Comments" className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Comments" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
                   Comments
                 </label>
                 <div className="relative">
@@ -527,13 +534,13 @@ export default function Sidebar() {
                       const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
                       setComments(num);
                     }}
-                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
+                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Retweets" className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Retweets" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
                   Retweets
                 </label>
                 <div className="relative">
@@ -547,13 +554,13 @@ export default function Sidebar() {
                       const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
                       setRetweets(num);
                     }}
-                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
+                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Likes" className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Likes" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
                   Likes
                 </label>
                 <div className="relative">
@@ -567,13 +574,13 @@ export default function Sidebar() {
                       const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
                       setLikes(num);
                     }}
-                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
+                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
                   />
                 </div>
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Views" className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Views" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
                   Views
                 </label>
                 <div className="relative">
@@ -587,14 +594,14 @@ export default function Sidebar() {
                       const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
                       setViews(num);
                     }}
-                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
+                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
                   />
                 </div>
               </div>
 
               {/* Bookmarks Control */}
               <div className="flex flex-col col-span-2">
-                <label htmlFor="input-Bookmarks" className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Bookmarks" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
                   Bookmarks
                 </label>
                 <div className="relative">
@@ -608,7 +615,7 @@ export default function Sidebar() {
                       const num = val === "" ? 0 : Math.min(parseInt(val, 10), 99000000);
                       setBookmarks(num);
                     }}
-                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-xs"
+                    className="pl-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
                   />
                 </div>
               </div>
@@ -616,21 +623,21 @@ export default function Sidebar() {
 
             {/* Generate Sample Metrics */}
             <div className="flex flex-col gap-3 pt-3 border-t border-[#1E2D4A]">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+              <span className="text-[11px] font-medium uppercase text-slate-400">
                 Generate Sample Metrics
               </span>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={handleGenerateRandomMetrics}
-                  className="px-3 py-2 rounded-lg border border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/50 text-xs font-semibold text-slate-200 transition-colors cursor-pointer text-center"
+                  className="px-3 rounded-lg border border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/50 text-xs font-semibold text-slate-200 h-10 transition-all duration-150 ease-in-out cursor-pointer text-center flex items-center justify-center"
                 >
                   Generate Random Metrics
                 </button>
                 <button
                   type="button"
                   onClick={handleClearMetrics}
-                  className="px-3 py-2 rounded-lg border border-rose-950 bg-rose-950/20 hover:bg-rose-950/50 text-xs font-semibold text-rose-300 transition-colors cursor-pointer text-center"
+                  className="px-3 rounded-lg border border-rose-950 bg-rose-950/20 hover:bg-rose-950/50 text-xs font-semibold text-rose-300 h-10 transition-all duration-150 ease-in-out cursor-pointer text-center flex items-center justify-center"
                 >
                   Clear Metrics
                 </button>
@@ -639,11 +646,12 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 5. Timestamp Controls */}
+        {/* 4. Timestamp Controls */}
         <SectionCard
           id="timestamp-controls-section"
-          title="5. Timestamp Controls"
+          title="4. Timestamp Controls"
           description="Adjust mock timestamp."
+          headerToggle={{ checked: showTimestamp, onChange: () => setShowTimestamp(!showTimestamp), ariaLabel: "Toggle timestamp visibility" }}
         >
           <div className="grid grid-cols-5 gap-2">
             {/* Show Date Toggle */}
@@ -654,12 +662,12 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={() => setShowDate(!showDate)}
-                className={`w-9 h-5 rounded-full p-0.5 transition-colors cursor-pointer flex items-center ${
-                  showDate ? "bg-[#1D6FEB] justify-end" : "bg-slate-700 justify-start"
-                }`}
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showDate ? "bg-[#1D6FEB]" : "bg-slate-700"
+                  }`}
                 aria-label="Toggle date visibility"
               >
-                <div className="w-4 h-4 bg-white rounded-full shadow-sm" />
+                <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${showDate ? "translate-x-4" : "translate-x-0"
+                  }`} />
               </button>
             </div>
 
@@ -671,35 +679,35 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={() => setShowTime(!showTime)}
-                className={`w-9 h-5 rounded-full p-0.5 transition-colors cursor-pointer flex items-center ${
-                  showTime ? "bg-[#1D6FEB] justify-end" : "bg-slate-700 justify-start"
-                }`}
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showTime ? "bg-[#1D6FEB]" : "bg-slate-700"
+                  }`}
                 aria-label="Toggle time visibility"
               >
-                <div className="w-4 h-4 bg-white rounded-full shadow-sm" />
+                <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${showTime ? "translate-x-4" : "translate-x-0"
+                  }`} />
               </button>
             </div>
 
             {/* Date field (with increased contrast calendar icon styling) */}
             <div className="col-span-2 flex flex-col">
-              <label htmlFor="dateInput" className="text-[10px] font-bold uppercase text-slate-400 mb-1">Date</label>
+              <label htmlFor="dateInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Date</label>
               <Input
                 id="dateInput"
                 type="date"
                 value={date}
                 onChange={(e) => setDate(e.target.value)}
-                className="bg-[#111827] border-[#1E2D4A] text-slate-300 text-xs dark:[&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-80 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+                className="bg-[#111827] border-[#1E2D4A] text-slate-300 text-sm h-10 transition-all duration-150 ease-in-out dark:[&::-webkit-calendar-picker-indicator]:invert [&::-webkit-calendar-picker-indicator]:opacity-80 [&::-webkit-calendar-picker-indicator]:cursor-pointer"
               />
             </div>
 
             {/* Hour select */}
             <div className="flex flex-col">
-              <label htmlFor="hourSelect" className="text-[10px] font-bold uppercase text-slate-400 mb-1">Hour</label>
+              <label htmlFor="hourSelect" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Hour</label>
               <select
                 id="hourSelect"
                 value={hour}
                 onChange={(e) => setHour(e.target.value)}
-                className="h-9 px-1 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-xs focus:outline-none cursor-pointer"
+                className="h-10 px-2 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer transition-all duration-150 ease-in-out"
               >
                 {Array.from({ length: 12 }, (_, i) => String(i + 1)).map((h) => (
                   <option key={h} value={h}>{h}</option>
@@ -709,12 +717,12 @@ export default function Sidebar() {
 
             {/* Minute select */}
             <div className="flex flex-col">
-              <label htmlFor="minSelect" className="text-[10px] font-bold uppercase text-slate-400 mb-1">Min</label>
+              <label htmlFor="minSelect" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Min</label>
               <select
                 id="minSelect"
                 value={minute}
                 onChange={(e) => setMinute(e.target.value)}
-                className="h-9 px-1 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-xs focus:outline-none cursor-pointer"
+                className="h-10 px-2 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer transition-all duration-150 ease-in-out"
               >
                 {Array.from({ length: 60 }, (_, i) => String(i).padStart(2, "0")).map((m) => (
                   <option key={m} value={m}>{m}</option>
@@ -724,12 +732,12 @@ export default function Sidebar() {
 
             {/* Meridiem select */}
             <div className="flex flex-col">
-              <label htmlFor="meridiemSelect" className="text-[10px] font-bold uppercase text-slate-400 mb-1">AM/PM</label>
+              <label htmlFor="meridiemSelect" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">AM/PM</label>
               <select
                 id="meridiemSelect"
                 value={meridiem}
                 onChange={(e) => setMeridiem(e.target.value as "AM" | "PM")}
-                className="h-9 px-1 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-xs focus:outline-none cursor-pointer"
+                className="h-10 px-2 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer transition-all duration-150 ease-in-out"
               >
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>
@@ -738,37 +746,55 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 6. Background Controls */}
+        {/* 5. Background Controls */}
         <SectionCard
           id="background-controls-section"
-          title="6. Background Controls"
+          title="5. Background Controls"
           description="Select solid gradient presets or upload image."
+          headerToggle={{ checked: showBackground, onChange: () => setShowBackground(!showBackground), ariaLabel: "Toggle background visibility" }}
         >
           <div className="flex flex-col gap-3">
-            <div className="flex items-center gap-2 overflow-x-auto pb-1">
+
+            {/* Tweet Card Background toggle */}
+            <div className="flex items-center justify-between pb-3 border-b border-[#1E2D4A]">
+              <span className="text-xs font-semibold text-slate-300">
+                Tweet Card Background
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowCardBackground(!showCardBackground)}
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showCardBackground ? "bg-[#1D6FEB]" : "bg-slate-700"
+                  }`}
+                aria-label="Toggle tweet card background visibility"
+              >
+                <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${showCardBackground ? "translate-x-4" : "translate-x-0"
+                  }`} />
+              </button>
+            </div>
+
+            <div className="grid grid-cols-4 gap-2 pb-1">
               {/* Presets */}
-              {backdropPresets.map((color, idx) => (
+              {backdropPresets.map((preset, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => {
                     setBackgroundType("preset");
-                    setBackgroundColor(color);
+                    setBackgroundColor(preset.value);
                   }}
-                  className={`w-8 h-8 rounded-full cursor-pointer flex-shrink-0 border transition-all hover:scale-110 ${
-                    backgroundType === "preset" && backgroundColor === color
-                      ? "border-white scale-105"
-                      : "border-[#1E2D4A]"
-                  }`}
-                  style={{ backgroundColor: color }}
-                  aria-label={`Select background color preset ${color}`}
+                  className={`w-8 h-8 rounded-lg cursor-pointer flex-shrink-0 border transition-all duration-150 ease-in-out hover:scale-105 ${backgroundType === "preset" && backgroundColor === preset.value
+                    ? "border-2 border-[#1D6FEB] scale-105"
+                    : "border-[#1E2D4A]"
+                    }`}
+                  style={{ background: preset.value }}
+                  aria-label={`Select background color preset ${preset.name}`}
                 />
               ))}
             </div>
 
             {/* Custom Image Upload */}
             <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-              <label className="text-[10px] font-bold uppercase text-slate-400">Custom Image Backdrop</label>
+              <label className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Custom Image Backdrop</label>
               <div className="flex items-center gap-3">
                 <input
                   type="file"
@@ -780,7 +806,7 @@ export default function Sidebar() {
                 <button
                   type="button"
                   onClick={() => bgFileInputRef.current?.click()}
-                  className="px-3 py-1.5 rounded-lg border border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/50 text-xs font-semibold text-slate-300 transition-colors cursor-pointer"
+                  className="px-3 rounded-lg border border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/50 text-xs font-semibold text-slate-300 h-10 transition-all duration-150 ease-in-out cursor-pointer flex items-center justify-center"
                 >
                   Upload Background
                 </button>
@@ -790,9 +816,9 @@ export default function Sidebar() {
                     onClick={() => {
                       setBackgroundImage(null);
                       setBackgroundType("preset");
-                      setBackgroundColor("#0F2356"); // Reset to default Navy
+                      setBackgroundColor("#FFFFFF"); // Reset to default White
                     }}
-                    className="text-xs text-rose-500 hover:underline cursor-pointer"
+                    className="text-xs text-rose-500 hover:underline cursor-pointer transition-all duration-150 ease-in-out"
                   >
                     Clear Image
                   </button>
@@ -802,34 +828,19 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 7. Tweet Card Border */}
+        {/* 6. Tweet Card Border */}
         <SectionCard
           id="tweet-card-border-section"
-          title="7. Tweet Card Border"
+          title="6. Tweet Card Border"
           description="Apply a colorful border wrapper around the card."
+          headerToggle={{ checked: showBorder, onChange: () => setShowBorder(!showBorder), ariaLabel: "Toggle card border wrapper" }}
         >
           <div className="flex flex-col gap-4">
-            {/* Border Toggle Switch */}
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-300">
-                Border Wrapper Toggle
-              </span>
-              <button
-                type="button"
-                onClick={() => setShowBorder(!showBorder)}
-                className={`w-9 h-5 rounded-full p-0.5 transition-colors cursor-pointer flex items-center ${
-                  showBorder ? "bg-[#1D6FEB] justify-end" : "bg-slate-700 justify-start"
-                }`}
-                aria-label="Toggle card border wrapper"
-              >
-                <div className="w-4 h-4 bg-white rounded-full shadow-sm" />
-              </button>
-            </div>
 
             {/* Border Colors (Presets & Custom) */}
             {showBorder && (
               <div className="flex flex-col gap-3 pt-3 border-t border-[#1E2D4A]">
-                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400">
+                <span className="text-[11px] font-medium uppercase text-slate-400">
                   Border Color Presets
                 </span>
                 <div className="flex items-center gap-2 overflow-x-auto pb-1">
@@ -843,44 +854,71 @@ export default function Sidebar() {
                       key={color}
                       type="button"
                       onClick={() => setBorderColor(color)}
-                      className={`w-8 h-8 rounded-full cursor-pointer flex-shrink-0 border transition-all hover:scale-110 ${
-                        borderColor.toLowerCase() === color.toLowerCase()
-                          ? "border-white scale-105"
-                          : "border-[#1E2D4A]"
-                      }`}
+                      className={`w-8 h-8 rounded-full cursor-pointer flex-shrink-0 border transition-all hover:scale-110 ${borderColor.toLowerCase() === color.toLowerCase()
+                        ? "border-white scale-105"
+                        : "border-[#1E2D4A]"
+                        }`}
                       style={{ backgroundColor: color }}
                       aria-label={`Select border color ${label}`}
                     />
                   ))}
                 </div>
+              </div>
+            )}
 
-                {/* Custom Color Input */}
-                <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-                  <label htmlFor="customBorderColorInput" className="text-[10px] font-bold uppercase text-slate-400">
-                    Custom Border Color
-                  </label>
-                  <div className="flex items-center gap-3">
-                    <input
-                      id="customBorderColorInput"
-                      type="color"
-                      value={borderColor}
-                      onChange={(e) => setBorderColor(e.target.value)}
-                      className="w-10 h-8 rounded-md bg-[#111827] border border-[#1E2D4A] cursor-pointer"
-                    />
-                    <span className="text-xs font-mono text-slate-300">
-                      {borderColor.toUpperCase()}
-                    </span>
-                  </div>
+            {/* Border Size Slider */}
+            <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
+              <div className="flex justify-between items-center mb-1">
+                <span className="text-[11px] font-medium uppercase text-slate-400">
+                  BORDER SIZE
+                </span>
+                <span className="text-[11px] font-semibold text-slate-300">
+                  Border Size: {borderSize}px
+                </span>
+              </div>
+              <input
+                type="range"
+                min="1"
+                max="12"
+                step="1"
+                value={borderSize}
+                disabled={!showBorder}
+                onChange={(e) => setBorderSize(parseInt(e.target.value, 10))}
+                className={`w-full h-1 rounded-lg appearance-none cursor-pointer accent-[#1D6FEB] ${showBorder ? "opacity-100" : "opacity-40 cursor-not-allowed"
+                  }`}
+                style={{
+                  background: showBorder ? "linear-gradient(to right, #1D6FEB 0%, #1D6FEB 100%)" : "#1E2D4A",
+                }}
+              />
+            </div>
+
+            {/* Custom Color Input */}
+            {showBorder && (
+              <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
+                <label htmlFor="customBorderColorInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                  Custom Border Color
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    id="customBorderColorInput"
+                    type="color"
+                    value={borderColor}
+                    onChange={(e) => setBorderColor(e.target.value)}
+                    className="w-10 h-10 rounded-md bg-[#111827] border border-[#1E2D4A] cursor-pointer transition-all duration-150 ease-in-out"
+                  />
+                  <span className="text-xs font-mono text-slate-300">
+                    {borderColor.toUpperCase()}
+                  </span>
                 </div>
               </div>
             )}
           </div>
         </SectionCard>
 
-        {/* 8. Export Format */}
+        {/* 7. Export Format */}
         <SectionCard
           id="export-format-section"
-          title="8. Export Format"
+          title="7. Export Format"
           description="Choose canvas layout dimensions."
         >
           <div className="grid grid-cols-3 gap-2">
@@ -893,11 +931,10 @@ export default function Sidebar() {
                 key={format}
                 type="button"
                 onClick={() => setExportFormat(format as "story" | "square" | "landscape")}
-                className={`py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${
-                  exportFormat === format
-                    ? "bg-[#1D6FEB] border-[#1D6FEB] text-white"
-                    : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/30"
-                }`}
+                className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-150 ease-in-out cursor-pointer ${exportFormat === format
+                  ? "bg-[#1D6FEB] border-[#1D6FEB] text-white"
+                  : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/30"
+                  }`}
               >
                 {label}
               </button>
@@ -906,20 +943,32 @@ export default function Sidebar() {
         </SectionCard>
 
         {/* 7. Download & Copy Buttons */}
-        <div className="pt-2 border-t border-[#1E2D4A] grid grid-cols-2 gap-3">
+        <div className="pt-2 border-t border-[#1E2D4A] flex flex-row gap-3">
           <button
             type="button"
             onClick={handleCopyImage}
-            className="py-3.5 rounded-xl bg-[#111827] border border-[#1E2D4A] hover:bg-[#1E2D4A]/50 text-slate-200 text-center text-sm font-semibold transition-colors shadow-md cursor-pointer"
+            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-150 ease-in-out shadow-md cursor-pointer flex items-center justify-center ${copyStatus === "success"
+              ? "bg-[#22C55E] hover:bg-[#22C55E]"
+              : copyStatus === "error"
+                ? "bg-[#EF4444] hover:bg-[#EF4444]"
+                : "bg-[#1D6FEB] hover:bg-[#155fc7]"
+              }`}
           >
-            Copy Image
+            {copyStatus === "success"
+              ? "✓ Copied!"
+              : copyStatus === "error"
+                ? "✗ Failed"
+                : "Copy Image"}
           </button>
           <button
             type="button"
             onClick={handleDownload}
-            className="py-3.5 rounded-xl bg-[#1D6FEB] hover:bg-[#155fc7] text-white text-center text-sm font-semibold transition-colors shadow-md cursor-pointer"
+            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-150 ease-in-out shadow-md cursor-pointer flex items-center justify-center ${downloadStatus === "success"
+              ? "bg-[#22C55E] hover:bg-[#22C55E]"
+              : "bg-[#1D6FEB] hover:bg-[#155fc7]"
+              }`}
           >
-            Download PNG
+            {downloadStatus === "success" ? "✓ Download" : "Download PNG"}
           </button>
         </div>
 

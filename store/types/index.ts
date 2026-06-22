@@ -16,6 +16,7 @@ export interface TweetSliceState {
   tweetTheme: "light" | "dark";
   showBorder: boolean;
   borderColor: string;
+  borderSize: number;
 }
 
 export interface TweetSliceActions {
@@ -23,6 +24,7 @@ export interface TweetSliceActions {
   setTweetTheme: (theme: "light" | "dark") => void;
   setShowBorder: (show: boolean) => void;
   setBorderColor: (color: string) => void;
+  setBorderSize: (size: number) => void;
 }
 
 export interface LogoSliceState {
@@ -60,6 +62,7 @@ export interface TimestampSliceState {
   meridiem: "AM" | "PM";
   showDate: boolean;
   showTime: boolean;
+  showTimestamp: boolean;
 }
 
 export interface TimestampSliceActions {
@@ -69,18 +72,23 @@ export interface TimestampSliceActions {
   setMeridiem: (meridiem: "AM" | "PM") => void;
   setShowDate: (show: boolean) => void;
   setShowTime: (show: boolean) => void;
+  setShowTimestamp: (show: boolean) => void;
 }
 
 export interface BackgroundSliceState {
   backgroundType: "solid" | "preset" | "custom";
   backgroundColor: string;
   backgroundImage: string | null;
+  showBackground: boolean;
+  showCardBackground: boolean;
 }
 
 export interface BackgroundSliceActions {
   setBackgroundType: (type: "solid" | "preset" | "custom") => void;
   setBackgroundColor: (color: string) => void;
   setBackgroundImage: (image: string | null) => void;
+  setShowBackground: (show: boolean) => void;
+  setShowCardBackground: (show: boolean) => void;
 }
 
 export interface ExportSliceState {
