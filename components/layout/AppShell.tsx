@@ -6,7 +6,7 @@ import PreviewWorkspace from "./PreviewWorkspace";
 
 export default function AppShell() {
   return (
-    <div className="flex flex-col h-screen w-screen bg-[#080F1E] overflow-hidden text-slate-100 font-sans">
+    <div className="flex flex-col h-screen w-screen bg-background overflow-hidden text-slate-100 font-sans">
       {/* 1. Full-Width Top Header */}
       <div className="max-md:hidden shrink-0">
         <Header />
@@ -18,7 +18,7 @@ export default function AppShell() {
       */}
       <div className="flex-1 flex flex-col lg:flex-row min-h-0 w-full overflow-hidden">
         {/* Desktop Preview Workspace (takes remaining space, renders first on mobile stack) */}
-        <div className="order-1 lg:order-2 flex-1 h-full overflow-y-auto scrollbar-none min-h-0 max-md:sticky max-md:top-0 max-md:z-40 max-md:h-[45vh] max-md:flex-none max-md:bg-[#080F1E] max-md:overflow-hidden">
+        <div className="order-1 lg:order-2 flex-1 h-full overflow-y-auto scrollbar-none min-h-0 max-md:sticky max-md:top-0 max-md:z-40 max-md:h-[45vh] max-md:flex-none max-md:bg-background max-md:overflow-hidden">
           <PreviewWorkspace />
         </div>
 
@@ -28,7 +28,7 @@ export default function AppShell() {
         </div>
 
         {/* Left Controls Sidebar (fixed ~400px, renders second on mobile stack) */}
-        <div className="order-2 lg:order-1 lg:w-[400px] w-full h-full overflow-y-auto min-h-0 shrink-0 max-md:h-[calc(55vh-28px)] max-md:flex-none max-md:bg-[#080F1E] max-md:pt-2 max-md:scroll-smooth max-md:[-webkit-overflow-scrolling:touch]">
+        <div className="order-2 lg:order-1 lg:w-[400px] w-full h-full overflow-y-auto min-h-0 shrink-0 max-md:h-[calc(55vh-28px)] max-md:flex-none max-md:bg-background max-md:pt-2 max-md:scroll-smooth max-md:[-webkit-overflow-scrolling:touch]">
           <Sidebar />
         </div>
       </div>

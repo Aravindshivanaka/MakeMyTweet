@@ -81,6 +81,9 @@ export interface BackgroundSliceState {
   backgroundImage: string | null;
   showBackground: boolean;
   showCardBackground: boolean;
+  backgroundScale: number;
+  backgroundPositionX: number;
+  backgroundPositionY: number;
 }
 
 export interface BackgroundSliceActions {
@@ -89,6 +92,9 @@ export interface BackgroundSliceActions {
   setBackgroundImage: (image: string | null) => void;
   setShowBackground: (show: boolean) => void;
   setShowCardBackground: (show: boolean) => void;
+  setBackgroundScale: (scale: number) => void;
+  setBackgroundPositionX: (x: number) => void;
+  setBackgroundPositionY: (y: number) => void;
 }
 
 export interface ExportSliceState {

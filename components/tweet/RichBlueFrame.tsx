@@ -8,6 +8,9 @@ interface RichBlueFrameProps {
   backgroundImage?: string | null;
   exportFormat?: "story" | "square" | "landscape";
   showBackground?: boolean;
+  overrideScale?: number;
+  overridePositionX?: number;
+  overridePositionY?: number;
 }
 
 export default function RichBlueFrame({
@@ -17,11 +20,18 @@ export default function RichBlueFrame({
   backgroundImage,
   exportFormat = "landscape",
   showBackground: propShowBackground,
+  overrideScale,
+  overridePositionX,
+  overridePositionY,
 }: RichBlueFrameProps) {
   const store = useAppStore();
   const showBackground = propShowBackground ?? store.showBackground;
 
   const isCustomBg = showBackground && (backgroundType === "solid" || backgroundType === "custom" || backgroundType === "preset");
+
+  const backgroundScale = overrideScale ?? store.backgroundScale;
+  const backgroundPositionX = overridePositionX ?? store.backgroundPositionX;
+  const backgroundPositionY = overridePositionY ?? store.backgroundPositionY;
 
   // Per-format layout rules — each format has unique card width, padding, and aspect ratio
   let formatClasses = "max-w-[740px] aspect-[16/9] p-8";
@@ -47,8 +57,9 @@ export default function RichBlueFrame({
       }
     } else if (backgroundType === "custom" && backgroundImage) {
       customStyles.backgroundImage = `url(${backgroundImage})`;
-      customStyles.backgroundSize = "cover";
-      customStyles.backgroundPosition = "center";
+      customStyles.backgroundSize = `${backgroundScale}%`;
+      customStyles.backgroundPosition = `calc(50% + ${backgroundPositionX}px) calc(50% + ${backgroundPositionY}px)`;
+      customStyles.backgroundRepeat = "no-repeat";
     }
   } else {
     customStyles.backgroundColor = "#080F1E";

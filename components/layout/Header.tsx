@@ -1,8 +1,11 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname() || "";
   const [theme, setTheme] = useState<"light" | "dark">("dark");
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export default function Header() {
   };
 
   return (
-    <header className="w-full h-16 bg-panel-bg border-b border-[#1E2D4A] px-6 flex items-center justify-between shrink-0 select-none transition-colors duration-200">
+    <header className="relative w-full h-16 bg-panel-bg border-b border-[#1E2D4A] px-6 flex items-center justify-between shrink-0 select-none transition-colors duration-200">
       {/* Left Side: Brand Logo and Brand Name */}
       <div className="flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-lg bg-[#1D6FEB] flex items-center justify-center font-bold text-white text-base">
@@ -35,6 +38,75 @@ export default function Header() {
         <span className="text-lg font-bold tracking-tight text-foreground">
           Tweet <span className="text-[#1D6FEB]">SS</span> Generator
         </span>
+      </div>
+
+      {/* Center Side: Navigation Group */}
+      <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+        <Link
+          href="/"
+          className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
+            pathname === "/"
+              ? "text-[#1D6FEB]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Generator
+        </Link>
+        <span className="text-border text-opacity-40 select-none">|</span>
+        <Link
+          href="/blog"
+          className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
+            pathname.startsWith("/blog")
+              ? "text-[#1D6FEB]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Blog
+        </Link>
+        <span className="text-border text-opacity-40 select-none">|</span>
+        <Link
+          href="/faq"
+          className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
+            pathname === "/faq"
+              ? "text-[#1D6FEB]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          FAQ
+        </Link>
+        <span className="text-border text-opacity-40 select-none">|</span>
+        <Link
+          href="/help"
+          className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
+            pathname === "/help"
+              ? "text-[#1D6FEB]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Help
+        </Link>
+        <span className="text-border text-opacity-40 select-none">|</span>
+        <Link
+          href="/contact"
+          className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
+            pathname === "/contact"
+              ? "text-[#1D6FEB]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Contact
+        </Link>
+        <span className="text-border text-opacity-40 select-none">|</span>
+        <Link
+          href="/feedback"
+          className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
+            pathname === "/feedback"
+              ? "text-[#1D6FEB]"
+              : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          Feedback
+        </Link>
       </div>
 
       {/* Right Side: GitHub, LinkedIn Buttons and Theme Toggle Button */}

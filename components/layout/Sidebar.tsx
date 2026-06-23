@@ -4,6 +4,9 @@ import React from "react";
 import SectionCard from "./SectionCard";
 import { Input } from "@/components/ui/input";
 import { useAppStore } from "@/store/use-app-store";
+import RichBlueFrame from "../tweet/RichBlueFrame";
+import BackgroundCropperModal from "./BackgroundCropperModal";
+import TweetCard from "../tweet/TweetCard";
 import {
   MessageCircle,
   Repeat2,
@@ -77,6 +80,12 @@ export default function Sidebar() {
     setBorderColor,
     borderSize,
     setBorderSize,
+    backgroundScale,
+    setBackgroundScale,
+    backgroundPositionX,
+    setBackgroundPositionX,
+    backgroundPositionY,
+    setBackgroundPositionY,
   } = useAppStore();
 
   const backdropPresets = [
@@ -96,6 +105,9 @@ export default function Sidebar() {
   // Crop local state
   const [rawImageForCrop, setRawImageForCrop] = React.useState<string | null>(null);
   const [isCropModalOpen, setIsCropModalOpen] = React.useState(false);
+  const [rawBgImageForCrop, setRawBgImageForCrop] = React.useState<string | null>(null);
+  const [isBgCropModalOpen, setIsBgCropModalOpen] = React.useState(false);
+  const [originalBackgroundImage, setOriginalBackgroundImage] = React.useState<string | null>(null);
   const [copyStatus, setCopyStatus] = React.useState<"idle" | "success" | "error">("idle");
   const [downloadStatus, setDownloadStatus] = React.useState<"idle" | "success">("idle");
   const [crop, setCrop] = React.useState<Crop>({
@@ -109,6 +121,199 @@ export default function Sidebar() {
   const [zoom, setZoom] = React.useState(1);
   const [imageWidth, setImageWidth] = React.useState(0);
   const [imageHeight, setImageHeight] = React.useState(0);
+
+  // Background visual edit local state
+  const [isBgEditModalOpen, setIsBgEditModalOpen] = React.useState(false);
+  const [tempScale, setTempScale] = React.useState(100);
+  const [tempPositionX, setTempPositionX] = React.useState(0);
+  const [tempPositionY, setTempPositionY] = React.useState(0);
+
+  const modalPreviewRef = React.useRef<HTMLDivElement>(null);
+  const [modalDimensions, setModalDimensions] = React.useState({ w: 0, h: 0 });
+
+  const tempPositionXRef = React.useRef(tempPositionX);
+  const tempPositionYRef = React.useRef(tempPositionY);
+  const tempScaleRef = React.useRef(tempScale);
+
+  React.useEffect(() => {
+    tempPositionXRef.current = tempPositionX;
+  }, [tempPositionX]);
+
+  React.useEffect(() => {
+    tempPositionYRef.current = tempPositionY;
+  }, [tempPositionY]);
+
+  React.useEffect(() => {
+    tempScaleRef.current = tempScale;
+  }, [tempScale]);
+
+  React.useEffect(() => {
+    if (isBgEditModalOpen) {
+      const timer = setTimeout(() => {
+        if (modalPreviewRef.current) {
+          setModalDimensions({
+            w: modalPreviewRef.current.clientWidth,
+            h: modalPreviewRef.current.clientHeight,
+          });
+        }
+      }, 50);
+
+      const handleResize = () => {
+        if (modalPreviewRef.current) {
+          setModalDimensions({
+            w: modalPreviewRef.current.clientWidth,
+            h: modalPreviewRef.current.clientHeight,
+          });
+        }
+      };
+
+      window.addEventListener("resize", handleResize);
+      return () => {
+        clearTimeout(timer);
+        window.removeEventListener("resize", handleResize);
+      };
+    }
+  }, [isBgEditModalOpen]);
+
+  const dragStartRef = React.useRef<{ x: number; y: number } | null>(null);
+  const startPosRef = React.useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const lastTouchDistanceRef = React.useRef<number | null>(null);
+
+  const DESIGN_MAX_WIDTH: Record<"landscape" | "square" | "story", number> = {
+    landscape: 740,
+    square: 640,
+    story: 440,
+  };
+  const canvasNaturalWidth = DESIGN_MAX_WIDTH[exportFormat] || 740;
+  const canvasNaturalHeight =
+    exportFormat === "square" ? canvasNaturalWidth
+      : exportFormat === "story" ? Math.round((canvasNaturalWidth * 16) / 9)
+        : Math.round((canvasNaturalWidth * 9) / 16);
+
+  const scaleFactor = canvasNaturalWidth / (modalDimensions.w || 1);
+
+  const handleDragStart = (clientX: number, clientY: number) => {
+    dragStartRef.current = { x: clientX, y: clientY };
+    startPosRef.current = { x: tempPositionXRef.current, y: tempPositionYRef.current };
+  };
+
+  const handleDragMove = (clientX: number, clientY: number) => {
+    if (!dragStartRef.current) return;
+    const deltaX = clientX - dragStartRef.current.x;
+    const deltaY = clientY - dragStartRef.current.y;
+    setTempPositionX(startPosRef.current.x + deltaX * scaleFactor);
+    setTempPositionY(startPosRef.current.y + deltaY * scaleFactor);
+  };
+
+  const handleDragEnd = () => {
+    dragStartRef.current = null;
+  };
+
+  React.useEffect(() => {
+    const container = modalPreviewRef.current;
+    if (!container) return;
+
+    const onWheelEvent = (e: WheelEvent) => {
+      e.preventDefault();
+      const zoomIntensity = 0.03;
+      const factor = e.deltaY < 0 ? (1 + zoomIntensity) : (1 - zoomIntensity);
+      setTempScale(prev => Math.max(20, Math.min(500, Math.round(prev * factor))));
+    };
+
+    const onTouchStartEvent = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        handleDragStart(e.touches[0].clientX, e.touches[0].clientY);
+      } else if (e.touches.length >= 2) {
+        dragStartRef.current = null;
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        lastTouchDistanceRef.current = Math.sqrt(dx * dx + dy * dy);
+      }
+    };
+
+    const onTouchMoveEvent = (e: TouchEvent) => {
+      if (e.touches.length === 1) {
+        e.preventDefault();
+        handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
+      } else if (e.touches.length >= 2 && lastTouchDistanceRef.current !== null) {
+        e.preventDefault();
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const currentDist = Math.sqrt(dx * dx + dy * dy);
+        if (currentDist > 0) {
+          const ratio = currentDist / lastTouchDistanceRef.current;
+          setTempScale(prev => Math.max(20, Math.min(500, Math.round(prev * ratio))));
+          lastTouchDistanceRef.current = currentDist;
+        }
+      }
+    };
+
+    const onTouchEndEvent = () => {
+      handleDragEnd();
+      lastTouchDistanceRef.current = null;
+    };
+
+    container.addEventListener("wheel", onWheelEvent, { passive: false });
+    container.addEventListener("touchstart", onTouchStartEvent, { passive: true });
+    container.addEventListener("touchmove", onTouchMoveEvent, { passive: false });
+    container.addEventListener("touchend", onTouchEndEvent, { passive: true });
+    container.addEventListener("touchcancel", onTouchEndEvent, { passive: true });
+
+    return () => {
+      container.removeEventListener("wheel", onWheelEvent);
+      container.removeEventListener("touchstart", onTouchStartEvent);
+      container.removeEventListener("touchmove", onTouchMoveEvent);
+      container.removeEventListener("touchend", onTouchEndEvent);
+      container.removeEventListener("touchcancel", onTouchEndEvent);
+    };
+  }, [isBgEditModalOpen, modalDimensions]);
+
+  const handleSaveBgEdit = () => {
+    setBackgroundScale(tempScale);
+    setBackgroundPositionX(tempPositionX);
+    setBackgroundPositionY(tempPositionY);
+    setIsBgEditModalOpen(false);
+  };
+
+  const handleCancelBgEdit = () => {
+    setIsBgEditModalOpen(false);
+  };
+
+  const formatTimestamp = () => {
+    if (!showDate && !showTime) return "";
+
+    let dateStr = "";
+    if (showDate && date) {
+      try {
+        const d = new Date(date);
+        if (!isNaN(d.getTime())) {
+          dateStr = d.toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          });
+        } else {
+          dateStr = date;
+        }
+      } catch {
+        dateStr = date;
+      }
+    }
+
+    let timeStr = "";
+    if (showTime) {
+      timeStr = `${parseInt(hour, 10) || 12}:${minute.padStart(2, "0")} ${meridiem}`;
+    }
+
+    if (showDate && showTime) {
+      return `${timeStr} · ${dateStr}`;
+    } else if (showDate) {
+      return dateStr;
+    } else if (showTime) {
+      return timeStr;
+    }
+    return "";
+  };
 
   const imgRef = React.useRef<HTMLImageElement | null>(null);
 
@@ -257,11 +462,27 @@ export default function Sidebar() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setBackgroundType("custom");
-        setBackgroundImage(reader.result as string);
+        const dataUrl = reader.result as string;
+        setOriginalBackgroundImage(dataUrl);
+        setRawBgImageForCrop(dataUrl);
+        setIsBgCropModalOpen(true);
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleBgCropConfirm = (croppedDataUrl: string) => {
+    setBackgroundType("custom");
+    setBackgroundImage(croppedDataUrl);
+    setIsBgCropModalOpen(false);
+    setRawBgImageForCrop(null);
+    if (bgFileInputRef.current) bgFileInputRef.current.value = "";
+  };
+
+  const handleBgCropCancel = () => {
+    setIsBgCropModalOpen(false);
+    setRawBgImageForCrop(null);
+    if (bgFileInputRef.current) bgFileInputRef.current.value = "";
   };
 
   const handleCopyImage = async () => {
@@ -795,7 +1016,7 @@ export default function Sidebar() {
             {/* Custom Image Upload */}
             <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
               <label className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Custom Image Backdrop</label>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col gap-3">
                 <input
                   type="file"
                   ref={bgFileInputRef}
@@ -803,25 +1024,53 @@ export default function Sidebar() {
                   accept="image/png, image/jpeg, image/webp"
                   className="hidden"
                 />
-                <button
-                  type="button"
-                  onClick={() => bgFileInputRef.current?.click()}
-                  className="px-3 rounded-lg border border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/50 text-xs font-semibold text-slate-300 h-10 transition-all duration-150 ease-in-out cursor-pointer flex items-center justify-center"
-                >
-                  Upload Background
-                </button>
-                {backgroundImage && (
+                {!backgroundImage ? (
                   <button
                     type="button"
-                    onClick={() => {
-                      setBackgroundImage(null);
-                      setBackgroundType("preset");
-                      setBackgroundColor("#FFFFFF"); // Reset to default White
-                    }}
-                    className="text-xs text-rose-500 hover:underline cursor-pointer transition-all duration-150 ease-in-out"
+                    onClick={() => bgFileInputRef.current?.click()}
+                    className="w-full px-3 rounded-lg border border-dashed border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/30 hover:border-[#1D6FEB] text-xs font-semibold text-slate-300 h-12 transition-all duration-150 ease-in-out cursor-pointer flex items-center justify-center gap-2"
                   >
-                    Clear Image
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-slate-400">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 9 9M12 3v13.5" />
+                    </svg>
+                    Upload Background Image
                   </button>
+                ) : (
+                  <div className="flex items-center gap-3 p-2 bg-[#111827] border border-[#1E2D4A] rounded-xl">
+                    {/* Thumbnail preview */}
+                    <div className="relative w-16 h-10 rounded-lg overflow-hidden bg-slate-800 border border-[#1E2D4A] shrink-0 flex items-center justify-center">
+                      <img
+                        src={backgroundImage}
+                        alt="Background thumbnail"
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+
+                    <div className="flex flex-col gap-1 min-w-0 flex-1">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setRawBgImageForCrop(originalBackgroundImage);
+                          setIsBgCropModalOpen(true);
+                        }}
+                        className="px-3 py-1.5 rounded-lg bg-[#1D6FEB] hover:bg-[#155fc7] text-[11px] font-bold text-white transition-colors cursor-pointer text-center w-full"
+                      >
+                        Edit Background
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setBackgroundImage(null);
+                          setOriginalBackgroundImage(null);
+                          setBackgroundType("preset");
+                          setBackgroundColor("#FFFFFF"); // Reset to default White
+                        }}
+                        className="text-[10px] text-rose-500 hover:underline cursor-pointer transition-all duration-150 ease-in-out text-center"
+                      >
+                        Clear Image
+                      </button>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -968,7 +1217,7 @@ export default function Sidebar() {
               : "bg-[#1D6FEB] hover:bg-[#155fc7]"
               }`}
           >
-            {downloadStatus === "success" ? "✓ Download" : "Download PNG"}
+            {downloadStatus === "success" ? "Download ⭳" : "Download Image"}
           </button>
         </div>
 
@@ -1091,6 +1340,109 @@ export default function Sidebar() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Edit Background Modal */}
+      {isBgEditModalOpen && backgroundImage && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#0B0F19] border border-[#1E2D4A] rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            {/* Header */}
+            <div className="px-6 py-4 border-b border-[#1E2D4A] flex justify-between items-center">
+              <h3 className="text-sm font-bold text-slate-200">Edit Background Position</h3>
+              <button
+                type="button"
+                onClick={handleCancelBgEdit}
+                className="text-slate-400 hover:text-slate-200 text-lg font-bold cursor-pointer"
+              >
+                &times;
+              </button>
+            </div>
+
+            {/* Body */}
+            <div className="p-6 flex flex-col gap-6 overflow-y-auto">
+              {/* Editor Visual Area */}
+              <div
+                ref={modalPreviewRef}
+                className="relative border border-[#1E2D4A] bg-[#090D16] rounded-xl overflow-hidden cursor-move select-none flex items-center justify-center mx-auto"
+                style={{
+                  width: "100%",
+                  maxWidth: "400px",
+                  aspectRatio: exportFormat === "square" ? "1/1" : exportFormat === "story" ? "9/16" : "16/9",
+                  maxHeight: "320px",
+                }}
+                onMouseDown={(e) => handleDragStart(e.clientX, e.clientY)}
+                onMouseMove={(e) => handleDragMove(e.clientX, e.clientY)}
+                onMouseUp={handleDragEnd}
+                onMouseLeave={handleDragEnd}
+              >
+                {/* Scaled canvas representation */}
+                <div
+                  style={{
+                    position: "absolute",
+                    width: canvasNaturalWidth,
+                    height: canvasNaturalHeight,
+                    transform: `scale(${modalDimensions.w / canvasNaturalWidth || 0.4})`,
+                    transformOrigin: "center center",
+                    pointerEvents: "none",
+                  }}
+                >
+                  <div
+                    className="w-full h-full rounded-[32px] overflow-hidden shadow-2xl relative border-2 border-[#1D6FEB]"
+                    style={{
+                      backgroundColor: "#080F1E",
+                      backgroundImage: `url(${backgroundImage})`,
+                      backgroundSize: `${tempScale}%`,
+                      backgroundPosition: `calc(50% + ${tempPositionX}px) calc(50% + ${tempPositionY}px)`,
+                      backgroundRepeat: "no-repeat",
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Instructions and preview values */}
+              <div className="flex flex-col gap-2 p-4 bg-[#111827]/50 border border-[#1E2D4A] rounded-xl">
+                <div className="flex flex-col gap-1 min-w-0">
+                  <span className="text-xs font-semibold text-slate-200">Visual Background Editor</span>
+                  <p className="text-[10px] text-slate-400 leading-normal">
+                    Drag the preview to reposition the background image. Use your mouse wheel or pinch to zoom.
+                  </p>
+                  <div className="flex gap-4 mt-2 text-[10px] font-mono text-slate-400">
+                    <span>Zoom: {Math.round(tempScale)}%</span>
+                    <span>X: {Math.round(tempPositionX)}px</span>
+                    <span>Y: {Math.round(tempPositionY)}px</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="px-6 py-4 border-t border-[#1E2D4A] bg-[#090D16] flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={handleCancelBgEdit}
+                className="px-4 py-2 rounded-lg border border-[#1E2D4A] hover:bg-slate-800 text-xs font-semibold text-slate-300 transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handleSaveBgEdit}
+                className="px-4 py-2 rounded-lg bg-[#1D6FEB] hover:bg-[#155fc7] text-xs font-semibold text-white transition-colors cursor-pointer"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Background Crop Modal */}
+      {isBgCropModalOpen && rawBgImageForCrop && (
+        <BackgroundCropperModal
+          rawImage={rawBgImageForCrop}
+          onConfirm={handleBgCropConfirm}
+          onCancel={handleBgCropCancel}
+        />
       )}
     </div>
   );

@@ -37,6 +37,9 @@ export default function PreviewWorkspace() {
     showBackground,
     showCardBackground,
     borderSize,
+    backgroundScale,
+    backgroundPositionX,
+    backgroundPositionY,
   } = useAppStore();
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -178,8 +181,9 @@ export default function PreviewWorkspace() {
       }
     } else if (backgroundType === "custom" && backgroundImage) {
       previewBgStyles.backgroundImage = `url(${backgroundImage})`;
-      previewBgStyles.backgroundSize = "cover";
-      previewBgStyles.backgroundPosition = "center";
+      previewBgStyles.backgroundSize = `${backgroundScale}%`;
+      previewBgStyles.backgroundPosition = `calc(50% + ${backgroundPositionX}px) calc(50% + ${backgroundPositionY}px)`;
+      previewBgStyles.backgroundRepeat = "no-repeat";
     }
   } else {
     previewBgStyles.backgroundColor = "#080F1E";
@@ -200,20 +204,18 @@ export default function PreviewWorkspace() {
       }
     } else if (backgroundType === "custom" && backgroundImage) {
       fullscreenBgStyles.backgroundImage = `url(${backgroundImage})`;
-      fullscreenBgStyles.backgroundSize = "cover";
-      fullscreenBgStyles.backgroundPosition = "center";
+      fullscreenBgStyles.backgroundSize = `${backgroundScale}%`;
+      fullscreenBgStyles.backgroundPosition = `calc(50% + ${backgroundPositionX}px) calc(50% + ${backgroundPositionY}px)`;
+      fullscreenBgStyles.backgroundRepeat = "no-repeat";
     }
   } else {
     fullscreenBgStyles.backgroundColor = "#080F1E";
   }
 
   const workspaceStyles: React.CSSProperties = {};
-  if (isMobile) {
-    Object.assign(workspaceStyles, previewBgStyles);
-  } else {
-    workspaceStyles.backgroundImage = "radial-gradient(rgba(148, 163, 184, 0.08) 1.5px, transparent 1.5px)";
-    workspaceStyles.backgroundSize = "24px 24px";
-  }
+  workspaceStyles.backgroundColor = "var(--workspace-bg)";
+  workspaceStyles.backgroundImage = "var(--workspace-grid)";
+  workspaceStyles.backgroundSize = "var(--workspace-grid-size)";
 
   // The tweet card content shared between normal preview and fullscreen
   const tweetCardContent = (
@@ -270,7 +272,7 @@ export default function PreviewWorkspace() {
             width: "100vw",
             height: "100vh",
             zIndex: 9999,
-            ...fullscreenBgStyles,
+            backgroundColor: "#080F1E",
             overflow: "hidden",
           }}
           className="flex items-center justify-center select-none"

@@ -13,11 +13,17 @@ export const createBackgroundSlice: StateCreator<
   backgroundImage: null,
   showBackground: true,
   showCardBackground: true,
+  backgroundScale: 100,
+  backgroundPositionX: 0,
+  backgroundPositionY: 0,
 
   // Actions
   setBackgroundType: (backgroundType) => set({ backgroundType }),
   setBackgroundColor: (backgroundColor) => set({ backgroundColor }),
-  setBackgroundImage: (backgroundImage) => set({ backgroundImage }),
+  setBackgroundImage: (backgroundImage) => set({ backgroundImage, backgroundScale: 100, backgroundPositionX: 0, backgroundPositionY: 0 }),
   setShowBackground: (showBackground) => set({ showBackground }),
   setShowCardBackground: (showCardBackground) => set({ showCardBackground }),
+  setBackgroundScale: (backgroundScale) => set({ backgroundScale }),
+  setBackgroundPositionX: (backgroundPositionX) => set({ backgroundPositionX }),
+  setBackgroundPositionY: (backgroundPositionY) => set({ backgroundPositionY }),
 });
