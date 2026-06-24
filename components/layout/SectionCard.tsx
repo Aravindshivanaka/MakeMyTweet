@@ -36,10 +36,10 @@ export default function SectionCard({
       {/* Header row — fully clickable */}
       <div
         onClick={() => setCollapsed(!collapsed)}
-        className="group flex items-center justify-between px-4 py-3 gap-2 cursor-pointer rounded-xl transition-all duration-200 ease-in-out hover:bg-[rgba(0,0,0,0.04)] dark:hover:bg-[rgba(255,255,255,0.05)] active:bg-[rgba(0,0,0,0.08)] dark:active:bg-[rgba(255,255,255,0.08)]"
+        className="group flex items-center justify-between px-4 py-3 gap-2 cursor-pointer rounded-xl transition-all duration-200 ease-in-out hover:bg-[rgba(0,0,0,0.04)] dark:hover:bg-[rgba(255,255,255,0.06)] active:bg-[rgba(0,0,0,0.08)] dark:active:bg-[rgba(255,255,255,0.08)]"
       >
         {/* Left: title */}
-        <h2 className="text-[12px] font-semibold tracking-[0.08em] text-[#64748B] uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out group-hover:text-slate-900 dark:group-hover:text-white">
+        <h2 className="text-[12px] font-semibold tracking-[0.08em] text-[#64748B] dark:text-slate-300 uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out group-hover:text-slate-900 dark:group-hover:text-white">
           {title}
         </h2>
 
@@ -52,7 +52,7 @@ export default function SectionCard({
               headerToggle.onChange();
             }}
             className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer flex-shrink-0 ${
-              headerToggle.checked ? "bg-[#1D6FEB]" : "bg-slate-700"
+              headerToggle.checked ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
             }`}
             aria-label={headerToggle.ariaLabel || "Toggle"}
           >
@@ -84,7 +84,7 @@ export default function SectionCard({
       >
         <div className="px-4 pb-4 flex flex-col gap-4">
           {description && (
-            <p className="text-[11px] text-[#475569] leading-relaxed">
+            <p className="text-[11px] text-[#475569] dark:text-slate-400 leading-relaxed">
               {description}
             </p>
           )}

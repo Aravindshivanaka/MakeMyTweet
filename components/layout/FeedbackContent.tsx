@@ -38,7 +38,7 @@ export default function FeedbackContent() {
             </p>
             <button
               onClick={() => setSubmitted(false)}
-              className="px-6 py-2.5 bg-input-bg border border-[#1E2D4A] hover:bg-[#1E2D4A]/30 text-foreground font-semibold rounded-xl text-sm transition-all duration-200"
+              className="px-6 py-2.5 bg-input-bg border border-[#1E2D4A] hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50 text-foreground font-semibold rounded-xl text-sm transition-all duration-200"
             >
               Send Another Response
             </button>
@@ -74,7 +74,7 @@ export default function FeedbackContent() {
 
             <button
               type="submit"
-              className="w-full py-3.5 bg-[#1D6FEB] hover:bg-[#155fc7] text-white rounded-xl font-bold text-sm transition-all duration-200 shadow-lg shadow-[#1D6FEB]/15"
+              className="w-full py-3.5 bg-[#1D6FEB] hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)] text-white rounded-xl font-bold text-sm transition-all duration-200 shadow-lg"
             >
               Submit Feedback
             </button>

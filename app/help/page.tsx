@@ -150,7 +150,7 @@ export default function HelpPage() {
               <section
                 key={section.id}
                 id={section.id}
-                className="scroll-mt-24 bg-panel-bg border border-[#1E2D4A] rounded-xl p-6 md:p-8 transition-all duration-300 hover:border-[#1D6FEB]/20"
+                className="scroll-mt-24 bg-panel-bg border border-[#1E2D4A] rounded-xl p-6 md:p-8 transition-all duration-300 hover:border-[#1D6FEB]/40 hover:shadow-lg dark:hover:shadow-[#1D6FEB]/10"
               >
                 <h2 className="text-2xl font-bold text-foreground mb-4">
                   {section.title}

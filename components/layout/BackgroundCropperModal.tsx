@@ -429,18 +429,19 @@ export default function BackgroundCropperModal({
             type="button"
             onClick={onCancel}
             style={{
-              background: "#1D6FEB",
-              color: "#FFFFFF",
-              border: "none",
+              background: "transparent",
+              color: "#A1B0CB",
+              border: "1px solid #506285",
               padding: "8px 20px",
               borderRadius: "8px",
               fontSize: "13px",
               fontWeight: 600,
               cursor: "pointer",
-              transition: "all 150ms ease-in-out",
+              transition: "all 200ms ease-in-out",
               minWidth: "90px",
               textAlign: "center",
             }}
+            className="hover:bg-white/[0.06] hover:text-white hover:border-[#1D6FEB]/50"
           >
             Cancel
           </button>
@@ -456,10 +457,11 @@ export default function BackgroundCropperModal({
               fontSize: "13px",
               fontWeight: 600,
               cursor: "pointer",
-              transition: "all 150ms ease-in-out",
+              transition: "all 200ms ease-in-out",
               minWidth: "90px",
               textAlign: "center",
             }}
+            className="hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
           >
             OK
           </button>

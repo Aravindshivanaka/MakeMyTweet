@@ -340,16 +340,15 @@ export default function PreviewWorkspace() {
             bottom: 12,
             right: 12,
             zIndex: 60,
-            background: "rgba(0,0,0,0.5)",
             color: "white",
             borderRadius: 8,
             padding: "6px 8px",
-            border: "none",
             cursor: "pointer",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
           }}
+          className="bg-black/50 border border-transparent dark:bg-[#111827]/80 dark:border-[#506285] hover:bg-[#1D6FEB] transition-all duration-200"
           aria-label="Fullscreen preview"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" style={{ width: 16, height: 16 }}>
@@ -365,7 +364,7 @@ export default function PreviewWorkspace() {
         {/* Workspace Title */}
         <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#1E2D4A] bg-[#111827]/40 backdrop-blur-sm shrink-0 max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 max-md:hidden" />
-          <span className="text-[10px] font-bold tracking-wider text-[#64748B] max-md:text-[#475569] max-md:tracking-[0.1em] uppercase select-none">
+          <span className="text-[10px] font-bold tracking-wider text-[#64748B] dark:text-slate-300 max-md:text-[#475569] dark:max-md:text-slate-400 max-md:tracking-[0.1em] uppercase select-none">
             Live Preview Sandbox
           </span>
         </div>
@@ -412,7 +411,7 @@ export default function PreviewWorkspace() {
 
         {/* Artboard Dimension Label — desktop only, positioned in normal flow
             (no longer inside the transformed wrapper, so it never gets scaled). */}
-        <div className="text-[10px] font-mono text-[#64748B] tracking-wider select-none shrink-0 max-md:hidden bg-[#111827]/40 px-2.5 py-0.5 rounded border border-[#1E2D4A]/50 shadow-sm">
+        <div className="text-[10px] font-mono text-[#64748B] dark:text-slate-300 tracking-wider select-none shrink-0 max-md:hidden bg-[#111827]/40 px-2.5 py-0.5 rounded border border-[#1E2D4A]/50 shadow-sm">
           {exportFormat === "square"
             ? "1080 x 1080 (1:1)"
             : exportFormat === "story"

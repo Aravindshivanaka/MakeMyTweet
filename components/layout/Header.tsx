@@ -47,7 +47,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
           }`}
         >
           Generator
@@ -58,7 +58,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname.startsWith("/blog")
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
           }`}
         >
           Blog
@@ -69,7 +69,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/faq"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
           }`}
         >
           FAQ
@@ -80,7 +80,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/help"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
           }`}
         >
           Help
@@ -91,7 +91,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/contact"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
           }`}
         >
           Contact
@@ -102,7 +102,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/feedback"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-foreground"
+              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
           }`}
         >
           Feedback
@@ -116,7 +116,7 @@ export default function Header() {
           href="https://github.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg hover:bg-input-bg text-muted-foreground hover:text-foreground transition-colors"
+          className="p-2 rounded-lg hover:bg-input-bg text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB] transition-colors"
           aria-label="GitHub Repository"
         >
           <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
@@ -129,7 +129,7 @@ export default function Header() {
           href="https://linkedin.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="p-2 rounded-lg hover:bg-input-bg text-muted-foreground hover:text-foreground transition-colors"
+          className="p-2 rounded-lg hover:bg-input-bg text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB] transition-colors"
           aria-label="LinkedIn Profile"
         >
           <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current">
@@ -140,7 +140,7 @@ export default function Header() {
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className="p-2 rounded-lg hover:bg-input-bg text-muted-foreground hover:text-foreground transition-colors"
+          className="p-2 rounded-lg hover:bg-input-bg text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB] transition-colors"
           aria-label="Toggle Theme"
         >
           {theme === "dark" ? (

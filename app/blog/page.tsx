@@ -32,7 +32,7 @@ export default function BlogIndexPage() {
           {ARTICLES.map((article) => (
             <article
               key={article.slug}
-              className="bg-panel-bg border border-[#1E2D4A] rounded-xl p-6 transition-all duration-300 hover:border-[#1D6FEB]/50 hover:shadow-lg hover:shadow-[#1D6FEB]/5 flex flex-col h-full justify-between"
+              className="bg-panel-bg border border-[#1E2D4A] rounded-xl p-6 transition-all duration-300 hover:border-[#1D6FEB]/50 hover:shadow-xl hover:shadow-[#1D6FEB]/5 dark:hover:shadow-[#1D6FEB]/15 flex flex-col h-full justify-between"
             >
               <div>
                 {/* Date & Read Time */}

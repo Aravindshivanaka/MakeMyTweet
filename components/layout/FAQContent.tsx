@@ -64,7 +64,7 @@ export default function FAQContent() {
           return (
             <div
               key={idx}
-              className="bg-panel-bg border border-[#1E2D4A] rounded-xl overflow-hidden transition-all duration-300 hover:border-[#1D6FEB]/30"
+              className="bg-panel-bg border border-[#1E2D4A] rounded-xl overflow-hidden transition-all duration-300 hover:border-[#1D6FEB]/50 hover:shadow-lg dark:hover:shadow-[#1D6FEB]/10"
             >
               <button
                 onClick={() => toggleAccordion(idx)}

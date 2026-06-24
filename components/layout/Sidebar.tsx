@@ -659,7 +659,7 @@ export default function Sidebar() {
                 <button
                   type="button"
                   onClick={() => setShowLogo(!showLogo)}
-                  className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showLogo ? "bg-[#1D6FEB]" : "bg-slate-700"
+                  className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showLogo ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
                     }`}
                   aria-label="Toggle platform logo visibility"
                 >
@@ -716,9 +716,9 @@ export default function Sidebar() {
                     key={theme}
                     type="button"
                     onClick={() => setTweetTheme(theme as "light" | "dark")}
-                    className={`py-2 rounded-lg border text-xs font-semibold transition-colors cursor-pointer ${tweetTheme === theme
-                      ? "bg-[#1D6FEB] border-[#1D6FEB] text-white"
-                      : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/30"
+                    className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-200 cursor-pointer ${tweetTheme === theme
+                      ? "bg-[#1D6FEB] border-[#1D6FEB] text-white hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
+                      : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
                       }`}
                   >
                     {label}
@@ -883,7 +883,7 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={() => setShowDate(!showDate)}
-                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showDate ? "bg-[#1D6FEB]" : "bg-slate-700"
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showDate ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
                   }`}
                 aria-label="Toggle date visibility"
               >
@@ -900,7 +900,7 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={() => setShowTime(!showTime)}
-                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showTime ? "bg-[#1D6FEB]" : "bg-slate-700"
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showTime ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
                   }`}
                 aria-label="Toggle time visibility"
               >
@@ -984,7 +984,7 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={() => setShowCardBackground(!showCardBackground)}
-                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showCardBackground ? "bg-[#1D6FEB]" : "bg-slate-700"
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showCardBackground ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
                   }`}
                 aria-label="Toggle tweet card background visibility"
               >
@@ -1053,7 +1053,7 @@ export default function Sidebar() {
                           setRawBgImageForCrop(originalBackgroundImage);
                           setIsBgCropModalOpen(true);
                         }}
-                        className="px-3 py-1.5 rounded-lg bg-[#1D6FEB] hover:bg-[#155fc7] text-[11px] font-bold text-white transition-colors cursor-pointer text-center w-full"
+                        className="px-3 py-1.5 rounded-lg bg-[#1D6FEB] hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)] text-[11px] font-bold text-white transition-all duration-200 cursor-pointer text-center w-full"
                       >
                         Edit Background
                       </button>
@@ -1065,7 +1065,7 @@ export default function Sidebar() {
                           setBackgroundType("preset");
                           setBackgroundColor("#FFFFFF"); // Reset to default White
                         }}
-                        className="text-[10px] text-rose-500 hover:underline cursor-pointer transition-all duration-150 ease-in-out text-center"
+                        className="text-[10px] text-rose-400 hover:text-rose-300 hover:underline cursor-pointer transition-all duration-200 ease-in-out text-center"
                       >
                         Clear Image
                       </button>
@@ -1180,9 +1180,9 @@ export default function Sidebar() {
                 key={format}
                 type="button"
                 onClick={() => setExportFormat(format as "story" | "square" | "landscape")}
-                className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-150 ease-in-out cursor-pointer ${exportFormat === format
-                  ? "bg-[#1D6FEB] border-[#1D6FEB] text-white"
-                  : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/30"
+                className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-200 ease-in-out cursor-pointer ${exportFormat === format
+                  ? "bg-[#1D6FEB] border-[#1D6FEB] text-white hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
+                  : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
                   }`}
               >
                 {label}
@@ -1196,11 +1196,11 @@ export default function Sidebar() {
           <button
             type="button"
             onClick={handleCopyImage}
-            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-150 ease-in-out shadow-md cursor-pointer flex items-center justify-center ${copyStatus === "success"
-              ? "bg-[#22C55E] hover:bg-[#22C55E]"
+            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${copyStatus === "success"
+              ? "bg-[#22C55E] hover:shadow-[0_0_12px_rgba(34,197,94,0.4)]"
               : copyStatus === "error"
-                ? "bg-[#EF4444] hover:bg-[#EF4444]"
-                : "bg-[#1D6FEB] hover:bg-[#155fc7]"
+                ? "bg-[#EF4444] hover:shadow-[0_0_12px_rgba(239,68,68,0.4)]"
+                : "bg-[#1D6FEB] hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
               }`}
           >
             {copyStatus === "success"
@@ -1212,9 +1212,9 @@ export default function Sidebar() {
           <button
             type="button"
             onClick={handleDownload}
-            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-150 ease-in-out shadow-md cursor-pointer flex items-center justify-center ${downloadStatus === "success"
-              ? "bg-[#22C55E] hover:bg-[#22C55E]"
-              : "bg-[#1D6FEB] hover:bg-[#155fc7]"
+            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${downloadStatus === "success"
+              ? "bg-[#22C55E] hover:shadow-[0_0_12px_rgba(34,197,94,0.4)]"
+              : "bg-[#1D6FEB] hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
               }`}
           >
             {downloadStatus === "success" ? "Download ⭳" : "Download Image"}
@@ -1326,14 +1326,14 @@ export default function Sidebar() {
                   setRawImageForCrop(null);
                   if (fileInputRef.current) fileInputRef.current.value = "";
                 }}
-                className="px-4 py-2 rounded-lg border border-[#1E2D4A] hover:bg-slate-800 text-xs font-semibold text-slate-300 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-lg border border-[#1E2D4A] hover:bg-white/[0.06] hover:text-white hover:border-[#1D6FEB]/50 text-xs font-semibold text-slate-300 transition-all duration-200 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSaveCrop}
-                className="px-4 py-2 rounded-lg bg-[#1D6FEB] hover:bg-[#155fc7] text-xs font-semibold text-white transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-[#1D6FEB] hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)] text-xs font-semibold text-white transition-all duration-200 cursor-pointer"
               >
                 Save Crop
               </button>
@@ -1420,14 +1420,14 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={handleCancelBgEdit}
-                className="px-4 py-2 rounded-lg border border-[#1E2D4A] hover:bg-slate-800 text-xs font-semibold text-slate-300 transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-lg border border-[#1E2D4A] hover:bg-white/[0.06] hover:text-white hover:border-[#1D6FEB]/50 text-xs font-semibold text-slate-300 transition-all duration-200 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 type="button"
                 onClick={handleSaveBgEdit}
-                className="px-4 py-2 rounded-lg bg-[#1D6FEB] hover:bg-[#155fc7] text-xs font-semibold text-white transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-[#1D6FEB] hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)] text-xs font-semibold text-white transition-all duration-200 cursor-pointer"
               >
                 Save
               </button>

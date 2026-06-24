@@ -16,7 +16,7 @@ export default function Footer() {
       <div className="absolute left-8 flex items-center">
         <Link
           href="/privacy-policy"
-          className="text-[10px] sm:text-[11px] text-slate-400 font-semibold tracking-wider uppercase hover:text-white hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
+          className="text-[10px] sm:text-[11px] text-slate-400 font-semibold tracking-wider uppercase hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB] hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
         >
           Privacy Policy
         </Link>
@@ -36,7 +36,7 @@ export default function Footer() {
       <div className="absolute right-8 flex items-center">
         <Link
           href="/terms-and-conditions"
-          className="text-[10px] sm:text-[11px] text-slate-400 font-semibold tracking-wider uppercase hover:text-white hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
+          className="text-[10px] sm:text-[11px] text-slate-400 font-semibold tracking-wider uppercase hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB] hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
         >
           Terms & Conditions
         </Link>

@@ -69,7 +69,7 @@
     --secondary-foreground: 210 40% 98%;
     
     --muted: 215 25% 27%;
-    --muted-foreground: 215 16% 47%;  /* #64748B (Secondary Text) */
+    --muted-foreground: 215 20% 70%;  /* #9AA9C1 (Secondary Text - Higher Contrast) */
     
     --accent: 217 85% 52%;            /* #1D6FEB */
     --accent-foreground: 210 40% 98%;
@@ -77,7 +77,7 @@
     --destructive: 0 84.2% 60.2%;     /* #EF4444 */
     --destructive-foreground: 210 40% 98%;
 
-    --border: 221 42% 20%;            /* #1E2D4A (Border Color) */
+    --border: 221 25% 42%;            /* #506285 (Higher Contrast Border Color) */
     --input: 220 37% 11%;             /* #111827 (Input Background) */
     --ring: 217 85% 52%;              /* #1D6FEB */
 
@@ -85,7 +85,7 @@
     --primary-bg: #080F1E;
     --panel-bg: #0D1425;
     --input-bg: #111827;
-    --border-color: #1E2D4A;
+    --border-color: #506285;
 
     --workspace-grid: radial-gradient(rgba(148, 163, 184, 0.08) 1.5px, transparent 1.5px);
     --workspace-grid-size: 24px 24px;
@@ -149,4 +149,11 @@ input, select, textarea {
 .text-slate-400 {
   color: hsl(var(--foreground)) !important;
   opacity: 0.65;
+}
+
+/* Specific input/textarea placeholders visibility in dark mode */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: hsl(var(--foreground)) !important;
+  opacity: 0.5 !important;
 }
