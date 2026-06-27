@@ -583,7 +583,7 @@ export default function Sidebar() {
       return;
     }
     try {
-      const dataUrl = await htmlToImage.toPng(node, {
+      const blob = await htmlToImage.toBlob(node, {
         pixelRatio: 3,
         style: {
           transform: "scale(1)",
@@ -592,10 +592,23 @@ export default function Sidebar() {
           height: node.offsetHeight + "px",
         },
       });
+
+      if (!blob) {
+        throw new Error("Failed to generate image blob");
+      }
+
+      const blobUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.download = `tweet-ss-${Date.now()}.png`;
-      link.href = dataUrl;
+      link.href = blobUrl;
+      document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link);
+
+      setTimeout(() => {
+        URL.revokeObjectURL(blobUrl);
+      }, 100);
+
       setDownloadStatus("success");
       setTimeout(() => setDownloadStatus("idle"), 700);
     } catch (err) {

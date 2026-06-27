@@ -50,7 +50,7 @@ export default function Header() {
               : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
           }`}
         >
-          Generator
+          Create
         </Link>
         <span className="text-border text-opacity-40 select-none">|</span>
         <Link

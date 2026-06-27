@@ -23,8 +23,31 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://tweet-ss-generator.vercel.app"),
   title: "Tweet SS Generator - Premium Tweet Screenshot Mockup Maker",
   description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
+  openGraph: {
+    title: "Tweet SS Generator - Premium Tweet Screenshot Mockup Maker",
+    description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
+    url: "https://tweet-ss-generator.vercel.app",
+    siteName: "Tweet SS Generator",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Tweet SS Generator preview",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Tweet SS Generator - Premium Tweet Screenshot Mockup Maker",
+    description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
