@@ -551,7 +551,11 @@ export default function Sidebar() {
       setTimeout(() => setCopyStatus("idle"), 2000);
       return;
     }
+    const originalBorderRadius = node.style.borderRadius;
+    const originalBorder = node.style.border;
     try {
+      node.style.borderRadius = "0px";
+      node.style.border = "none";
       const blob = await htmlToImage.toBlob(node, {
         pixelRatio: 3,
         style: {
@@ -559,6 +563,14 @@ export default function Sidebar() {
           transformOrigin: "top left",
           width: node.offsetWidth + "px",
           height: node.offsetHeight + "px",
+          borderRadius: "0px",
+          border: "none",
+          ...(!showBackground ? {
+            background: "none",
+            backgroundColor: "transparent",
+            backgroundImage: "none",
+            boxShadow: "none",
+          } : {}),
         },
       });
       if (!blob) throw new Error("Failed to generate blob from canvas");
@@ -573,6 +585,9 @@ export default function Sidebar() {
       console.error("Oops, Copy Image failed!", err);
       setCopyStatus("error");
       setTimeout(() => setCopyStatus("idle"), 2000);
+    } finally {
+      node.style.borderRadius = originalBorderRadius;
+      node.style.border = originalBorder;
     }
   };
 
@@ -582,7 +597,11 @@ export default function Sidebar() {
       alert("Error: Preview canvas not found!");
       return;
     }
+    const originalBorderRadius = node.style.borderRadius;
+    const originalBorder = node.style.border;
     try {
+      node.style.borderRadius = "0px";
+      node.style.border = "none";
       const blob = await htmlToImage.toBlob(node, {
         pixelRatio: 3,
         style: {
@@ -590,6 +609,14 @@ export default function Sidebar() {
           transformOrigin: "top left",
           width: node.offsetWidth + "px",
           height: node.offsetHeight + "px",
+          borderRadius: "0px",
+          border: "none",
+          ...(!showBackground ? {
+            background: "none",
+            backgroundColor: "transparent",
+            backgroundImage: "none",
+            boxShadow: "none",
+          } : {}),
         },
       });
 
@@ -614,6 +641,9 @@ export default function Sidebar() {
     } catch (err) {
       console.error("Oops, PNG export failed!", err);
       alert("Oops, PNG export failed! See developer console for logs.");
+    } finally {
+      node.style.borderRadius = originalBorderRadius;
+      node.style.border = originalBorder;
     }
   };
 
