@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tweet-ss-generator.vercel.app"),
+  metadataBase: new URL("https://tweetviral-lovat.vercel.app"),
   title: "Tweet SS Generator - Premium Tweet Screenshot Mockup Maker",
   description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
   openGraph: {
