@@ -624,21 +624,35 @@ export default function Sidebar() {
         throw new Error("Failed to generate image blob");
       }
 
-      const blobUrl = URL.createObjectURL(blob);
-      const link = document.createElement("a");
-      link.download = `tweet-ss-${Date.now()}.png`;
-      link.href = blobUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      const filename = `tweet-ss-${Date.now()}.png`;
+      const file = new File([blob], filename, { type: "image/png" });
 
-      setTimeout(() => {
-        URL.revokeObjectURL(blobUrl);
-      }, 100);
+      if (typeof navigator !== "undefined" && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: filename,
+        });
+      } else {
+        const blobUrl = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = filename;
+        link.href = blobUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        setTimeout(() => {
+          URL.revokeObjectURL(blobUrl);
+        }, 1000);
+      }
 
       setDownloadStatus("success");
       setTimeout(() => setDownloadStatus("idle"), 700);
     } catch (err) {
+      if (err instanceof Error && err.name === "AbortError") {
+        console.log("Share cancelled by user");
+        return;
+      }
       console.error("Oops, PNG export failed!", err);
       alert("Oops, PNG export failed! See developer console for logs.");
     } finally {
