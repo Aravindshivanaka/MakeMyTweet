@@ -625,26 +625,17 @@ export default function Sidebar() {
       }
 
       const filename = `tweet-ss-${Date.now()}.png`;
-      const file = new File([blob], filename, { type: "image/png" });
+      const blobUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.download = filename;
+      link.href = blobUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
-      if (typeof navigator !== "undefined" && navigator.canShare && navigator.canShare({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: filename,
-        });
-      } else {
-        const blobUrl = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = filename;
-        link.href = blobUrl;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        setTimeout(() => {
-          URL.revokeObjectURL(blobUrl);
-        }, 1000);
-      }
+      setTimeout(() => {
+        URL.revokeObjectURL(blobUrl);
+      }, 1000);
 
       setDownloadStatus("success");
       setTimeout(() => setDownloadStatus("idle"), 700);

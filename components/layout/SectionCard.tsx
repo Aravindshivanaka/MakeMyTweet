@@ -41,7 +41,11 @@ export default function SectionCard({
         className="group flex items-center justify-between px-4 py-3 gap-2 cursor-pointer rounded-xl transition-all duration-200 ease-in-out hover:bg-[rgba(0,0,0,0.04)] dark:hover:bg-[rgba(255,255,255,0.06)] active:bg-[rgba(0,0,0,0.08)] dark:active:bg-[rgba(255,255,255,0.08)]"
       >
         {/* Left: title */}
-        <h2 className="text-[12px] font-semibold tracking-[0.08em] text-[#64748B] dark:text-slate-300 uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out group-hover:text-slate-900 dark:group-hover:text-white flex items-center gap-3">
+        <h2 className={`text-[12px] font-semibold tracking-[0.08em] uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out flex items-center gap-3 ${
+          collapsed
+            ? "text-[#64748B] dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white"
+            : "text-primary"
+        }`}>
           {icon}
           <span className="truncate">{title}</span>
         </h2>
