@@ -49,27 +49,28 @@
 
     --workspace-grid: radial-gradient(rgba(15, 23, 42, 0.05) 1px, transparent 1px);
     --workspace-grid-size: 20px 20px;
-    --workspace-bg: #F8FAFC;
+    --workspace-bg: transparent;
+    --canvas-bg: #FFFFFF;
   }
 
   .dark {
-    --background: 220 58% 7%;         /* #080F1E */
+    --background: 217 59% 8%;         /* #08111F */
     --foreground: 210 40% 98%;        /* White/light grey for main UI text */
     
-    --card: 222 47% 10%;              /* #0D1425 (Panel background) */
+    --card: 221 39% 11%;              /* #111827 */
     --card-foreground: 210 40% 98%;
     
-    --popover: 222 47% 10%;           /* #0D1425 */
+    --popover: 221 39% 11%;           /* #111827 */
     --popover-foreground: 210 40% 98%;
     
     --primary: 217 85% 52%;           /* #1D6FEB (Cobalt Blue) */
     --primary-foreground: 210 40% 98%;
     
-    --secondary: 222 47% 15%;
+    --secondary: 222 47% 11.2%;       /* #0F172A */
     --secondary-foreground: 210 40% 98%;
     
     --muted: 215 25% 27%;
-    --muted-foreground: 215 20% 70%;  /* #9AA9C1 (Secondary Text - Higher Contrast) */
+    --muted-foreground: 215 16% 65%;  /* #94A3B8 (Text Secondary) */
     
     --accent: 217 85% 52%;            /* #1D6FEB */
     --accent-foreground: 210 40% 98%;
@@ -77,19 +78,20 @@
     --destructive: 0 84.2% 60.2%;     /* #EF4444 */
     --destructive-foreground: 210 40% 98%;
 
-    --border: 221 25% 42%;            /* #506285 (Higher Contrast Border Color) */
-    --input: 220 37% 11%;             /* #111827 (Input Background) */
+    --border: 221 27% 18%;            /* Subtle border color */
+    --input: 222 47% 11.2%;           /* #0F172A */
     --ring: 217 85% 52%;              /* #1D6FEB */
 
     /* Custom color tokens exposed explicitly */
-    --primary-bg: #080F1E;
-    --panel-bg: #0D1425;
-    --input-bg: #111827;
-    --border-color: #506285;
+    --primary-bg: #08111F;
+    --panel-bg: #111827;
+    --input-bg: #0F172A;
+    --border-color: rgba(255, 255, 255, 0.08);
 
     --workspace-grid: radial-gradient(rgba(148, 163, 184, 0.08) 1.5px, transparent 1.5px);
     --workspace-grid-size: 24px 24px;
-    --workspace-bg: #080F1E;
+    --workspace-bg: #08111F;
+    --canvas-bg: #0E1528;
   }
 }
 
@@ -156,4 +158,97 @@ input, select, textarea {
 .dark textarea::placeholder {
   color: hsl(var(--foreground)) !important;
   opacity: 0.5 !important;
+}
+
+/* Premium Gold Dot Grid + Glow Background - Dark Mode */
+.dark .app-background-base {
+  background-color: #08111F;
+}
+
+.dark .app-background-dots {
+  background-image: none;
+}
+
+.dark .app-background-glows {
+  background-image: none;
+  animation: none;
+}
+
+.dark nav[aria-label="Controls Navigation"] svg {
+  color: #60a5fa !important;
+}
+
+.dark main[aria-label="Desktop Preview Canvas"] {
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, #08111F 0%, #0B1629 50%, #101A2D 100%) !important;
+  background-size: 24px 24px, 24px 24px, 100% 100% !important;
+  background-repeat: repeat, repeat, no-repeat !important;
+  background-color: transparent !important;
+}
+
+@keyframes goldGlowBreath {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Premium Gold Dot Grid + Glow Background - Light Mode */
+.app-background-base {
+  background-color: #FDFBF5;
+}
+
+.app-background-dots {
+  background-image: radial-gradient(circle, rgba(180, 140, 50, 0.20) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: 0 0;
+}
+
+.app-background-glows {
+  background-image: 
+    radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.14) 0%, transparent 35%),
+    radial-gradient(circle at 85% 90%, rgba(212, 175, 55, 0.10) 0%, transparent 40%);
+  background-size: 100% 100%, 100% 100%;
+  background-position: 0 0, 0 0;
+  animation: goldGlowBreath 18s ease-in-out infinite;
+}
+
+/* Light mode specific background and grid override */
+html:not(.dark) main[aria-label="Desktop Preview Canvas"] {
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.015) 1px, transparent 1px),
+    linear-gradient(135deg, #FFFFFF 0%, #F6F9FF 50%, #EEF4FF 100%) !important;
+  background-size: 20px 20px, 20px 20px, 100% 100% !important;
+  background-repeat: repeat, repeat, no-repeat !important;
+}
+
+.accordion-content-spring {
+  transition-property: max-height, opacity, transform;
+}
+
+.accordion-expanded {
+  transition-duration: 480ms;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.accordion-collapsed {
+  transition-duration: 350ms;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chevron-expanded {
+  transition-duration: 480ms;
+}
+
+.chevron-collapsed {
+  transition-duration: 350ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .accordion-content-spring,
+  .chevron-expanded,
+  .chevron-collapsed {
+    transition: none !important;
+  }
 }

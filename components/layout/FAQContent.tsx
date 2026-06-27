@@ -78,8 +78,8 @@ export default function FAQContent() {
                   strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className={`w-5 h-5 text-[#1D6FEB] transform transition-transform duration-200 ${
-                    isOpen ? "rotate-180" : ""
+                  className={`w-5 h-5 text-[#1D6FEB] transform transition-transform ease-out ${
+                    isOpen ? "rotate-180 chevron-expanded" : "chevron-collapsed"
                   }`}
                 >
                   <path d="M6 9l6 6 6-6" />
@@ -87,9 +87,14 @@ export default function FAQContent() {
               </button>
 
               <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  isOpen ? "max-h-40 border-t border-[#1E2D4A]/50" : "max-h-0"
+                className={`accordion-content-spring border-[#1E2D4A]/50 overflow-hidden ${
+                  isOpen ? "border-t accordion-expanded" : "accordion-collapsed"
                 }`}
+                style={{
+                  maxHeight: isOpen ? "200px" : "0px",
+                  opacity: isOpen ? 1 : 0,
+                  transform: isOpen ? "translateY(0px)" : "translateY(-4px)",
+                }}
               >
                 <div className="p-6 text-sm md:text-base text-muted-foreground leading-relaxed">
                   {item.answer}

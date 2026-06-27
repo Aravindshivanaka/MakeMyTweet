@@ -186,7 +186,7 @@ export default function PreviewWorkspace() {
       previewBgStyles.backgroundRepeat = "no-repeat";
     }
   } else {
-    previewBgStyles.backgroundColor = "#080F1E";
+    previewBgStyles.backgroundColor = "var(--canvas-bg)";
     previewBgStyles.background = "none";
     previewBgStyles.backgroundImage = "none";
   }
@@ -209,7 +209,7 @@ export default function PreviewWorkspace() {
       fullscreenBgStyles.backgroundRepeat = "no-repeat";
     }
   } else {
-    fullscreenBgStyles.backgroundColor = "#080F1E";
+    fullscreenBgStyles.backgroundColor = "var(--canvas-bg)";
   }
 
   const workspaceStyles: React.CSSProperties = {};
@@ -362,9 +362,9 @@ export default function PreviewWorkspace() {
 
       <div className="w-full h-full max-w-[740px] flex flex-col items-center justify-center gap-4 max-md:gap-2.5 max-md:py-4 max-md:px-4 max-md:overflow-hidden" style={{ minHeight: 0 }}>
         {/* Workspace Title */}
-        <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#1E2D4A] bg-[#111827]/40 backdrop-blur-sm shrink-0 max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
+        <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200/50 dark:border-[rgba(255,255,255,0.08)] bg-white/60 dark:bg-[rgba(17,24,39,0.85)] backdrop-blur-sm shadow-sm shadow-slate-100/50 dark:shadow-[0_4px_12px_rgba(0,0,0,0.25)] shrink-0 max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
           <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 max-md:hidden" />
-          <span className="text-[10px] font-bold tracking-wider text-[#64748B] dark:text-slate-300 max-md:text-[#475569] dark:max-md:text-slate-400 max-md:tracking-[0.1em] uppercase select-none">
+          <span className="text-[10px] font-bold tracking-wider text-slate-600 dark:text-slate-300 max-md:text-[#475569] dark:max-md:text-slate-400 max-md:tracking-[0.1em] uppercase select-none">
             Live Preview Sandbox
           </span>
         </div>
@@ -411,7 +411,7 @@ export default function PreviewWorkspace() {
 
         {/* Artboard Dimension Label — desktop only, positioned in normal flow
             (no longer inside the transformed wrapper, so it never gets scaled). */}
-        <div className="text-[10px] font-mono text-[#64748B] dark:text-slate-300 tracking-wider select-none shrink-0 max-md:hidden bg-[#111827]/40 px-2.5 py-0.5 rounded border border-[#1E2D4A]/50 shadow-sm">
+        <div className="text-[10px] font-mono text-slate-600 dark:text-slate-300 tracking-wider select-none shrink-0 max-md:hidden bg-white/60 dark:bg-[rgba(17,24,39,0.85)] px-2.5 py-0.5 rounded border border-slate-200/50 dark:border-[rgba(255,255,255,0.08)] shadow-sm shadow-slate-100/50 dark:shadow-[0_2px_6px_rgba(0,0,0,0.2)]">
           {exportFormat === "square"
             ? "1080 x 1080 (1:1)"
             : exportFormat === "story"

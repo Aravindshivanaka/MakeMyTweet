@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 
 interface SectionCardProps {
   title: string;
+  icon?: React.ReactNode;
   description?: string;
   children?: React.ReactNode;
   id?: string;
@@ -20,6 +21,7 @@ interface SectionCardProps {
 
 export default function SectionCard({
   title,
+  icon,
   description,
   children,
   id,
@@ -31,7 +33,7 @@ export default function SectionCard({
   return (
     <section
       id={id}
-      className="rounded-xl border border-[#1E2D4A] bg-panel-bg text-foreground flex flex-col"
+      className="rounded-xl border border-slate-200/60 dark:border-[#1E2D4A] bg-white dark:bg-panel-bg text-foreground flex flex-col shadow-sm shadow-slate-100/80 dark:shadow-none hover:shadow-md hover:shadow-slate-100/80 transition-all duration-300"
     >
       {/* Header row — fully clickable */}
       <div
@@ -39,8 +41,9 @@ export default function SectionCard({
         className="group flex items-center justify-between px-4 py-3 gap-2 cursor-pointer rounded-xl transition-all duration-200 ease-in-out hover:bg-[rgba(0,0,0,0.04)] dark:hover:bg-[rgba(255,255,255,0.06)] active:bg-[rgba(0,0,0,0.08)] dark:active:bg-[rgba(255,255,255,0.08)]"
       >
         {/* Left: title */}
-        <h2 className="text-[12px] font-semibold tracking-[0.08em] text-[#64748B] dark:text-slate-300 uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out group-hover:text-slate-900 dark:group-hover:text-white">
-          {title}
+        <h2 className="text-[12px] font-semibold tracking-[0.08em] text-[#64748B] dark:text-slate-300 uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out group-hover:text-slate-900 dark:group-hover:text-white flex items-center gap-3">
+          {icon}
+          <span className="truncate">{title}</span>
         </h2>
 
         {/* Middle: toggle switch (if provided) */}
@@ -66,20 +69,27 @@ export default function SectionCard({
 
         {/* Right: chevron icon */}
         <div className="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-md text-[#94A3B8] transition-colors duration-200 ease-in-out group-hover:text-slate-800 dark:group-hover:text-[#CBD5E1]">
-          {collapsed ? (
-            <ChevronDown className="w-4 h-4" strokeWidth={2} />
-          ) : (
-            <ChevronUp className="w-4 h-4" strokeWidth={2} />
-          )}
+          <ChevronDown
+            className={`w-4 h-4 transition-transform ease-out ${
+              collapsed ? "chevron-collapsed" : "chevron-expanded"
+            }`}
+            style={{
+              transform: collapsed ? "rotate(0deg)" : "rotate(180deg)",
+            }}
+            strokeWidth={2}
+          />
         </div>
       </div>
 
       {/* Collapsible content */}
       <div
-        className="overflow-hidden"
+        className={`overflow-hidden accordion-content-spring ${
+          collapsed ? "accordion-collapsed" : "accordion-expanded"
+        }`}
         style={{
           maxHeight: collapsed ? "0px" : "1000px",
-          transition: "max-height 0.25s ease",
+          opacity: collapsed ? 0 : 1,
+          transform: collapsed ? "translateY(-4px)" : "translateY(0px)",
         }}
       >
         <div className="px-4 pb-4 flex flex-col gap-4">

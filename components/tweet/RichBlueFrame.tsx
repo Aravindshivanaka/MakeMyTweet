@@ -62,7 +62,7 @@ export default function RichBlueFrame({
       customStyles.backgroundRepeat = "no-repeat";
     }
   } else {
-    customStyles.backgroundColor = "#080F1E";
+    customStyles.backgroundColor = "var(--canvas-bg)";
     customStyles.background = "none";
     customStyles.backgroundImage = "none";
   }
@@ -70,7 +70,7 @@ export default function RichBlueFrame({
   return (
     <div 
       id="export-canvas"
-      className={`rounded-[32px] flex items-center justify-center w-full shadow-2xl select-none transition-all duration-300 ${formatClasses} ${
+      className={`rounded-[32px] flex items-center justify-center w-full border border-slate-100 dark:border-[rgba(255,255,255,0.06)] shadow-xl shadow-slate-200/50 dark:shadow-2xl select-none transition-all duration-300 ${formatClasses} ${
         (showBackground && !isCustomBg) ? "bg-rich-blue-frame" : ""
       }`}
       style={customStyles}

@@ -6,9 +6,17 @@ import PreviewWorkspace from "./PreviewWorkspace";
 
 export default function AppShell() {
   return (
-    <div className="flex flex-col h-screen w-screen bg-background overflow-hidden text-slate-100 font-sans">
+    <div className="relative flex flex-col h-screen w-screen bg-background overflow-hidden text-slate-100 font-sans">
+      {/* Premium Dot Grid + Gold Glow Background */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden select-none app-background-base">
+        {/* Layer 1: Dot Grid (Static) */}
+        <div className="absolute inset-0 app-background-dots" />
+        {/* Layer 2 & 3: Glows (Animated) */}
+        <div className="absolute inset-0 app-background-glows" />
+      </div>
+
       {/* 1. Full-Width Top Header */}
-      <div className="max-md:hidden shrink-0">
+      <div className="max-md:hidden shrink-0 relative z-10">
         <Header />
       </div>
 
@@ -16,7 +24,7 @@ export default function AppShell() {
         2. Main Application Workspace Area
         On desktop: Two-column layout (Sidebar: ~400px | Desktop Preview: Remaining space).
       */}
-      <div className="flex-1 flex flex-col lg:flex-row min-h-0 w-full overflow-hidden">
+      <div className="flex-1 flex flex-col lg:flex-row min-h-0 w-full overflow-hidden relative z-10">
         {/* Desktop Preview Workspace (takes remaining space, renders first on mobile stack) */}
         <div className="order-1 lg:order-2 flex-1 h-full overflow-y-auto scrollbar-none min-h-0 max-md:sticky max-md:top-0 max-md:z-40 max-md:h-[45vh] max-md:flex-none max-md:bg-background max-md:overflow-hidden">
           <PreviewWorkspace />
@@ -34,7 +42,7 @@ export default function AppShell() {
       </div>
 
       {/* 3. Full-Width Bottom Footer Feature Bar */}
-      <div className="max-md:hidden shrink-0">
+      <div className="max-md:hidden shrink-0 relative z-10">
         <Footer />
       </div>
     </div>

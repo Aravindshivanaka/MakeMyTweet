@@ -14,10 +14,69 @@ import {
   BarChart2,
   Bookmark,
   Pencil,
+  User,
+  Clock,
+  Image,
+  Square,
+  Maximize2,
+  Copy,
+  Download,
 } from "lucide-react";
 import * as htmlToImage from "html-to-image";
 import ReactCrop, { type Crop, type PixelCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+
+function TiltWrapper({ children }: { children: React.ReactNode }) {
+  const [style, setStyle] = React.useState<React.CSSProperties>({
+    transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",
+    transition: "transform 0.3s ease-out",
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+    if (window.matchMedia("(pointer: coarse)").matches) {
+      return;
+    }
+
+    const card = e.currentTarget;
+    const box = card.getBoundingClientRect();
+    const x = e.clientX - box.left;
+    const y = e.clientY - box.top;
+    const width = box.width;
+    const height = box.height;
+
+    const normalizedX = (x / width) - 0.5;
+    const normalizedY = (y / height) - 0.5;
+
+    const rotateX = -normalizedY * 4;
+    const rotateY = normalizedX * 4;
+
+    setStyle({
+      transform: `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg)`,
+      transition: "transform 0.05s ease-out",
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setStyle({
+      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg)",
+      transition: "transform 0.3s ease-out",
+    });
+  };
+
+  return (
+    <div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={style}
+      className="flex-1 flex"
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Sidebar() {
   const {
@@ -547,7 +606,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className="w-full h-full bg-panel-bg border-r border-[#1E2D4A] shadow-[2px_0_8px_rgba(0,0,0,0.3)] p-4 flex flex-col gap-[12px] select-none transition-all duration-150 ease-in-out"
+      className="w-full h-full bg-[#FAFBFD] dark:bg-[#0F172A] border-r border-gray-100 dark:border-[#1E2D4A] shadow-sm shadow-slate-100/50 dark:shadow-[2px_0_8px_rgba(0,0,0,0.3)] p-4 flex flex-col gap-[12px] select-none transition-all duration-150 ease-in-out"
     >
       <nav className="flex flex-col gap-[12px]" aria-label="Controls Navigation">
 
@@ -555,6 +614,7 @@ export default function Sidebar() {
         <SectionCard
           id="profile-settings-section"
           title="1. Profile Settings"
+          icon={<User className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Customize the user profile details and platform logo."
         >
           <div className="flex flex-col gap-4">
@@ -685,6 +745,7 @@ export default function Sidebar() {
         <SectionCard
           id="tweet-content-section"
           title="2. Tweet Content & Theme"
+          icon={<Pencil className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Write the mock post text and switch the mockup card theme style."
         >
           <div className="flex flex-col gap-4">
@@ -717,8 +778,8 @@ export default function Sidebar() {
                     type="button"
                     onClick={() => setTweetTheme(theme as "light" | "dark")}
                     className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-200 cursor-pointer ${tweetTheme === theme
-                      ? "bg-[#1D6FEB] border-[#1D6FEB] text-white hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
-                      : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
+                      ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] border-[#1D6FEB] text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
+                      : "bg-[#111827] border-[#1E2D4A] text-slate-700 dark:text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
                       }`}
                   >
                     {label}
@@ -733,6 +794,7 @@ export default function Sidebar() {
         <SectionCard
           id="engagement-controls-section"
           title="3. Engagement Controls"
+          icon={<BarChart2 className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Enable metrics and customize counter values."
           headerToggle={{ checked: showMetrics, onChange: toggleMetrics, ariaLabel: "Toggle metrics visibility" }}
         >
@@ -871,6 +933,7 @@ export default function Sidebar() {
         <SectionCard
           id="timestamp-controls-section"
           title="4. Timestamp Controls"
+          icon={<Clock className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Adjust mock timestamp."
           headerToggle={{ checked: showTimestamp, onChange: () => setShowTimestamp(!showTimestamp), ariaLabel: "Toggle timestamp visibility" }}
         >
@@ -971,6 +1034,7 @@ export default function Sidebar() {
         <SectionCard
           id="background-controls-section"
           title="5. Background Controls"
+          icon={<Image className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Select solid gradient presets or upload image."
           headerToggle={{ checked: showBackground, onChange: () => setShowBackground(!showBackground), ariaLabel: "Toggle background visibility" }}
         >
@@ -1053,7 +1117,7 @@ export default function Sidebar() {
                           setRawBgImageForCrop(originalBackgroundImage);
                           setIsBgCropModalOpen(true);
                         }}
-                        className="px-3 py-1.5 rounded-lg bg-[#1D6FEB] hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)] text-[11px] font-bold text-white transition-all duration-200 cursor-pointer text-center w-full"
+                        className="px-3 py-1.5 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110 text-[11px] font-bold text-white transition-all duration-200 cursor-pointer text-center w-full"
                       >
                         Edit Background
                       </button>
@@ -1081,6 +1145,7 @@ export default function Sidebar() {
         <SectionCard
           id="tweet-card-border-section"
           title="6. Tweet Card Border"
+          icon={<Square className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Apply a colorful border wrapper around the card."
           headerToggle={{ checked: showBorder, onChange: () => setShowBorder(!showBorder), ariaLabel: "Toggle card border wrapper" }}
         >
@@ -1168,6 +1233,7 @@ export default function Sidebar() {
         <SectionCard
           id="export-format-section"
           title="7. Export Format"
+          icon={<Maximize2 className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Choose canvas layout dimensions."
         >
           <div className="grid grid-cols-3 gap-2">
@@ -1181,8 +1247,8 @@ export default function Sidebar() {
                 type="button"
                 onClick={() => setExportFormat(format as "story" | "square" | "landscape")}
                 className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-200 ease-in-out cursor-pointer ${exportFormat === format
-                  ? "bg-[#1D6FEB] border-[#1D6FEB] text-white hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
-                  : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
+                  ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] border-[#1D6FEB] text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:border-[#1D6FEB] dark:hover:brightness-110"
+                  : "bg-[#111827] border-[#1E2D4A] text-slate-700 dark:text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
                   }`}
               >
                 {label}
@@ -1193,32 +1259,48 @@ export default function Sidebar() {
 
         {/* 7. Download & Copy Buttons */}
         <div className="pt-2 border-t border-[#1E2D4A] flex flex-row gap-3">
-          <button
-            type="button"
-            onClick={handleCopyImage}
-            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${copyStatus === "success"
-              ? "bg-[#22C55E] hover:shadow-[0_0_12px_rgba(34,197,94,0.4)]"
-              : copyStatus === "error"
-                ? "bg-[#EF4444] hover:shadow-[0_0_12px_rgba(239,68,68,0.4)]"
-                : "bg-[#1D6FEB] hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
-              }`}
-          >
-            {copyStatus === "success"
-              ? "✓ Copied!"
-              : copyStatus === "error"
-                ? "✗ Failed"
-                : "Copy Image"}
-          </button>
-          <button
-            type="button"
-            onClick={handleDownload}
-            className={`flex-1 h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${downloadStatus === "success"
-              ? "bg-[#22C55E] hover:shadow-[0_0_12px_rgba(34,197,94,0.4)]"
-              : "bg-[#1D6FEB] hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
-              }`}
-          >
-            {downloadStatus === "success" ? "Download ⭳" : "Download Image"}
-          </button>
+          <TiltWrapper>
+            <button
+              type="button"
+              onClick={handleCopyImage}
+              className={`w-full h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${copyStatus === "success"
+                ? "bg-[#22C55E]"
+                : copyStatus === "error"
+                  ? "bg-[#EF4444]"
+                  : "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
+                }`}
+            >
+              {copyStatus === "success"
+                ? "✓ Copied!"
+                : copyStatus === "error"
+                  ? "✗ Failed"
+                  : (
+                    <>
+                      <Copy className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] mr-3 shrink-0" strokeWidth={2} />
+                      <span>Copy Image</span>
+                    </>
+                  )}
+            </button>
+          </TiltWrapper>
+          <TiltWrapper>
+            <button
+              type="button"
+              onClick={handleDownload}
+              className={`w-full h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${downloadStatus === "success"
+                ? "bg-[#22C55E]"
+                : "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
+                }`}
+            >
+              {downloadStatus === "success" ? (
+                "Download ⭳"
+              ) : (
+                <>
+                  <Download className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] mr-3 shrink-0" strokeWidth={2} />
+                  <span>Download Image</span>
+                </>
+              )}
+            </button>
+          </TiltWrapper>
         </div>
 
       </nav>
@@ -1333,7 +1415,7 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={handleSaveCrop}
-                className="px-4 py-2 rounded-lg bg-[#1D6FEB] hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)] text-xs font-semibold text-white transition-all duration-200 cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110 text-xs font-semibold text-white transition-all duration-200 cursor-pointer"
               >
                 Save Crop
               </button>
@@ -1427,7 +1509,7 @@ export default function Sidebar() {
               <button
                 type="button"
                 onClick={handleSaveBgEdit}
-                className="px-4 py-2 rounded-lg bg-[#1D6FEB] hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)] text-xs font-semibold text-white transition-all duration-200 cursor-pointer"
+                className="px-4 py-2 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110 text-xs font-semibold text-white transition-all duration-200 cursor-pointer"
               >
                 Save
               </button>

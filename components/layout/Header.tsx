@@ -29,7 +29,7 @@ export default function Header() {
   };
 
   return (
-    <header className="relative w-full h-16 bg-panel-bg border-b border-[#1E2D4A] px-6 flex items-center justify-between shrink-0 select-none transition-colors duration-200">
+    <header className="relative w-full h-16 bg-white dark:bg-[#0B1220] border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] px-6 flex items-center justify-between shrink-0 select-none shadow-sm shadow-slate-100/50 dark:shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-colors duration-200">
       {/* Left Side: Brand Logo and Brand Name */}
       <div className="flex items-center gap-2.5">
         <div className="w-8 h-8 rounded-lg bg-[#1D6FEB] flex items-center justify-center font-bold text-white text-base">
@@ -47,7 +47,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
           }`}
         >
           Generator
@@ -58,7 +58,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname.startsWith("/blog")
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
           }`}
         >
           Blog
@@ -69,7 +69,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/faq"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
           }`}
         >
           FAQ
@@ -80,7 +80,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/help"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
           }`}
         >
           Help
@@ -91,7 +91,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/contact"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
           }`}
         >
           Contact
@@ -102,7 +102,7 @@ export default function Header() {
           className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
             pathname === "/feedback"
               ? "text-[#1D6FEB]"
-              : "text-muted-foreground hover:text-[#1D6FEB] dark:hover:text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
           }`}
         >
           Feedback

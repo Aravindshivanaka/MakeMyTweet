@@ -431,7 +431,7 @@ export default function BackgroundCropperModal({
             style={{
               background: "transparent",
               color: "#A1B0CB",
-              border: "1px solid #506285",
+              border: "1px solid rgba(255, 255, 255, 0.08)",
               padding: "8px 20px",
               borderRadius: "8px",
               fontSize: "13px",
@@ -449,7 +449,7 @@ export default function BackgroundCropperModal({
             type="button"
             onClick={handleOk}
             style={{
-              background: "#1D6FEB",
+              background: "linear-gradient(to bottom, #3b82f6, #1D6FEB)",
               color: "#FFFFFF",
               border: "none",
               padding: "8px 20px",
@@ -461,7 +461,7 @@ export default function BackgroundCropperModal({
               minWidth: "90px",
               textAlign: "center",
             }}
-            className="hover:brightness-110 hover:shadow-[0_0_12px_rgba(29,111,235,0.4)]"
+            className="hover:brightness-110 hover:shadow-md hover:shadow-blue-500/10 hover:-translate-y-0.5"
           >
             OK
           </button>
