@@ -819,15 +819,25 @@ export default function Sidebar() {
             </div>
 
             {/* Platform Logo Dropdown and Toggle */}
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between">
-                <label htmlFor="platformLogoSelect" className="text-[11px] font-medium uppercase text-slate-400">
-                  Platform Logo
-                </label>
+            <div className="flex flex-col gap-1.5">
+              <label htmlFor="platformLogoSelect" className="text-[11px] font-medium uppercase text-slate-400">
+                Platform Logo
+              </label>
+              <div className="flex flex-row flex-wrap items-center gap-3 w-full">
+                <select
+                  id="platformLogoSelect"
+                  value={selectedLogo}
+                  onChange={(e) => setSelectedLogo(e.target.value as "x" | "twitter" | "grok")}
+                  className="flex-1 min-w-[120px] h-10 px-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer transition-all duration-150 ease-in-out"
+                >
+                  <option value="x">X Logo</option>
+                  <option value="twitter">Twitter Bird Logo</option>
+                  <option value="grok">Grok Logo</option>
+                </select>
                 <button
                   type="button"
                   onClick={() => setShowLogo(!showLogo)}
-                  className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showLogo ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
+                  className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer shrink-0 ${showLogo ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
                     }`}
                   aria-label="Toggle platform logo visibility"
                 >
@@ -835,16 +845,6 @@ export default function Sidebar() {
                     }`} />
                 </button>
               </div>
-              <select
-                id="platformLogoSelect"
-                value={selectedLogo}
-                onChange={(e) => setSelectedLogo(e.target.value as "x" | "twitter" | "grok")}
-                className="h-10 px-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer transition-all duration-150 ease-in-out"
-              >
-                <option value="x">X Logo</option>
-                <option value="twitter">Twitter Bird Logo</option>
-                <option value="grok">Grok Logo</option>
-              </select>
             </div>
           </div>
         </SectionCard>
