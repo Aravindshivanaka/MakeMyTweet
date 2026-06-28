@@ -592,6 +592,7 @@ export default function Sidebar() {
   };
 
   const handleDownload = async () => {
+    console.log("DOWNLOAD ATTEMPT START", Date.now());
     const node = document.getElementById("export-canvas");
     if (!node) {
       alert("Error: Preview canvas not found!");
@@ -602,6 +603,7 @@ export default function Sidebar() {
     try {
       node.style.borderRadius = "0px";
       node.style.border = "none";
+      console.log("BEFORE toBlob()", Date.now());
       const blob = await htmlToImage.toBlob(node, {
         pixelRatio: 3,
         style: {
@@ -620,6 +622,11 @@ export default function Sidebar() {
         },
       });
 
+      console.log("AFTER toBlob()", {
+        blobExists: !!blob,
+        blob,
+        time: Date.now()
+      });
       if (!blob) {
         throw new Error("Failed to generate image blob");
       }
@@ -646,6 +653,13 @@ export default function Sidebar() {
       setDownloadStatus("success");
       setTimeout(() => setDownloadStatus("idle"), 700);
     } catch (err) {
+      console.error("DOWNLOAD ERROR", {
+        error: err,
+        name: err instanceof Error ? err.name : "Unknown",
+        message: err instanceof Error ? err.message : String(err),
+        stack: err instanceof Error ? err.stack : null,
+        time: Date.now()
+      });
       if (err instanceof Error && err.name === "AbortError") {
         console.log("Share cancelled by user");
         return;
@@ -653,6 +667,7 @@ export default function Sidebar() {
       console.error("Oops, PNG export failed!", err);
       alert("Oops, PNG export failed! See developer console for logs.");
     } finally {
+      console.log("FINALLY BLOCK ENTERED", Date.now());
       node.style.borderRadius = originalBorderRadius;
       node.style.border = originalBorder;
     }
