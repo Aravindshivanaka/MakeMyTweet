@@ -40,6 +40,8 @@ export default function PreviewWorkspace() {
     backgroundScale,
     backgroundPositionX,
     backgroundPositionY,
+    organizationBadgeEnabled,
+    organizationBadgeImage,
   } = useAppStore();
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -253,6 +255,8 @@ export default function PreviewWorkspace() {
         borderColor={borderColor}
         borderSize={borderSize}
         showCardBackground={showCardBackground}
+        organizationBadgeEnabled={organizationBadgeEnabled}
+        organizationBadgeImage={organizationBadgeImage}
       />
     </RichBlueFrame>
   );

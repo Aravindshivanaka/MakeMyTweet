@@ -10,8 +10,12 @@ export const createLogoSlice: StateCreator<
   // State
   selectedLogo: "x",
   showLogo: true,
+  organizationBadgeEnabled: false,
+  organizationBadgeImage: null,
 
   // Actions
   setSelectedLogo: (selectedLogo) => set({ selectedLogo }),
   setShowLogo: (showLogo) => set({ showLogo }),
+  setOrganizationBadgeEnabled: (organizationBadgeEnabled) => set({ organizationBadgeEnabled }),
+  setOrganizationBadgeImage: (organizationBadgeImage) => set({ organizationBadgeImage }),
 });

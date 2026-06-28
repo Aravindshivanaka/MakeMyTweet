@@ -31,6 +31,8 @@ interface TweetCardProps {
   borderColor?: string;
   borderSize?: number;
   showCardBackground?: boolean;
+  organizationBadgeEnabled?: boolean;
+  organizationBadgeImage?: string | null;
 }
 
 export default function TweetCard({
@@ -60,6 +62,8 @@ export default function TweetCard({
   borderColor = "#38BDF8",
   borderSize = 10,
   showCardBackground = true,
+  organizationBadgeEnabled = false,
+  organizationBadgeImage = null,
 }: TweetCardProps) {
   // Format configurations for card size and padding
   let cardClass = "max-w-[520px] p-4";
@@ -102,6 +106,8 @@ export default function TweetCard({
         showLogo={showLogo}
         exportFormat={exportFormat}
         tweetTheme={tweetTheme}
+        organizationBadgeEnabled={organizationBadgeEnabled}
+        organizationBadgeImage={organizationBadgeImage}
       />
 
       {/* Row 3: Tweet text */}

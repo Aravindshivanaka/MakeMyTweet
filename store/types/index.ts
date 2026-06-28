@@ -30,11 +30,15 @@ export interface TweetSliceActions {
 export interface LogoSliceState {
   selectedLogo: "x" | "twitter" | "grok";
   showLogo: boolean;
+  organizationBadgeEnabled: boolean;
+  organizationBadgeImage: string | null;
 }
 
 export interface LogoSliceActions {
   setSelectedLogo: (logo: "x" | "twitter" | "grok") => void;
   setShowLogo: (show: boolean) => void;
+  setOrganizationBadgeEnabled: (enabled: boolean) => void;
+  setOrganizationBadgeImage: (image: string | null) => void;
 }
 
 export interface MetricsSliceState {

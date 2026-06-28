@@ -10,6 +10,8 @@ interface TweetHeaderProps {
   showLogo?: boolean;
   exportFormat?: "story" | "square" | "landscape";
   tweetTheme?: "light" | "dark";
+  organizationBadgeEnabled?: boolean;
+  organizationBadgeImage?: string | null;
 }
 
 export default function TweetHeader({
@@ -22,7 +24,15 @@ export default function TweetHeader({
   showLogo = true,
   exportFormat = "landscape",
   tweetTheme = "light",
+  organizationBadgeEnabled = false,
+  organizationBadgeImage = null,
 }: TweetHeaderProps) {
+  const [logoError, setLogoError] = React.useState(false);
+
+  React.useEffect(() => {
+    setLogoError(false);
+  }, [organizationBadgeImage]);
+
   // Responsive layout configs per export format
   let avatarSize = "w-[56px] h-[56px]";
   let displayNameSize = "text-[16px] leading-[20px]";
@@ -83,6 +93,19 @@ export default function TweetHeader({
             >
               <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.143.271.586.702 1.084 1.24 1.438.54.354 1.167.551 1.813.568.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.225 1.261.272 1.894.142.634-.13 1.219-.437 1.69-.882.445-.47.749-1.055.878-1.69.13-.634.085-1.29-.138-1.893.587-.274 1.087-.705 1.443-1.245.355-.54.554-1.17.573-1.817zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z" />
             </svg>
+          )}
+
+          {/* Organization Badge */}
+          {organizationBadgeEnabled && organizationBadgeImage && !logoError && (
+            <div className="org-badge-container flex-shrink-0 flex items-center justify-center w-[18.75px] h-[18.75px] mt-[2.5px]">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={organizationBadgeImage}
+                alt="Organization Badge"
+                onError={() => setLogoError(true)}
+                className="w-full h-full rounded-[3px] object-contain"
+              />
+            </div>
           )}
 
           {/* Optional Organisation Badge */}

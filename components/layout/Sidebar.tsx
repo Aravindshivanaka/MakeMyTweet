@@ -21,8 +21,8 @@ import {
   Maximize2,
   Copy,
   Download,
+  Award,
 } from "lucide-react";
-import * as htmlToImage from "html-to-image";
 import ReactCrop, { type Crop, type PixelCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 
@@ -145,6 +145,10 @@ export default function Sidebar() {
     setBackgroundPositionX,
     backgroundPositionY,
     setBackgroundPositionY,
+    organizationBadgeEnabled,
+    setOrganizationBadgeEnabled,
+    organizationBadgeImage,
+    setOrganizationBadgeImage,
   } = useAppStore();
 
   const backdropPresets = [
@@ -159,11 +163,13 @@ export default function Sidebar() {
   ];
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const orgFileInputRef = React.useRef<HTMLInputElement>(null);
   const bgFileInputRef = React.useRef<HTMLInputElement>(null);
 
   // Crop local state
   const [rawImageForCrop, setRawImageForCrop] = React.useState<string | null>(null);
   const [isCropModalOpen, setIsCropModalOpen] = React.useState(false);
+  const [cropType, setCropType] = React.useState<"profile" | "organization" | null>(null);
   const [rawBgImageForCrop, setRawBgImageForCrop] = React.useState<string | null>(null);
   const [isBgCropModalOpen, setIsBgCropModalOpen] = React.useState(false);
   const [originalBackgroundImage, setOriginalBackgroundImage] = React.useState<string | null>(null);
@@ -470,13 +476,21 @@ export default function Sidebar() {
     );
 
     const croppedDataUrl = canvas.toDataURL("image/png");
-    setProfileImage(croppedDataUrl);
+    if (cropType === "profile") {
+      setProfileImage(croppedDataUrl);
+    } else if (cropType === "organization") {
+      setOrganizationBadgeImage(croppedDataUrl);
+    }
 
     // Close modal and clean up
     setIsCropModalOpen(false);
     setRawImageForCrop(null);
+    setCropType(null);
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
+    }
+    if (orgFileInputRef.current) {
+      orgFileInputRef.current.value = "";
     }
   };
 
@@ -485,6 +499,38 @@ export default function Sidebar() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        setCropType("profile");
+        setRawImageForCrop(reader.result as string);
+        setIsCropModalOpen(true);
+        setZoom(1);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleOrgLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const fileType = file.type.toLowerCase();
+      const fileName = file.name.toLowerCase();
+      const isAllowed = 
+        fileType === "image/png" || 
+        fileType === "image/jpeg" || 
+        fileType === "image/jpg" || 
+        fileType === "image/webp" ||
+        fileName.endsWith(".png") ||
+        fileName.endsWith(".jpg") ||
+        fileName.endsWith(".jpeg") ||
+        fileName.endsWith(".webp");
+
+      if (!isAllowed) {
+        alert("Unsupported file format. Please upload PNG, JPG, JPEG, or WebP images.");
+        if (orgFileInputRef.current) orgFileInputRef.current.value = "";
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setCropType("organization");
         setRawImageForCrop(reader.result as string);
         setIsCropModalOpen(true);
         setZoom(1);
@@ -556,6 +602,7 @@ export default function Sidebar() {
     try {
       node.style.borderRadius = "0px";
       node.style.border = "none";
+      const htmlToImage = await import("html-to-image");
       const blob = await htmlToImage.toBlob(node, {
         pixelRatio: 3,
         style: {
@@ -592,7 +639,6 @@ export default function Sidebar() {
   };
 
   const handleDownload = async () => {
-    alert("1. DOWNLOAD ATTEMPT START at " + Date.now());
     const node = document.getElementById("export-canvas");
     if (!node) {
       alert("Error: Preview canvas not found!");
@@ -603,7 +649,7 @@ export default function Sidebar() {
     try {
       node.style.borderRadius = "0px";
       node.style.border = "none";
-      alert("2. BEFORE toBlob() at " + Date.now());
+      const htmlToImage = await import("html-to-image");
       const blob = await htmlToImage.toBlob(node, {
         pixelRatio: 3,
         style: {
@@ -622,7 +668,6 @@ export default function Sidebar() {
         },
       });
 
-      alert("3. AFTER toBlob() - blobExists: " + (!!blob) + " at " + Date.now());
       if (!blob) {
         throw new Error("Failed to generate image blob");
       }
@@ -632,6 +677,8 @@ export default function Sidebar() {
       const link = document.createElement("a");
       link.download = filename;
       link.href = blobUrl;
+      link.target = "_blank";
+      link.rel = "noopener";
       link.style.display = "none";
       document.body.appendChild(link);
       link.click();
@@ -639,17 +686,18 @@ export default function Sidebar() {
       // Delay link removal and blob revocation so mobile browsers
       // have enough time to process the download on every tap
       setTimeout(() => {
-        document.body.removeChild(link);
-      }, 100);
+        if (document.body.contains(link)) {
+          document.body.removeChild(link);
+        }
+      }, 10000);
 
       setTimeout(() => {
         URL.revokeObjectURL(blobUrl);
-      }, 5000);
+      }, 40000);
 
       setDownloadStatus("success");
       setTimeout(() => setDownloadStatus("idle"), 700);
     } catch (err) {
-      alert("4. CATCH BLOCK - name: " + (err instanceof Error ? err.name : "Unknown") + " message: " + (err instanceof Error ? err.message : String(err)));
       if (err instanceof Error && err.name === "AbortError") {
         console.log("Share cancelled by user");
         return;
@@ -657,7 +705,6 @@ export default function Sidebar() {
       console.error("Oops, PNG export failed!", err);
       alert("Oops, PNG export failed! See developer console for logs.");
     } finally {
-      alert("5. FINALLY BLOCK ENTERED at " + Date.now());
       node.style.borderRadius = originalBorderRadius;
       node.style.border = originalBorder;
     }
@@ -736,6 +783,7 @@ export default function Sidebar() {
                     placeholder="Display Name"
                     value={displayName}
                     onChange={(e) => setDisplayName(e.target.value)}
+                    onFocus={(e) => e.target.select()}
                     className="pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
                   />
                   <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
@@ -762,6 +810,7 @@ export default function Sidebar() {
                         .replace(/[^a-z0-9_-]/g, "");
                       setUsername(cleaned);
                     }}
+                    onFocus={(e) => e.target.select()}
                     className="pl-7 pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
                   />
                   <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
@@ -797,6 +846,116 @@ export default function Sidebar() {
                 <option value="grok">Grok Logo</option>
               </select>
             </div>
+          </div>
+        </SectionCard>
+ 
+        {/* Organization Badge */}
+        <SectionCard
+          id="organization-badge-section"
+          title="Organization Badge"
+          icon={<Award className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
+          description="Enable organization badge and upload logo."
+        >
+          <div className="flex flex-col gap-4">
+            {/* Enable Organization Badge Toggle */}
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-300">
+                Enable Organization Badge
+              </span>
+              <button
+                type="button"
+                onClick={() => setOrganizationBadgeEnabled(!organizationBadgeEnabled)}
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${
+                  organizationBadgeEnabled ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
+                }`}
+                aria-label="Toggle organization badge visibility"
+              >
+                <div
+                  className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${
+                    organizationBadgeEnabled ? "translate-x-4" : "translate-x-0"
+                  }`}
+                />
+              </button>
+            </div>
+ 
+            {/* Logo Upload Placeholder/Active Card */}
+            <div className="flex flex-col">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                Upload Organization Logo
+              </span>
+              <input
+                type="file"
+                ref={orgFileInputRef}
+                onChange={handleOrgLogoChange}
+                accept="image/png, image/jpeg, image/jpg, image/webp"
+                className="hidden"
+              />              {!organizationBadgeImage ? (
+                <div
+                  onClick={() => orgFileInputRef.current?.click()}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      orgFileInputRef.current?.click();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  className="group relative flex items-center gap-4 p-4 rounded-xl border border-dashed border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/30 hover:border-[#1D6FEB] focus:outline-none focus:border-[#1D6FEB] focus:bg-[#1E2D4A]/20 transition-all duration-200 cursor-pointer select-none"
+                >
+                  {/* Visual Placeholder Icon */}
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-slate-800 border-2 border-[#1E2D4A] group-hover:border-[#1D6FEB] transition-colors shrink-0 flex items-center justify-center">
+                    <span className="text-slate-500 font-bold text-lg">L</span>
+                  </div>
+
+                  {/* Info Text */}
+                  <div className="flex flex-col gap-1 min-w-0">
+                    <span className="text-xs font-semibold text-slate-200 group-hover:text-[#1D6FEB] transition-colors">
+                      Upload Organization Logo
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-medium">
+                      Square logo only (PNG, JPG, WebP)
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3 p-3 bg-[#111827] border border-[#1E2D4A] rounded-xl">
+                  {/* Thumbnail preview */}
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-slate-800 border border-[#1E2D4A] shrink-0 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={organizationBadgeImage}
+                      alt="Organization Logo preview"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2 min-w-0 flex-1">
+                    <button
+                      type="button"
+                      onClick={() => orgFileInputRef.current?.click()}
+                      className="px-3 py-1.5 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110 text-[11px] font-bold text-white transition-all duration-200 cursor-pointer text-center w-full"
+                    >
+                      Replace Logo
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setOrganizationBadgeImage(null);
+                        if (orgFileInputRef.current) orgFileInputRef.current.value = "";
+                      }}
+                      className="text-[10px] text-rose-400 hover:text-rose-300 hover:underline cursor-pointer transition-all duration-200 ease-in-out text-center"
+                    >
+                      Remove Logo
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+ 
+            {/* Helper Text */}
+            <p className="text-[10px] text-slate-400 font-medium leading-normal italic">
+              This logo will appear next to the verified badge inside the tweet.
+            </p>
           </div>
         </SectionCard>
 
@@ -1370,13 +1529,17 @@ export default function Sidebar() {
           <div className="bg-[#0B0F19] border border-[#1E2D4A] rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             {/* Header */}
             <div className="px-6 py-4 border-b border-[#1E2D4A] flex justify-between items-center">
-              <h3 className="text-sm font-bold text-slate-200">Crop Profile Photo</h3>
+              <h3 className="text-sm font-bold text-slate-200">
+                {cropType === "profile" ? "Crop Profile Photo" : "Crop Organization Logo"}
+              </h3>
               <button
                 type="button"
                 onClick={() => {
                   setIsCropModalOpen(false);
                   setRawImageForCrop(null);
+                  setCropType(null);
                   if (fileInputRef.current) fileInputRef.current.value = "";
+                  if (orgFileInputRef.current) orgFileInputRef.current.value = "";
                 }}
                 className="text-slate-400 hover:text-slate-200 text-lg font-bold cursor-pointer"
               >
@@ -1393,7 +1556,7 @@ export default function Sidebar() {
                   onChange={(c) => setCrop(c)}
                   onComplete={(c) => setCompletedCrop(c)}
                   aspect={1}
-                  circularCrop
+                  circularCrop={cropType === "profile"}
                   keepSelection
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -1430,7 +1593,7 @@ export default function Sidebar() {
 
               {/* Live Preview & Info */}
               <div className="flex items-center gap-4 p-4 bg-[#111827]/50 border border-[#1E2D4A] rounded-xl">
-                <div className="relative w-16 h-16 rounded-full overflow-hidden bg-slate-800 border-2 border-[#1E2D4A] shrink-0 flex items-center justify-center">
+                <div className={`relative w-16 h-16 overflow-hidden bg-slate-800 border-2 border-[#1E2D4A] shrink-0 flex items-center justify-center ${cropType === "profile" ? "rounded-full" : "rounded-lg"}`}>
                   {imageWidth > 0 && crop?.width && crop.width > 0 ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -1446,13 +1609,17 @@ export default function Sidebar() {
                       }}
                     />
                   ) : (
-                    <span className="text-slate-500 font-bold text-lg">U</span>
+                    <span className="text-slate-500 font-bold text-lg">{cropType === "profile" ? "U" : "L"}</span>
                   )}
                 </div>
                 <div className="flex flex-col gap-1 min-w-0">
-                  <span className="text-xs font-semibold text-slate-200">Avatar Preview</span>
+                  <span className="text-xs font-semibold text-slate-200">
+                    {cropType === "profile" ? "Avatar Preview" : "Logo Preview"}
+                  </span>
                   <span className="text-[10px] text-slate-400">
-                    Drag the crop circle or adjust the slider to center your avatar.
+                    {cropType === "profile" 
+                      ? "Drag the crop circle to center your avatar."
+                      : "Drag the crop square to center your organization logo."}
                   </span>
                 </div>
               </div>
@@ -1465,7 +1632,9 @@ export default function Sidebar() {
                 onClick={() => {
                   setIsCropModalOpen(false);
                   setRawImageForCrop(null);
+                  setCropType(null);
                   if (fileInputRef.current) fileInputRef.current.value = "";
+                  if (orgFileInputRef.current) orgFileInputRef.current.value = "";
                 }}
                 className="px-4 py-2 rounded-lg border border-[#1E2D4A] hover:bg-white/[0.06] hover:text-white hover:border-[#1D6FEB]/50 text-xs font-semibold text-slate-300 transition-all duration-200 cursor-pointer"
               >

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 
 export default function Header() {
   const pathname = usePathname() || "";
@@ -65,10 +66,14 @@ export default function Header() {
       <header className="hidden md:flex relative w-full h-16 bg-white dark:bg-[#0B1220] border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] px-6 items-center justify-between shrink-0 select-none shadow-sm shadow-slate-100/50 dark:shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-colors duration-200">
         {/* Left Side: Brand Logo and Brand Name */}
         <Link href="/" className="flex items-center cursor-pointer">
-          <img
+          <Image
             src="/images/latest_logo.webp"
             alt="Make My Tweet Logo"
             className="h-12 w-auto object-contain shrink-0"
+            width={396}
+            height={60}
+            priority
+            fetchPriority="high"
           />
         </Link>
 
