@@ -4,8 +4,8 @@ import Header from "@/components/layout/Header";
 import FeedbackContent from "@/components/layout/FeedbackContent";
 
 export const metadata: Metadata = {
-  title: "Feedback - Tweet SS Generator",
-  description: "Share your feedback or suggest features to help improve Tweet SS Generator.",
+  title: "Feedback - Make My Tweet",
+  description: "Share your feedback or suggest features to help improve Make My Tweet.",
 };
 
 export default function FeedbackPage() {

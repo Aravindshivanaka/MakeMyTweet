@@ -34,7 +34,7 @@ export default function FeedbackContent() {
             </div>
             <h2 className="text-2xl font-bold text-foreground mb-3">Thank You!</h2>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Your feedback has been received. We appreciate you taking the time to help us improve Tweet SS Generator!
+              Your feedback has been received. We appreciate you taking the time to help us improve Make My Tweet!
             </p>
             <button
               onClick={() => setSubmitted(false)}
@@ -50,7 +50,7 @@ export default function FeedbackContent() {
                 Share Your <span className="text-[#1D6FEB]">Feedback</span>
               </h1>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                We are constantly striving to make Tweet SS Generator better. Let us know what features you'd like to see next!
+                We are constantly striving to make Make My Tweet better. Let us know what features you'd like to see next!
               </p>
             </div>
 

@@ -4,8 +4,8 @@ import Header from "@/components/layout/Header";
 import FAQContent from "@/components/layout/FAQContent";
 
 export const metadata: Metadata = {
-  title: "Frequently Asked Questions - Tweet SS Generator",
-  description: "Find answers to common questions about features, formats, and customization options on Tweet SS Generator.",
+  title: "Frequently Asked Questions - Make My Tweet",
+  description: "Find answers to common questions about features, formats, and customization options on Make My Tweet.",
 };
 
 export default function FAQPage() {

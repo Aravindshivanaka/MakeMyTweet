@@ -9,8 +9,8 @@ interface FAQItem {
 
 const FAQ_ITEMS: FAQItem[] = [
   {
-    question: "Is Tweet SS Generator free?",
-    answer: "Yes, Tweet SS Generator is 100% free to use. You can customize and generate unlimited high-quality tweet screenshots without any fees."
+    question: "Is Make My Tweet free?",
+    answer: "Yes, Make My Tweet is 100% free to use. You can customize and generate unlimited high-quality tweet screenshots without any fees."
   },
   {
     question: "Can I download images?",

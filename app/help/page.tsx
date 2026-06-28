@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
-  title: "User Guide & Help Center - Tweet SS Generator",
-  description: "Learn how to use Tweet SS Generator, upload profile photos, edit background images, copy to clipboard, and choose export aspect formats.",
+  title: "User Guide & Help Center - Make My Tweet",
+  description: "Learn how to use Make My Tweet, upload profile photos, edit background images, copy to clipboard, and choose export aspect formats.",
 };
 
 interface HelpSection {
@@ -18,7 +18,7 @@ const HELP_SECTIONS: HelpSection[] = [
   {
     id: "getting-started",
     title: "Getting Started",
-    description: "Welcome to Tweet SS Generator! The tool is designed to help you create beautiful, high-resolution screenshots of Twitter/X posts with custom backdrops. Here is how to begin:",
+    description: "Welcome to Make My Tweet! The tool is designed to help you create beautiful, high-resolution screenshots of Twitter/X posts with custom backdrops. Here is how to begin:",
     steps: [
       "Select a preset background style (solid color, preset gradient, or custom background image) from the controls sidebar.",
       "Modify the tweet text, username, handle, verification status, and timestamp directly in the editor controls.",
@@ -141,7 +141,7 @@ export default function HelpPage() {
               User Guide & <span className="text-[#1D6FEB]">Documentation</span>
             </h1>
             <p className="text-muted-foreground text-base max-w-2xl">
-              Learn how to customize, crop, adjust, and export high-fidelity Twitter screenshot cards using Tweet SS Generator.
+              Learn how to customize, crop, adjust, and export high-fidelity Twitter screenshot cards using Make My Tweet.
             </p>
           </div>
 

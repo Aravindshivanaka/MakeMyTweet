@@ -3,8 +3,8 @@ import type { Metadata } from "next";
 import Header from "@/components/layout/Header";
 
 export const metadata: Metadata = {
-  title: "Contact Us - Tweet SS Generator",
-  description: "Get in touch with Tweet SS Generator support or follow our development updates on GitHub and LinkedIn.",
+  title: "Contact Us - Make My Tweet",
+  description: "Get in touch with Make My Tweet support or follow our development updates on GitHub and LinkedIn.",
 };
 
 export default function ContactPage() {

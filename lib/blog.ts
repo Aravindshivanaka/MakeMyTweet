@@ -102,7 +102,7 @@ export const ARTICLES: Article[] = [
       },
       {
         type: "paragraph",
-        text: "By focusing on performance, high fidelity, and zero tracking, the Tweet SS Generator provides creators with a fast, private, and premium mockup experience."
+        text: "By focusing on performance, high fidelity, and zero tracking, Make My Tweet provides creators with a fast, private, and premium mockup experience."
       }
     ]
   },

@@ -4,8 +4,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions - Tweet SS Generator",
-  description: "Read the Terms & Conditions for using the Tweet SS Generator mockup tool.",
+  title: "Terms & Conditions - Make My Tweet",
+  description: "Read the Terms & Conditions for using the Make My Tweet mockup tool.",
 };
 
 interface TermsSection {
@@ -17,14 +17,14 @@ const TERMS_SECTIONS: TermsSection[] = [
   {
     title: "1. Acceptance of Terms",
     paragraphs: [
-      "By accessing or using Tweet SS Generator, you agree to be bound by these Terms & Conditions and all applicable laws and regulations.",
+      "By accessing or using Make My Tweet, you agree to be bound by these Terms & Conditions and all applicable laws and regulations.",
       "If you do not agree with any of these terms, you are prohibited from using or accessing this site."
     ]
   },
   {
     title: "2. Description of Service",
     paragraphs: [
-      "Tweet SS Generator is a free utility tool that allows users to create high-resolution mockups of Twitter/X posts with custom gradient backgrounds and borders.",
+      "Make My Tweet is a free utility tool that allows users to create high-resolution mockups of Twitter/X posts with custom gradient backgrounds and borders.",
       "The tool operates entirely client-side. We do not provide hosting services for your output images; all files must be exported and saved to your own device."
     ]
   },
@@ -39,7 +39,7 @@ const TERMS_SECTIONS: TermsSection[] = [
     title: "4. Intellectual Property",
     paragraphs: [
       "The layout formatting of tweet cards represents standard platform patterns. Users retain the rights to their custom text input and uploaded custom background visual configurations.",
-      "The design code, brand, and layout logic of Tweet SS Generator are protected under copyright and intellectual property standards."
+      "The design code, brand, and layout logic of Make My Tweet are protected under copyright and intellectual property standards."
     ]
   },
   {

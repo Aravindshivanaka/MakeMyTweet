@@ -4,8 +4,8 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy - Tweet SS Generator",
-  description: "Read our privacy policy to understand how Tweet SS Generator protects your data using client-side image creation.",
+  title: "Privacy Policy - Make My Tweet",
+  description: "Read our privacy policy to understand how Make My Tweet protects your data using client-side image creation.",
 };
 
 interface PolicySection {
@@ -17,7 +17,7 @@ const POLICY_SECTIONS: PolicySection[] = [
   {
     title: "1. Information We Collect",
     paragraphs: [
-      "Tweet SS Generator is built as a client-side utility tool. We do not collect, store, or monitor any personal data or tweet content you enter into the generator application.",
+      "Make My Tweet is built as a client-side utility tool. We do not collect, store, or monitor any personal data or tweet content you enter into the generator application.",
       "Any texts, usernames, profile avatars, or custom background images you upload are loaded and processed locally within your browser sandbox."
     ]
   },

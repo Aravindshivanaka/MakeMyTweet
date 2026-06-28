@@ -64,79 +64,72 @@ export default function Header() {
       {/* Desktop Header */}
       <header className="hidden md:flex relative w-full h-16 bg-white dark:bg-[#0B1220] border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] px-6 items-center justify-between shrink-0 select-none shadow-sm shadow-slate-100/50 dark:shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-colors duration-200">
         {/* Left Side: Brand Logo and Brand Name */}
-        <Link href="/" className="flex items-center gap-2.5 cursor-pointer">
-          <div className="w-8 h-8 rounded-lg bg-[#1D6FEB] flex items-center justify-center font-bold text-white text-base">
-            T
-          </div>
-          <span className="text-lg font-bold tracking-tight text-foreground">
-            Tweet <span className="text-[#1D6FEB]">SS</span> Generator
-          </span>
+        <Link href="/" className="flex items-center cursor-pointer">
+          <img
+            src="/images/latest_logo.webp"
+            alt="Make My Tweet Logo"
+            className="h-12 w-auto object-contain shrink-0"
+          />
         </Link>
 
         {/* Center Side: Navigation Group */}
         <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
           <Link
             href="/"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
-              pathname === "/"
-                ? "text-[#1D6FEB]"
-                : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
-            }`}
+            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/"
+              ? "text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+              }`}
           >
             Create
           </Link>
           <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/blog"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
-              pathname.startsWith("/blog")
-                ? "text-[#1D6FEB]"
-                : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
-            }`}
+            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname.startsWith("/blog")
+              ? "text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+              }`}
           >
             Blog
           </Link>
           <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/faq"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
-              pathname === "/faq"
-                ? "text-[#1D6FEB]"
-                : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
-            }`}
+            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/faq"
+              ? "text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+              }`}
           >
             FAQ
           </Link>
           <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/help"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
-              pathname === "/help"
-                ? "text-[#1D6FEB]"
-                : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
-            }`}
+            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/help"
+              ? "text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+              }`}
           >
             Help
           </Link>
           <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/contact"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
-              pathname === "/contact"
-                ? "text-[#1D6FEB]"
-                : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
-            }`}
+            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/contact"
+              ? "text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+              }`}
           >
             Contact
           </Link>
           <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/feedback"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${
-              pathname === "/feedback"
-                ? "text-[#1D6FEB]"
-                : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
-            }`}
+            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/feedback"
+              ? "text-[#1D6FEB]"
+              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+              }`}
           >
             Feedback
           </Link>
@@ -238,13 +231,12 @@ export default function Header() {
         </div>
 
         {/* Center Section: Logo & Brand Name */}
-        <Link href="/" className="flex items-center gap-2 cursor-pointer">
-          <div className="w-8 h-8 rounded-lg bg-[#1D6FEB] flex items-center justify-center font-bold text-white text-base shrink-0">
-            T
-          </div>
-          <span className="text-base font-bold tracking-tight text-foreground whitespace-nowrap">
-            Tweet <span className="text-[#1D6FEB]">SS</span> Generator
-          </span>
+        <Link href="/" className="flex items-center cursor-pointer">
+          <img
+            src="/images/latest_logo.webp"
+            alt="Make My Tweet Logo"
+            className="h-10 w-auto object-contain shrink-0"
+          />
         </Link>
 
         {/* Right Section: Theme Toggle */}
@@ -302,19 +294,17 @@ export default function Header() {
           {/* Backdrop overlay */}
           <div
             onClick={() => setIsDrawerOpen(false)}
-            className={`fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[9998] drawer-backdrop-transition ${
-              isDrawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-            }`}
+            className={`fixed inset-0 bg-slate-950/40 backdrop-blur-sm z-[9998] drawer-backdrop-transition ${isDrawerOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              }`}
           />
 
           {/* Drawer panel */}
           <div
-            className={`fixed top-0 left-0 h-screen w-[280px] bg-white dark:bg-[#0B1220] border-r border-gray-100 dark:border-[rgba(255,255,255,0.06)] shadow-2xl z-[9999] flex flex-col drawer-panel-transition ${
-              isDrawerOpen ? "translate-x-0" : "-translate-x-full"
-            }`}
+            className={`fixed top-0 left-0 h-screen w-[280px] bg-white dark:bg-[#0B1220] border-r border-gray-100 dark:border-[rgba(255,255,255,0.06)] shadow-2xl z-[9999] flex flex-col drawer-panel-transition ${isDrawerOpen ? "translate-x-0" : "-translate-x-full"
+              }`}
           >
             {/* Header area of drawer */}
-            <div className="h-16 px-4 border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0">
+            <div className="h-20 px-4 border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] flex items-center justify-between shrink-0">
               {/* Logo & Brand name */}
               <Link
                 href="/"
@@ -323,14 +313,13 @@ export default function Header() {
                     setTimeout(() => setIsDrawerOpen(false), 150);
                   }
                 }}
-                className="flex items-center gap-2 cursor-pointer"
+                className="flex items-center cursor-pointer"
               >
-                <div className="w-8 h-8 rounded-lg bg-[#1D6FEB] flex items-center justify-center font-bold text-white text-base shrink-0">
-                  T
-                </div>
-                <span className="text-base font-bold tracking-tight text-foreground whitespace-nowrap">
-                  Tweet <span className="text-[#1D6FEB]">SS</span> Generator
-                </span>
+                <img
+                  src="/images/latest_logo.webp"
+                  alt="Make My Tweet Logo"
+                  className="h-10 w-auto object-contain shrink-0"
+                />
               </Link>
               {/* Close Button */}
               <button
@@ -366,7 +355,7 @@ export default function Header() {
                   { label: "Contact", href: "/contact" },
                   { label: "Feedback", href: "/feedback" },
                 ].map((item) => {
-                  const isActive = item.activeCheck 
+                  const isActive = item.activeCheck
                     ? item.activeCheck(pathname)
                     : pathname === item.href;
 
@@ -379,11 +368,10 @@ export default function Header() {
                           setTimeout(() => setIsDrawerOpen(false), 150);
                         }
                       }}
-                      className={`flex items-center px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-150 ease-in-out cursor-pointer ${
-                        isActive
-                          ? "bg-[#1D6FEB]/10 text-[#1D6FEB] dark:bg-[#1D6FEB]/15 dark:text-[#3b82f6]"
-                          : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-[#1D6FEB]"
-                      }`}
+                      className={`flex items-center px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-150 ease-in-out cursor-pointer ${isActive
+                        ? "bg-[#1D6FEB]/10 text-[#1D6FEB] dark:bg-[#1D6FEB]/15 dark:text-[#3b82f6]"
+                        : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/[0.05] hover:text-[#1D6FEB]"
+                        }`}
                     >
                       {item.label}
                     </Link>
