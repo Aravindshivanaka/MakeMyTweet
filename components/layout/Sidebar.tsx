@@ -629,13 +629,19 @@ export default function Sidebar() {
       const link = document.createElement("a");
       link.download = filename;
       link.href = blobUrl;
+      link.style.display = "none";
       document.body.appendChild(link);
       link.click();
-      document.body.removeChild(link);
+
+      // Delay link removal and blob revocation so mobile browsers
+      // have enough time to process the download on every tap
+      setTimeout(() => {
+        document.body.removeChild(link);
+      }, 100);
 
       setTimeout(() => {
         URL.revokeObjectURL(blobUrl);
-      }, 1000);
+      }, 5000);
 
       setDownloadStatus("success");
       setTimeout(() => setDownloadStatus("idle"), 700);

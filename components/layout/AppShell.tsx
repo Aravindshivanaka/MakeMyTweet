@@ -15,7 +15,7 @@ export default function AppShell() {
         <div className="absolute inset-0 app-background-glows" />
       </div>
 
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @media (max-width: 767px) {
           .mobile-preview-height,
           .mobile-preview-height > main {
@@ -25,7 +25,7 @@ export default function AppShell() {
             height: calc((100vh - 64px) * 0.55 - 16px) !important;
           }
         }
-      `}</style>
+      ` }} />
 
       {/* 1. Full-Width Top Header */}
       <div className="shrink-0 relative z-10">
