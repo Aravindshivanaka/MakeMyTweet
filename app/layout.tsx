@@ -23,17 +23,17 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://tweetviral-lovat.vercel.app"),
+  metadataBase: new URL("https://makemytweet.com"),
   title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
   description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
   openGraph: {
     title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
     description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
-    url: "https://tweet-ss-generator.vercel.app",
+    url: "https://makemytweet.com",
     siteName: "Make My Tweet",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://makemytweet.com/og-image.png",
         width: 1200,
         height: 630,
         alt: "Make My Tweet preview",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
     description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
-    images: ["/og-image.png"],
+    images: ["https://makemytweet.com/og-image.png"],
   },
 };
 
