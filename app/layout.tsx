@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import {
   inter,
   notoSans,
@@ -79,6 +80,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans transition-colors duration-200">
         {children}
+        <GoogleAnalytics gaId="G-PLB3J4X3XZ" />
       </body>
     </html>
   );
