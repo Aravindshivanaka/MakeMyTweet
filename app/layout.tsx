@@ -25,14 +25,26 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://makemytweet.com"),
-  title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
-  description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
+  title: "Twitter Screenshot Generator – Create Realistic X Posts | Make My Tweet",
+  description: "Create realistic Twitter (X) screenshots in seconds. Customize profile, verified badges, organization logos, themes, backgrounds, and export high-quality images. Free online Tweet Screenshot Generator.",
+  keywords: [
+    "Twitter Screenshot Generator",
+    "Fake Tweet Generator",
+    "Tweet Generator",
+    "X Post Generator",
+    "Tweet Image Generator",
+    "Twitter Mockup",
+    "Tweet Mockup",
+    "Twitter Card Generator",
+    "X Screenshot Generator",
+    "Social Media Screenshot Generator"
+  ],
   alternates: {
     canonical: "https://makemytweet.com",
   },
   openGraph: {
-    title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
-    description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
+    title: "Twitter Screenshot Generator – Create Realistic X Posts",
+    description: "Create realistic Twitter (X) screenshots with premium customization, organization badges, custom backgrounds, and high-quality exports.",
     url: "https://makemytweet.com",
     siteName: "Make My Tweet",
     images: [
@@ -48,10 +60,21 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
-    description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
+    title: "Premium Twitter Screenshot Generator",
+    description: "Generate beautiful, realistic X (Twitter) screenshots with advanced customization.",
     images: ["https://makemytweet.com/og-image.png"],
   },
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '32x32', type: 'image/x-icon' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({
