@@ -9,10 +9,10 @@ export const createMetricsSlice: StateCreator<
 > = (set) => ({
   // State
   showMetrics: true,
-  likes: 0,
-  comments: 0,
-  retweets: 0,
-  views: 0,
+  likes: 44200,
+  comments: 22600,
+  retweets: 4800,
+  views: 4600000,
   bookmarks: 0,
 
   // Actions

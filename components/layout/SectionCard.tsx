@@ -41,7 +41,7 @@ export default function SectionCard({
         className="group flex items-center justify-between px-4 py-3 gap-2 cursor-pointer rounded-xl transition-all duration-200 ease-in-out hover:bg-[rgba(0,0,0,0.04)] dark:hover:bg-[rgba(255,255,255,0.06)] active:bg-[rgba(0,0,0,0.08)] dark:active:bg-[rgba(255,255,255,0.08)]"
       >
         {/* Left: title */}
-        <h2 className={`text-[12px] font-semibold tracking-[0.08em] uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out flex items-center gap-3 ${collapsed
+        <h2 className={`text-[13px] font-[600] tracking-[0.05em] uppercase select-none flex-1 min-w-0 transition-colors duration-200 ease-in-out flex items-center gap-3 ${collapsed
           ? "text-[#64748B] dark:text-slate-300 group-hover:text-slate-900 dark:group-hover:text-white"
           : "text-primary"
           }`}>
@@ -91,9 +91,9 @@ export default function SectionCard({
           transform: collapsed ? "translateY(-4px)" : "translateY(0px)",
         }}
       >
-        <div className="px-4 pb-4 flex flex-col gap-4">
+        <div className="px-[16px] pb-[16px] flex flex-col gap-[12px]">
           {description && (
-            <p className="text-[11px] text-[#475569] dark:text-slate-400 leading-relaxed">
+            <p className="text-[12px] text-[#475569] dark:text-slate-400 leading-relaxed mt-[2px]">
               {description}
             </p>
           )}

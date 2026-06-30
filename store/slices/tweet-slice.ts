@@ -8,8 +8,8 @@ export const createTweetSlice: StateCreator<
   TweetSliceState & TweetSliceActions
 > = (set) => ({
   // State
-  tweetText: "This is a mockup tweet! Type your content in the sidebar to see it update here in real-time. #mockup #generator",
-  characterCount: 108,
+  tweetText: "A fit body, a calm mind, a house full of love. These things cannot be bought — they must be earned.",
+  characterCount: 100,
   tweetTheme: "dark",
   showBorder: false,
   borderColor: "#1D6FEB",

@@ -35,21 +35,21 @@ export default function TweetHeader({
 
   // Responsive layout configs per export format
   let avatarSize = "w-[56px] h-[56px]";
-  let displayNameSize = "text-[16px] leading-[20px]";
-  let usernameSize = "text-[15px] leading-[20px]";
+  let displayNameSize = "text-[16px] leading-[1.3]";
+  let usernameSize = "text-[14px] leading-[1.3]";
   let logoSize = "w-[19px] h-[19px] mt-[4px]";
   let gapClass = "gap-2";
 
   if (exportFormat === "square") {
     avatarSize = "w-[56px] h-[56px]";
-    displayNameSize = "text-[16px] leading-[20px]";
-    usernameSize = "text-[15px] leading-[20px]";
+    displayNameSize = "text-[16px] leading-[1.3]";
+    usernameSize = "text-[14px] leading-[1.3]";
     logoSize = "w-[18px] h-[18px] mt-[4px]";
     gapClass = "gap-2";
   } else if (exportFormat === "story") {
     avatarSize = "w-[52px] h-[52px]";
-    displayNameSize = "text-[15px] leading-[18px]";
-    usernameSize = "text-[14px] leading-[18px]";
+    displayNameSize = "text-[16px] leading-[1.3]";
+    usernameSize = "text-[14px] leading-[1.3]";
     logoSize = "w-[17px] h-[17px] mt-[4px]";
     gapClass = "gap-2";
   }
@@ -80,7 +80,7 @@ export default function TweetHeader({
       <div className="flex-1 min-w-0 flex flex-col gap-[2px] text-left">
         {/* Row 1: Display Name + Verification Badges */}
         <div className="flex items-center gap-2 min-w-0">
-          <span className={`font-bold truncate ${nameColorClass} ${displayNameSize}`}>
+          <span className={`truncate ${nameColorClass} ${displayNameSize}`} style={{ fontWeight: 700 }}>
             {displayName}
           </span>
 
@@ -121,7 +121,7 @@ export default function TweetHeader({
         </div>
 
         {/* Row 2: @username */}
-        <span className={`font-normal truncate ${usernameColorClass} ${usernameSize}`}>
+        <span className={`truncate ${usernameColorClass} ${usernameSize}`} style={{ fontWeight: 400 }}>
           @{username}
         </span>
       </div>

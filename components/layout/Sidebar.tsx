@@ -22,6 +22,8 @@ import {
   Copy,
   Download,
   Award,
+  Loader2,
+  Check,
 } from "lucide-react";
 import ReactCrop, { type Crop, type PixelCrop } from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
@@ -173,8 +175,8 @@ export default function Sidebar() {
   const [rawBgImageForCrop, setRawBgImageForCrop] = React.useState<string | null>(null);
   const [isBgCropModalOpen, setIsBgCropModalOpen] = React.useState(false);
   const [originalBackgroundImage, setOriginalBackgroundImage] = React.useState<string | null>(null);
-  const [copyStatus, setCopyStatus] = React.useState<"idle" | "success" | "error">("idle");
-  const [downloadStatus, setDownloadStatus] = React.useState<"idle" | "success">("idle");
+  const [copyStatus, setCopyStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
+  const [downloadStatus, setDownloadStatus] = React.useState<"idle" | "loading" | "success" | "error">("idle");
   const [crop, setCrop] = React.useState<Crop>({
     unit: "px",
     x: 0,
@@ -186,6 +188,16 @@ export default function Sidebar() {
   const [zoom, setZoom] = React.useState(1);
   const [imageWidth, setImageWidth] = React.useState(0);
   const [imageHeight, setImageHeight] = React.useState(0);
+
+  // Desktop detection for scoping defaults (same pattern as ResizableLayout)
+  const [isDesktop, setIsDesktop] = React.useState(false);
+  React.useEffect(() => {
+    const desktop = window.innerWidth >= 1024;
+    setIsDesktop(desktop);
+    if (desktop) {
+      setExportFormat("square");
+    }
+  }, [setExportFormat]);
 
   // Background visual edit local state
   const [isBgEditModalOpen, setIsBgEditModalOpen] = React.useState(false);
@@ -597,6 +609,7 @@ export default function Sidebar() {
       setTimeout(() => setCopyStatus("idle"), 2000);
       return;
     }
+    setCopyStatus("loading");
     const originalBorderRadius = node.style.borderRadius;
     const originalBorder = node.style.border;
     try {
@@ -641,9 +654,11 @@ export default function Sidebar() {
   const handleDownload = async () => {
     const node = document.getElementById("export-canvas");
     if (!node) {
-      alert("Error: Preview canvas not found!");
+      setDownloadStatus("error");
+      setTimeout(() => setDownloadStatus("idle"), 2000);
       return;
     }
+    setDownloadStatus("loading");
     const originalBorderRadius = node.style.borderRadius;
     const originalBorder = node.style.border;
     try {
@@ -700,10 +715,12 @@ export default function Sidebar() {
     } catch (err) {
       if (err instanceof Error && err.name === "AbortError") {
         console.log("Share cancelled by user");
+        setDownloadStatus("idle");
         return;
       }
       console.error("Oops, PNG export failed!", err);
-      alert("Oops, PNG export failed! See developer console for logs.");
+      setDownloadStatus("error");
+      setTimeout(() => setDownloadStatus("idle"), 2000);
     } finally {
       node.style.borderRadius = originalBorderRadius;
       node.style.border = originalBorder;
@@ -714,7 +731,7 @@ export default function Sidebar() {
     <div
       className="w-full h-full bg-[#FAFBFD] dark:bg-[#0F172A] border-r border-gray-100 dark:border-[#1E2D4A] shadow-sm shadow-slate-100/50 dark:shadow-[2px_0_8px_rgba(0,0,0,0.3)] p-4 flex flex-col gap-[12px] select-none transition-all duration-150 ease-in-out"
     >
-      <nav className="flex flex-col gap-[12px]" aria-label="Controls Navigation">
+      <nav className="flex flex-col gap-[8px]" aria-label="Controls Navigation">
 
         {/* 1. Profile Settings */}
         <SectionCard
@@ -723,7 +740,7 @@ export default function Sidebar() {
           icon={<User className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Customize the user profile details and platform logo."
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-[10px]">
             {/* Profile image picker */}
             <div className="flex flex-col">
               <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
@@ -856,7 +873,7 @@ export default function Sidebar() {
           icon={<Award className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Enable organization badge and upload logo."
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-[10px]">
             {/* Enable Organization Badge Toggle */}
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold text-slate-300">
@@ -959,14 +976,14 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 2. Tweet Content & Theme */}
+        {/* 2. Tweet Content */}
         <SectionCard
           id="tweet-content-section"
-          title="2. Tweet Content & Theme"
+          title="2. Tweet Content"
           icon={<Pencil className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Write the mock post text and switch the mockup card theme style."
+          description="Write the mock post text."
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-[10px]">
             <div className="flex flex-col gap-2">
               <textarea
                 id="tweetTextarea"
@@ -981,30 +998,6 @@ export default function Sidebar() {
                 <span className={characterCount >= 260 ? (characterCount >= 280 ? 'text-red-500' : 'text-amber-500') : ''}>{characterCount}</span> / 280
               </div>
             </div>
-
-            <div className="flex flex-col gap-2 pt-3 border-t border-[#1E2D4A]">
-              <span className="text-[11px] font-medium uppercase text-slate-400">
-                Card Theme
-              </span>
-              <div className="grid grid-cols-2 gap-2">
-                {[
-                  { theme: "light", label: "Light" },
-                  { theme: "dark", label: "Dark" },
-                ].map(({ theme, label }) => (
-                  <button
-                    key={theme}
-                    type="button"
-                    onClick={() => setTweetTheme(theme as "light" | "dark")}
-                    className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-200 cursor-pointer ${tweetTheme === theme
-                      ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] border-[#1D6FEB] text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
-                      : "bg-[#111827] border-[#1E2D4A] text-slate-700 dark:text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
-                      }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
         </SectionCard>
 
@@ -1016,7 +1009,7 @@ export default function Sidebar() {
           description="Enable metrics and customize counter values."
           headerToggle={{ checked: showMetrics, onChange: toggleMetrics, ariaLabel: "Toggle metrics visibility" }}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-[10px]">
 
             {/* Metrics inputs with corresponding left-aligned icons */}
             <div className="grid grid-cols-2 gap-3">
@@ -1253,10 +1246,34 @@ export default function Sidebar() {
           id="background-controls-section"
           title="5. Background Controls"
           icon={<Image className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Select solid gradient presets or upload image."
-          headerToggle={{ checked: showBackground, onChange: () => setShowBackground(!showBackground), ariaLabel: "Toggle background visibility" }}
+          description="Theme, background toggles, color presets, or upload image."
         >
           <div className="flex flex-col gap-3">
+
+            {/* Card Theme (moved from Tweet Content & Theme) */}
+            <div className="flex items-center justify-between pb-3 border-b border-[#1E2D4A]">
+              <span className="text-xs font-semibold text-slate-300">
+                Card Theme
+              </span>
+              <div className="grid grid-cols-2 gap-1.5">
+                {[
+                  { theme: "light", label: "Light" },
+                  { theme: "dark", label: "Dark" },
+                ].map(({ theme, label }) => (
+                  <button
+                    key={theme}
+                    type="button"
+                    onClick={() => setTweetTheme(theme as "light" | "dark")}
+                    className={`py-1.5 px-4 rounded-lg border text-xs font-semibold transition-all duration-200 cursor-pointer ${tweetTheme === theme
+                      ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] border-[#1D6FEB] text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
+                      : "bg-[#111827] border-[#1E2D4A] text-slate-700 dark:text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
+                      }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {/* Tweet Card Background toggle */}
             <div className="flex items-center justify-between pb-3 border-b border-[#1E2D4A]">
@@ -1271,6 +1288,23 @@ export default function Sidebar() {
                 aria-label="Toggle tweet card background visibility"
               >
                 <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${showCardBackground ? "translate-x-4" : "translate-x-0"
+                  }`} />
+              </button>
+            </div>
+
+            {/* Tweet Background master toggle */}
+            <div className="flex items-center justify-between pb-3 border-b border-[#1E2D4A]">
+              <span className="text-xs font-semibold text-slate-300">
+                Tweet Background
+              </span>
+              <button
+                type="button"
+                onClick={() => setShowBackground(!showBackground)}
+                className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer ${showBackground ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
+                  }`}
+                aria-label="Toggle background visibility"
+              >
+                <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${showBackground ? "translate-x-4" : "translate-x-0"
                   }`} />
               </button>
             </div>
@@ -1367,7 +1401,7 @@ export default function Sidebar() {
           description="Apply a colorful border wrapper around the card."
           headerToggle={{ checked: showBorder, onChange: () => setShowBorder(!showBorder), ariaLabel: "Toggle card border wrapper" }}
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-[10px]">
 
             {/* Border Colors (Presets & Custom) */}
             {showBorder && (
@@ -1449,10 +1483,12 @@ export default function Sidebar() {
 
         {/* 7. Export Format */}
         <SectionCard
+          key={`export-format-${isDesktop}`}
           id="export-format-section"
           title="7. Export Format"
           icon={<Maximize2 className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
           description="Choose canvas layout dimensions."
+          defaultCollapsed={!isDesktop}
         >
           <div className="grid grid-cols-3 gap-2">
             {[
@@ -1481,36 +1517,62 @@ export default function Sidebar() {
             <button
               type="button"
               onClick={handleCopyImage}
-              className={`w-full h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${copyStatus === "success"
-                ? "bg-[#22C55E]"
-                : copyStatus === "error"
-                  ? "bg-[#EF4444]"
-                  : "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
+              disabled={copyStatus === "loading"}
+              className={`w-full h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md flex items-center justify-center ${copyStatus === "loading"
+                ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] opacity-70 cursor-not-allowed"
+                : copyStatus === "success"
+                  ? "bg-[#22C55E] cursor-pointer"
+                  : copyStatus === "error"
+                    ? "bg-[#EF4444] cursor-pointer"
+                    : "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 hover:brightness-110 cursor-pointer"
                 }`}
             >
-              {copyStatus === "success"
-                ? "✓ Copied!"
-                : copyStatus === "error"
-                  ? "✗ Failed"
-                  : (
-                    <>
-                      <Copy className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] mr-3 shrink-0" strokeWidth={2} />
-                      <span>Copy Image</span>
-                    </>
-                  )}
+              {copyStatus === "loading" ? (
+                <>
+                  <Loader2 className="w-[18px] h-[18px] mr-2 shrink-0 animate-spin" strokeWidth={2} />
+                  <span>Copying...</span>
+                </>
+              ) : copyStatus === "success" ? (
+                <>
+                  <Check className="w-[18px] h-[18px] mr-2 shrink-0" strokeWidth={2.5} />
+                  <span>Copied!</span>
+                </>
+              ) : copyStatus === "error" ? (
+                <span>Failed - Try Again</span>
+              ) : (
+                <>
+                  <Copy className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] mr-3 shrink-0" strokeWidth={2} />
+                  <span>Copy Image</span>
+                </>
+              )}
             </button>
           </TiltWrapper>
           <TiltWrapper>
             <button
               type="button"
               onClick={handleDownload}
-              className={`w-full h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md cursor-pointer flex items-center justify-center hover:brightness-110 ${downloadStatus === "success"
-                ? "bg-[#22C55E]"
-                : "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
+              disabled={downloadStatus === "loading"}
+              className={`w-full h-12 rounded-xl text-white text-center text-sm font-bold transition-all duration-200 ease-in-out shadow-md flex items-center justify-center ${downloadStatus === "loading"
+                ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] opacity-70 cursor-not-allowed"
+                : downloadStatus === "success"
+                  ? "bg-[#22C55E] cursor-pointer"
+                  : downloadStatus === "error"
+                    ? "bg-[#EF4444] cursor-pointer"
+                    : "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 hover:brightness-110 cursor-pointer"
                 }`}
             >
-              {downloadStatus === "success" ? (
-                "Download ⭳"
+              {downloadStatus === "loading" ? (
+                <>
+                  <Loader2 className="w-[18px] h-[18px] mr-2 shrink-0 animate-spin" strokeWidth={2} />
+                  <span>Generating...</span>
+                </>
+              ) : downloadStatus === "success" ? (
+                <>
+                  <Check className="w-[18px] h-[18px] mr-2 shrink-0" strokeWidth={2.5} />
+                  <span>Downloaded!</span>
+                </>
+              ) : downloadStatus === "error" ? (
+                <span>Failed - Try Again</span>
               ) : (
                 <>
                   <Download className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] mr-3 shrink-0" strokeWidth={2} />

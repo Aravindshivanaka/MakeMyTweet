@@ -8,8 +8,8 @@ export const createProfileSlice: StateCreator<
   ProfileSliceState & ProfileSliceActions
 > = (set) => ({
   // State
-  displayName: "Display Name",
-  username: "username",
+  displayName: "Naval Ravikant",
+  username: "naval",
   profileImage: null,
 
   // Actions

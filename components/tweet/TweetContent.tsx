@@ -33,7 +33,7 @@ export default function TweetContent({
       className={`whitespace-pre-wrap break-words w-full ${textColorClass}`}
       style={{
         fontSize: `${finalFontSize}px`,
-        lineHeight: "1.3",
+        lineHeight: "1.5",
         fontWeight: 400,
         fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Nirmala UI", Gautami, Mangal, sans-serif',
         wordBreak: "break-word",

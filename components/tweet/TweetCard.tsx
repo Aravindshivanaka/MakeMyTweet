@@ -125,7 +125,7 @@ export default function TweetCard({
 
       {/* Row 4: Timestamp on its own line — gray muted small */}
       {showTimestamp && (showDate || showTime) && timestamp && (
-        <div className={`mt-[12px] text-[15px] font-normal ${isDark ? "text-[#71767b]" : "text-[#536471]"}`}>
+        <div className={`mt-[12px] text-[14px] font-normal ${isDark ? "text-[#71767b]" : "text-[#536471]"}`}>
           {timestamp}
         </div>
       )}
