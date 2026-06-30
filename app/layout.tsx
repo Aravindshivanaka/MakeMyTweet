@@ -26,6 +26,9 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://makemytweet.com"),
   title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
   description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
+  alternates: {
+    canonical: "https://makemytweet.com",
+  },
   openGraph: {
     title: "Make My Tweet - Premium Tweet Screenshot Mockup Maker",
     description: "Create pixel-perfect Twitter/X post mockups on customizable backdrops in seconds.",
