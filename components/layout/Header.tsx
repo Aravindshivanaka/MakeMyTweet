@@ -11,9 +11,17 @@ export default function Header() {
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -61,9 +69,13 @@ export default function Header() {
   };
 
   return (
-    <>
+    <div className="fixed top-0 left-0 w-full z-50 group/header">
       {/* Desktop Header */}
-      <header className="hidden md:flex relative w-full h-16 bg-white dark:bg-[#0B1220] border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] px-6 items-center justify-between shrink-0 select-none shadow-sm shadow-slate-100/50 dark:shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-colors duration-200">
+      <header className={`hidden md:flex relative w-full h-16 px-6 items-center justify-between shrink-0 select-none transition-all duration-300 ease-out ${
+        isScrolled
+          ? "bg-white/80 dark:bg-[#0B1220]/75 backdrop-blur-xl border-b border-slate-200/60 dark:border-[rgba(255,255,255,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.08)] group-hover/header:border-slate-200/80 dark:group-hover/header:border-[rgba(255,255,255,0.12)]"
+          : "bg-white dark:bg-[#0B1220] border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] shadow-sm shadow-slate-100/50 dark:shadow-[0_1px_3px_rgba(0,0,0,0.05)] group-hover/header:border-gray-200 dark:group-hover/header:border-[rgba(255,255,255,0.09)]"
+      }`}>
         {/* Left Side: Brand Logo and Brand Name */}
         <Link href="/" className="flex items-center cursor-pointer">
           <Image
@@ -210,7 +222,11 @@ export default function Header() {
       </header>
 
       {/* Mobile Header */}
-      <header className="flex md:hidden relative w-full h-16 bg-white dark:bg-[#0B1220] border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] px-4 items-center justify-between shrink-0 select-none shadow-sm shadow-slate-100/50 dark:shadow-[0_1px_3px_rgba(0,0,0,0.05)] transition-colors duration-200">
+      <header className={`flex md:hidden relative w-full h-16 px-4 items-center justify-between shrink-0 select-none transition-all duration-300 ease-out ${
+        isScrolled
+          ? "bg-white/80 dark:bg-[#0B1220]/75 backdrop-blur-xl border-b border-slate-200/60 dark:border-[rgba(255,255,255,0.08)] shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_12px_rgba(0,0,0,0.03)] dark:shadow-[0_1px_3px_rgba(0,0,0,0.12),0_4px_12px_rgba(0,0,0,0.08)] group-hover/header:border-slate-200/80 dark:group-hover/header:border-[rgba(255,255,255,0.12)]"
+          : "bg-white dark:bg-[#0B1220] border-b border-gray-100 dark:border-[rgba(255,255,255,0.06)] shadow-sm shadow-slate-100/50 dark:shadow-[0_1px_3px_rgba(0,0,0,0.05)] group-hover/header:border-gray-200 dark:group-hover/header:border-[rgba(255,255,255,0.09)]"
+      }`}>
         {/* Left Section: Hamburger Menu */}
         <div className="flex items-center justify-start flex-1">
           <button
@@ -448,6 +464,6 @@ export default function Header() {
         </>,
         document.body
       )}
-    </>
+    </div>
   );
 }

@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <main className="sr-only">
         <h1>Twitter Screenshot Generator & Fake Tweet Maker</h1>
-        
+
         <section aria-labelledby="hero-heading">
           <h2 id="hero-heading">Create Realistic X (Twitter) Mockups in Seconds</h2>
           <p>
@@ -30,7 +30,7 @@ export default function Home() {
         <section aria-labelledby="trust-heading">
           <h3 id="trust-heading">Why Trust Make My Tweet?</h3>
           <p>
-            Our tool ensures your data remains secure and private, as all image generation happens instantly within your browser. Join thousands of marketers, creators, and social media managers who trust our generator. Read our <Link href="/faq">frequently asked questions</Link> or view our transparent <Link href="/privacy-policy">privacy policy</Link> to learn how you can create authentic social media content safely.
+            Our tool ensures your data remains secure and private, as all image generation happens instantly within your browser. Built for marketers, creators, businesses, agencies, educators, and social media managers who need realistic Twitter/X screenshots for marketing, presentations, mockups, and content creation. Read our <Link href="/faq">frequently asked questions</Link> or view our transparent <Link href="/privacy-policy">privacy policy</Link> to learn how you can create authentic social media content safely.
           </p>
           <p>
             Need assistance? Visit our <Link href="/help">Help Center</Link> or <Link href="/contact">Contact Us</Link> for dedicated support. We value your input—share your thoughts on our <Link href="/feedback">Feedback</Link> page.

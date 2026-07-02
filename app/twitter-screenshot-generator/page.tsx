@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import Link from "next/link";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
   title: "Twitter Screenshot Generator | Make My Tweet",
@@ -16,7 +18,19 @@ export const metadata: Metadata = {
 
 export default function TwitterScreenshotGeneratorPage() {
   return (
-    <main className="flex-1 w-full max-w-5xl mx-auto px-6 py-16 md:py-24">
+    <div className="relative flex flex-col min-h-screen">
+      {/* Global Background */}
+      <div className="fixed inset-0 pointer-events-none z-0 select-none app-background-base">
+        <div className="absolute inset-0 app-background-dots" />
+        <div className="absolute inset-0 app-background-glows" />
+      </div>
+
+      {/* Global Header */}
+      <div className="shrink-0 relative z-20 h-16">
+        <Header />
+      </div>
+
+      <main className="relative z-10 flex-1 w-full max-w-5xl mx-auto px-6 py-16 md:py-24">
       {/* 1. Hero Section */}
       <section id="hero" className="mb-16 md:mb-24 text-center pt-8" aria-labelledby="hero-heading">
         <header className="flex flex-col items-center">
@@ -57,63 +71,417 @@ export default function TwitterScreenshotGeneratorPage() {
       </section>
 
       {/* 2. Why Use This Tool */}
-      <section id="why-use-this-tool" className="mb-16" aria-labelledby="why-heading">
-        <h2 id="why-heading" className="text-3xl font-bold mb-6 text-foreground">
-          [Why Use This Tool]
-        </h2>
-        {/* [Value Proposition Content Placeholder] */}
+      <section id="why-use-this-tool" className="mb-16 md:mb-24" aria-labelledby="why-heading">
+        <div className="text-center mb-12">
+          <h2 id="why-heading" className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+            Why Use Make My Tweet?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Make My Tweet helps creators, marketers, businesses, and designers generate realistic Twitter/X screenshots without the complexity of graphic design software. Everything runs directly in your browser, so you can create, customize, and export high-quality tweet images in just a few clicks.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Realistic Tweet Design</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Create tweet screenshots that closely match the appearance of posts on X, making them suitable for presentations, mockups, marketing, and educational content.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">No Login Required</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Start creating immediately. No account creation, sign-up, or personal information is required.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Runs Completely in Your Browser</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Your edits stay on your device. Images and tweet content are processed locally without being uploaded to a server.
+            </p>
+          </div>
+
+          {/* Card 4 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">High-Quality Image Export</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Download clean, high-resolution PNG images ready for social media posts, presentations, websites, and promotional materials.
+            </p>
+          </div>
+
+          {/* Card 5 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Customize Every Detail</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Edit profile information, verified badges, engagement numbers, themes, backgrounds, timestamps, and more to create the exact screenshot you need.
+            </p>
+          </div>
+
+          {/* Card 6 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Works Across Multiple Formats</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Create screenshots optimized for square posts, landscape graphics, and vertical story formats without additional editing.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* 3. Key Features */}
-      <section id="key-features" className="mb-16" aria-labelledby="features-heading">
-        <h2 id="features-heading" className="text-3xl font-bold mb-6 text-foreground">
-          [Key Features]
-        </h2>
-        {/* [Features List/Grid Placeholder] */}
+      <section id="key-features" className="mb-16 md:mb-24" aria-labelledby="features-heading">
+        <div className="text-center mb-12">
+          <h2 id="features-heading" className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+            Key Features
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Everything you need to create realistic Twitter/X screenshots without design software or editing tools.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Feature 1 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Realistic Tweet Layout</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Generate tweet screenshots that closely match the appearance of posts on X with clean typography, spacing, and layout.
+            </p>
+          </div>
+
+          {/* Feature 2 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Complete Profile Customization</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Edit profile name, username, avatar, verified badges, organization badge, and bio information.
+            </p>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Editable Engagement Metrics</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Customize likes, replies, reposts, views, bookmarks, timestamps, and other tweet details.
+            </p>
+          </div>
+
+          {/* Feature 4 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Background & Theme Controls</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Choose light or dark themes, solid colors, or upload your own background image with built-in positioning controls.
+            </p>
+          </div>
+
+          {/* Feature 5 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Multiple Export Formats</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Create images optimized for 1:1, 9:16, and 16:9 layouts suitable for social media and presentations.
+            </p>
+          </div>
+
+          {/* Feature 6 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">High-Quality PNG Export</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Download clean, high-resolution PNG images or copy screenshots directly to your clipboard.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* 4. How It Works */}
-      <section id="how-it-works" className="mb-16" aria-labelledby="how-it-works-heading">
-        <h2 id="how-it-works-heading" className="text-3xl font-bold mb-6 text-foreground">
-          [How It Works]
-        </h2>
-        {/* [Step-by-Step Guide Placeholder] */}
+      <section id="how-it-works" className="mb-16 md:mb-24" aria-labelledby="how-it-works-heading">
+        <div className="text-center mb-12">
+          <h2 id="how-it-works-heading" className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+            How It Works
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Create realistic Twitter/X screenshots in three simple steps.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {/* Step 1 */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 rounded-full bg-[#1D6FEB]/10 dark:bg-[#1D6FEB]/20 text-[#1D6FEB] flex items-center justify-center font-bold text-xl mb-6">
+              1
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-foreground">Customize Your Tweet</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Enter your tweet content, profile information, verified badges, engagement metrics, themes, and backgrounds.
+            </p>
+          </div>
+
+          {/* Step 2 */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 rounded-full bg-[#1D6FEB]/10 dark:bg-[#1D6FEB]/20 text-[#1D6FEB] flex items-center justify-center font-bold text-xl mb-6">
+              2
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-foreground">Preview Instantly</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              See every change in real time while adjusting your tweet until it matches exactly what you need.
+            </p>
+          </div>
+
+          {/* Step 3 */}
+          <div className="flex flex-col items-center text-center">
+            <div className="w-12 h-12 rounded-full bg-[#1D6FEB]/10 dark:bg-[#1D6FEB]/20 text-[#1D6FEB] flex items-center justify-center font-bold text-xl mb-6">
+              3
+            </div>
+            <h3 className="text-xl font-bold mb-3 text-foreground">Export Your Screenshot</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Download a high-quality PNG image or copy it directly to your clipboard for immediate use.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* 5. Who It's For */}
-      <section id="who-its-for" className="mb-16" aria-labelledby="audience-heading">
-        <h2 id="audience-heading" className="text-3xl font-bold mb-6 text-foreground">
-          [Who It's For]
-        </h2>
-        {/* [Target Audience Descriptions Placeholder] */}
+      <section id="who-its-for" className="mb-16 md:mb-24" aria-labelledby="audience-heading">
+        <div className="text-center mb-12">
+          <h2 id="audience-heading" className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+            Who Is This Twitter Screenshot Generator For?
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Whether you're creating marketing content, educational material, or social media mockups, Make My Tweet helps you generate realistic Twitter/X screenshots quickly and professionally.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Audience 1 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Content Creators</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Create engaging tweet screenshots for YouTube videos, blogs, social media posts, and online content.
+            </p>
+          </div>
+
+          {/* Audience 2 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Digital Marketers</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Design realistic Twitter/X examples for campaigns, advertisements, presentations, and client reports.
+            </p>
+          </div>
+
+          {/* Audience 3 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Businesses</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Showcase product announcements, customer conversations, and promotional concepts using professional tweet mockups.
+            </p>
+          </div>
+
+          {/* Audience 4 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Designers</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Use realistic tweet screenshots in UI mockups, portfolios, prototypes, and creative projects.
+            </p>
+          </div>
+
+          {/* Audience 5 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Educators</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Create visual examples for presentations, online courses, workshops, and educational demonstrations.
+            </p>
+          </div>
+
+          {/* Audience 6 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Agencies</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Prepare professional social media concepts, client proposals, and campaign visuals in minutes.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* 6. Example Use Cases */}
-      <section id="example-use-cases" className="mb-16" aria-labelledby="use-cases-heading">
-        <h2 id="use-cases-heading" className="text-3xl font-bold mb-6 text-foreground">
-          [Example Use Cases]
-        </h2>
-        {/* [Examples/Scenarios Placeholder] */}
+      <section id="example-use-cases" className="mb-16 md:mb-24" aria-labelledby="use-cases-heading">
+        <div className="text-center mb-12">
+          <h2 id="use-cases-heading" className="text-3xl md:text-4xl font-bold mb-6 text-foreground">
+            Example Use Cases
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Make My Tweet helps you create realistic Twitter/X screenshots for a wide range of professional and creative purposes.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Use Case 1 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Social Media Marketing</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Create realistic tweet graphics for marketing campaigns, promotions, announcements, and brand storytelling.
+            </p>
+          </div>
+
+          {/* Use Case 2 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Presentations</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Add professional Twitter/X screenshots to business presentations, client meetings, workshops, and reports.
+            </p>
+          </div>
+
+          {/* Use Case 3 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Educational Content</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Create tweet examples for online courses, tutorials, classroom demonstrations, and learning materials.
+            </p>
+          </div>
+
+          {/* Use Case 4 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">UI & Product Mockups</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Design realistic Twitter/X interfaces for prototypes, portfolios, product showcases, and concept demonstrations.
+            </p>
+          </div>
+
+          {/* Use Case 5 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Blog Articles</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Use tweet screenshots to enhance blog posts, case studies, product reviews, and social media guides.
+            </p>
+          </div>
+
+          {/* Use Case 6 */}
+          <div className="bg-white dark:bg-panel-bg border border-slate-200 dark:border-[#1E2D4A] rounded-2xl p-6 shadow-sm flex flex-col">
+            <h3 className="text-xl font-bold mb-3 text-foreground">Content Creation</h3>
+            <p className="text-muted-foreground leading-relaxed flex-1">
+              Generate authentic-looking tweet visuals for YouTube videos, Instagram posts, LinkedIn content, newsletters, and other digital media.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* 7. Frequently Asked Questions */}
-      <section id="faq" className="mb-16" aria-labelledby="faq-heading">
-        <h2 id="faq-heading" className="text-3xl font-bold mb-6 text-foreground">
-          [Frequently Asked Questions]
-        </h2>
-        {/* [FAQ Accordion/List Placeholder] */}
+      <section id="faq" className="mb-16 md:mb-24" aria-labelledby="faq-heading">
+        <div className="text-center mb-12">
+          <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold mb-8 text-foreground">
+            Frequently Asked Questions
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 max-w-4xl mx-auto">
+          {/* FAQ 1 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I create Twitter/X screenshots for free?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. Make My Tweet allows you to create realistic Twitter/X screenshots directly in your browser without requiring an account.
+            </p>
+          </div>
+
+          {/* FAQ 2 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Do I need to create an account?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              No. You can use the generator without signing up or logging in.
+            </p>
+          </div>
+
+          {/* FAQ 3 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Does Make My Tweet add a watermark?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              No. Downloaded images do not include a watermark.
+            </p>
+          </div>
+
+          {/* FAQ 4 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I customize profile information?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. You can edit the profile name, username, avatar, verified badge, organization badge, engagement metrics, timestamps, and more.
+            </p>
+          </div>
+
+          {/* FAQ 5 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I export high-quality images?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. Export clean PNG images suitable for presentations, marketing materials, websites, blogs, and social media.
+            </p>
+          </div>
+
+          {/* FAQ 6 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Does this work on mobile devices?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. Make My Tweet works on modern desktop and mobile browsers.
+            </p>
+          </div>
+
+          {/* FAQ 7 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I upload my own background image?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. Upload your own background image and adjust its position to create custom compositions.
+            </p>
+          </div>
+
+          {/* FAQ 8 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Is my data uploaded to a server?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              No. Your edits remain in your browser. Tweet content and uploaded images are processed locally.
+            </p>
+          </div>
+
+          {/* FAQ 9 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Which image formats are supported?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              You can generate screenshots optimized for square (1:1), portrait (9:16), and landscape (16:9) layouts.
+            </p>
+          </div>
+
+          {/* FAQ 10 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Who is this tool designed for?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic Twitter/X screenshots.
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* 8. Final Call To Action */}
-      <section id="cta" className="mb-8 text-center" aria-labelledby="cta-heading">
-        <h2 id="cta-heading" className="text-3xl font-bold mb-6 text-foreground">
-          [Final Call To Action]
+      <section id="cta" className="mb-8 md:mb-16 text-center bg-slate-50 dark:bg-[#1E2D4A]/20 border border-slate-200 dark:border-[#1E2D4A] rounded-3xl p-8 md:p-12 shadow-sm max-w-4xl mx-auto" aria-labelledby="cta-heading">
+        <h2 id="cta-heading" className="text-3xl md:text-4xl font-extrabold mb-6 text-foreground">
+          Ready to Create Your Twitter Screenshot?
         </h2>
-        <p className="text-lg text-muted-foreground mb-8">
-          [CTA Supporting Text Placeholder]
+        <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto leading-relaxed">
+          Create realistic Twitter/X screenshots in seconds. No login. No watermark. High-quality PNG exports. Everything runs securely in your browser.
         </p>
-        {/* [Final CTA Button Placeholder] */}
+        
+        <Link 
+          href="/" 
+          className="inline-block mb-8 px-10 py-4 bg-[#1D6FEB] hover:bg-[#1A61CE] text-white rounded-full font-bold text-lg transition-all duration-200 shadow-md shadow-blue-500/20 active:scale-95"
+        >
+          Create Twitter Screenshot
+        </Link>
+        
+        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
+          Start creating professional Twitter/X screenshots for marketing, presentations, mockups, education, and content creation.
+        </p>
       </section>
-    </main>
+      </main>
+
+      {/* Global Footer */}
+      <div className="shrink-0 relative z-20 mt-auto">
+        <Footer />
+      </div>
+    </div>
   );
 }

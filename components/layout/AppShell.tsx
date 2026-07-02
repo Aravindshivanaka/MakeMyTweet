@@ -17,7 +17,7 @@ export default function AppShell() {
       </div>
 
       {/* 1. Full-Width Top Header */}
-      <div className="shrink-0 relative z-10">
+      <div className="shrink-0 relative z-10 h-16">
         <Header />
       </div>
 
