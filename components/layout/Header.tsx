@@ -240,6 +240,8 @@ export default function Header() {
           <img
             src="/images/latest_logo.webp"
             alt="Make My Tweet Logo"
+            width={264}
+            height={40}
             className="h-10 w-auto object-contain shrink-0"
           />
         </Link>
@@ -323,6 +325,8 @@ export default function Header() {
                 <img
                   src="/images/latest_logo.webp"
                   alt="Make My Tweet Logo"
+                  width={264}
+                  height={40}
                   className="h-10 w-auto object-contain shrink-0"
                 />
               </Link>

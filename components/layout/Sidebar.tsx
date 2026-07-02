@@ -764,6 +764,8 @@ export default function Sidebar() {
                     <img
                       src={profileImage}
                       alt="Profile preview"
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   ) : (
@@ -942,6 +944,8 @@ export default function Sidebar() {
                     <img
                       src={organizationBadgeImage}
                       alt="Organization Logo preview"
+                      width={64}
+                      height={64}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -1358,6 +1362,8 @@ export default function Sidebar() {
                       <img
                         src={backgroundImage}
                         alt="Background thumbnail"
+                        width={64}
+                        height={40}
                         className="w-full h-full object-cover"
                       />
                     </div>

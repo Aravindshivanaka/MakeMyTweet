@@ -69,6 +69,8 @@ export default function TweetHeader({
           <img
             src={profileImage}
             alt={`${displayName}'s avatar`}
+            width={56}
+            height={56}
             className="w-full h-full object-cover"
           />
         ) : (
@@ -102,6 +104,8 @@ export default function TweetHeader({
               <img
                 src={organizationBadgeImage}
                 alt="Organization Badge"
+                width={19}
+                height={19}
                 onError={() => setLogoError(true)}
                 className="w-full h-full rounded-[3px] object-contain"
               />
