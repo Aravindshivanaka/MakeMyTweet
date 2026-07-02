@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://makemytweet.com";
+  const baseUrl = "https://www.makemytweet.com";
   const currentDate = new Date();
 
   return [
@@ -48,7 +48,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.3,
     },
     {
-      url: `${baseUrl}/terms`,
+      url: `${baseUrl}/terms-and-conditions`,
       lastModified: currentDate,
       changeFrequency: "monthly",
       priority: 0.3,

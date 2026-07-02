@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://makemytweet.com/sitemap.xml",
-    host: "https://makemytweet.com",
+    sitemap: "https://www.makemytweet.com/sitemap.xml",
+    host: "https://www.makemytweet.com",
   };
 }

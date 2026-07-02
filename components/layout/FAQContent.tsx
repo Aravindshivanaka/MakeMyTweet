@@ -68,6 +68,7 @@ export default function FAQContent() {
             >
               <button
                 onClick={() => toggleAccordion(idx)}
+                aria-expanded={isOpen}
                 className="w-full px-6 py-5 flex items-center justify-between text-left font-semibold text-foreground hover:text-[#1D6FEB] transition-colors focus:outline-none"
               >
                 <span className="text-base md:text-lg">{item.question}</span>

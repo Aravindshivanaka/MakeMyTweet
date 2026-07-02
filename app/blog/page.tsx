@@ -7,6 +7,14 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Blog - Premium Tweet Screenshot Guides & Resources",
   description: "Learn how to create high-converting Twitter screenshots, social media mockups, and viral post graphics.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Blog - Premium Tweet Screenshot Guides & Resources",
+    description: "Learn how to create high-converting Twitter screenshots, social media mockups, and viral post graphics.",
+    url: "/blog",
+  },
 };
 
 export default function BlogIndexPage() {

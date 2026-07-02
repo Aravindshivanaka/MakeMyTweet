@@ -5,6 +5,14 @@ import Header from "@/components/layout/Header";
 export const metadata: Metadata = {
   title: "Contact Us - Make My Tweet",
   description: "Get in touch with Make My Tweet support or follow our development updates on GitHub and LinkedIn.",
+  alternates: {
+    canonical: "/contact",
+  },
+  openGraph: {
+    title: "Contact Us - Make My Tweet",
+    description: "Get in touch with Make My Tweet support or follow our development updates on GitHub and LinkedIn.",
+    url: "/contact",
+  },
 };
 
 export default function ContactPage() {

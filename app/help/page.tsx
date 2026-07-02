@@ -5,6 +5,14 @@ import Header from "@/components/layout/Header";
 export const metadata: Metadata = {
   title: "User Guide & Help Center - Make My Tweet",
   description: "Learn how to use Make My Tweet, upload profile photos, edit background images, copy to clipboard, and choose export aspect formats.",
+  alternates: {
+    canonical: "/help",
+  },
+  openGraph: {
+    title: "User Guide & Help Center - Make My Tweet",
+    description: "Learn how to use Make My Tweet, upload profile photos, edit background images, copy to clipboard, and choose export aspect formats.",
+    url: "/help",
+  },
 };
 
 interface HelpSection {

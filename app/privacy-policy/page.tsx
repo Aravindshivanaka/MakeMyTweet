@@ -6,6 +6,14 @@ import Footer from "@/components/layout/Footer";
 export const metadata: Metadata = {
   title: "Privacy Policy - Make My Tweet",
   description: "Read our privacy policy to understand how Make My Tweet protects your data using client-side image creation.",
+  alternates: {
+    canonical: "/privacy-policy",
+  },
+  openGraph: {
+    title: "Privacy Policy - Make My Tweet",
+    description: "Read our privacy policy to understand how Make My Tweet protects your data using client-side image creation.",
+    url: "/privacy-policy",
+  },
 };
 
 interface PolicySection {

@@ -6,6 +6,14 @@ import Footer from "@/components/layout/Footer";
 export const metadata: Metadata = {
   title: "Terms & Conditions - Make My Tweet",
   description: "Read the Terms & Conditions for using the Make My Tweet mockup tool.",
+  alternates: {
+    canonical: "/terms-and-conditions",
+  },
+  openGraph: {
+    title: "Terms & Conditions - Make My Tweet",
+    description: "Read the Terms & Conditions for using the Make My Tweet mockup tool.",
+    url: "/terms-and-conditions",
+  },
 };
 
 interface TermsSection {

@@ -6,6 +6,14 @@ import FeedbackContent from "@/components/layout/FeedbackContent";
 export const metadata: Metadata = {
   title: "Feedback - Make My Tweet",
   description: "Share your feedback or suggest features to help improve Make My Tweet.",
+  alternates: {
+    canonical: "/feedback",
+  },
+  openGraph: {
+    title: "Feedback - Make My Tweet",
+    description: "Share your feedback or suggest features to help improve Make My Tweet.",
+    url: "/feedback",
+  },
 };
 
 export default function FeedbackPage() {

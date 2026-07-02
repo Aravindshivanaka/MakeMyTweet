@@ -23,6 +23,14 @@ export function generateMetadata({ params }: Props): Metadata {
   return {
     title: `${article.title} - Tweet SS Blog`,
     description: article.excerpt,
+    alternates: {
+      canonical: `/blog/${params.slug}`,
+    },
+    openGraph: {
+      title: `${article.title} - Tweet SS Blog`,
+      description: article.excerpt,
+      url: `/blog/${params.slug}`,
+    },
   };
 }
 

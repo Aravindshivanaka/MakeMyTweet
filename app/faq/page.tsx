@@ -6,6 +6,14 @@ import FAQContent from "@/components/layout/FAQContent";
 export const metadata: Metadata = {
   title: "Frequently Asked Questions - Make My Tweet",
   description: "Find answers to common questions about features, formats, and customization options on Make My Tweet.",
+  alternates: {
+    canonical: "/faq",
+  },
+  openGraph: {
+    title: "Frequently Asked Questions - Make My Tweet",
+    description: "Find answers to common questions about features, formats, and customization options on Make My Tweet.",
+    url: "/faq",
+  },
 };
 
 export default function FAQPage() {
