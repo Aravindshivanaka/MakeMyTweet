@@ -13,13 +13,23 @@ export default function Footer() {
   return (
     <footer className="relative w-full h-12 bg-white/80 dark:bg-[#0B1220] border-t border-gray-100 dark:border-[rgba(255,255,255,0.06)] backdrop-blur-md px-8 flex items-center shrink-0 select-none overflow-x-auto scrollbar-none">
       {/* Privacy Policy Link - Far Left */}
-      <div className="absolute left-8 flex items-center">
+      <div className="absolute left-8 flex items-center gap-4">
         <Link
           href="/privacy-policy"
           className="text-[10px] sm:text-[11px] text-slate-500 hover:text-[#1D6FEB] dark:text-slate-400 dark:hover:text-[#1D6FEB] font-semibold tracking-wider uppercase hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
         >
           Privacy Policy
         </Link>
+        <span className="text-gray-200 dark:text-slate-800 select-none">|</span>
+        <div className="flex items-center gap-2">
+          <span className="text-[10px] sm:text-[11px] text-slate-400 dark:text-slate-500 font-semibold tracking-wider uppercase select-none">Tools:</span>
+          <Link
+            href="/twitter-screenshot-generator"
+            className="text-[10px] sm:text-[11px] text-slate-500 hover:text-[#1D6FEB] dark:text-slate-400 dark:hover:text-[#1D6FEB] font-semibold tracking-wider uppercase hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
+          >
+            Twitter Screenshot Generator
+          </Link>
+        </div>
       </div>
 
       {/* Existing Centered Feature Badges */}

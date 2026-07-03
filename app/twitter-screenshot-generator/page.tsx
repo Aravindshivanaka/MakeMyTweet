@@ -17,8 +17,100 @@ export const metadata: Metadata = {
 };
 
 export default function TwitterScreenshotGeneratorPage() {
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Can I create Twitter/X screenshots for free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Make My Tweet allows you to create realistic Twitter/X screenshots directly in your browser without requiring an account."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need to create an account?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. You can use the generator without signing up or logging in."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Make My Tweet add a watermark?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Downloaded images do not include a watermark."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I customize profile information?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can edit the profile name, username, avatar, verified badge, organization badge, engagement metrics, timestamps, and more."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I export high-quality images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Export clean PNG images suitable for presentations, marketing materials, websites, blogs, and social media."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does this work on mobile devices?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Make My Tweet works on modern desktop and mobile browsers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I upload my own background image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Upload your own background image and adjust its position to create custom compositions."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is my data uploaded to a server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Your edits remain in your browser. Tweet content and uploaded images are processed locally."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which image formats are supported?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can generate screenshots optimized for square (1:1), portrait (9:16), and landscape (16:9) layouts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Who is this tool designed for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic Twitter/X screenshots."
+        }
+      }
+    ]
+  };
+
   return (
     <div className="relative flex flex-col min-h-screen">
+      {/* FAQ Schema JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       {/* Global Background */}
       <div className="fixed inset-0 pointer-events-none z-0 select-none app-background-base">
         <div className="absolute inset-0 app-background-dots" />

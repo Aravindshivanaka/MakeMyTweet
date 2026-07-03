@@ -13,7 +13,7 @@ export default function Home() {
             Welcome to Make My Tweet, the ultimate premium tool for generating pixel-perfect Twitter screenshots. Whether you need a fake tweet generator for creative memes, or a professional X post generator for your marketing campaigns, our platform delivers unmatched fidelity.
           </p>
           <p>
-            Start designing your mockup now with our <Link href="/">free tweet generator</Link> and experience the best-in-class layout accuracy.
+            Start designing your mockup now with our <Link href="/">free tweet generator</Link> or our dedicated <Link href="/twitter-screenshot-generator">Twitter Screenshot Generator</Link> and experience the best-in-class layout accuracy.
           </p>
         </section>
 
