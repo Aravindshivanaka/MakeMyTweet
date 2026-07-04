@@ -33,7 +33,7 @@ export default function SectionCard({
   return (
     <section
       id={id}
-      className="rounded-xl border border-slate-200/60 dark:border-[#1E2D4A] bg-white dark:bg-panel-bg text-foreground flex flex-col shadow-sm shadow-slate-100/80 dark:shadow-none hover:shadow-md hover:shadow-slate-100/80 transition-all duration-300"
+      className="rounded-xl border border-slate-200/60 dark:border-[#1E2D4A] bg-white dark:bg-panel-bg text-foreground flex flex-col shadow-sm dark:shadow-none hover:border-slate-300 dark:hover:border-[#263e68] hover:shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all duration-200"
     >
       {/* Header row — fully clickable */}
       <div

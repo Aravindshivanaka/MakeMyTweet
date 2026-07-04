@@ -90,62 +90,57 @@ export default function Header() {
         </Link>
 
         {/* Center Side: Navigation Group */}
-        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-2">
+        <div className="absolute left-1/2 -translate-x-1/2 flex items-center gap-1">
           <Link
             href="/"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/"
-              ? "text-[#1D6FEB]"
-              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+            className={`px-3 py-1.5 text-sm transition-colors duration-200 ${pathname === "/"
+              ? "text-[#1D6FEB] font-semibold"
+              : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 font-medium"
               }`}
           >
             Create
           </Link>
-          <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/blog"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname.startsWith("/blog")
-              ? "text-[#1D6FEB]"
-              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+            className={`px-3 py-1.5 text-sm transition-colors duration-200 ${pathname.startsWith("/blog")
+              ? "text-[#1D6FEB] font-semibold"
+              : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 font-medium"
               }`}
           >
             Blog
           </Link>
-          <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/faq"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/faq"
-              ? "text-[#1D6FEB]"
-              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+            className={`px-3 py-1.5 text-sm transition-colors duration-200 ${pathname === "/faq"
+              ? "text-[#1D6FEB] font-semibold"
+              : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 font-medium"
               }`}
           >
             FAQ
           </Link>
-          <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/help"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/help"
-              ? "text-[#1D6FEB]"
-              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+            className={`px-3 py-1.5 text-sm transition-colors duration-200 ${pathname === "/help"
+              ? "text-[#1D6FEB] font-semibold"
+              : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 font-medium"
               }`}
           >
             Help
           </Link>
-          <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/contact"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/contact"
-              ? "text-[#1D6FEB]"
-              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+            className={`px-3 py-1.5 text-sm transition-colors duration-200 ${pathname === "/contact"
+              ? "text-[#1D6FEB] font-semibold"
+              : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 font-medium"
               }`}
           >
             Contact
           </Link>
-          <span className="text-border text-opacity-40 select-none">|</span>
           <Link
             href="/feedback"
-            className={`inline-block w-24 text-center text-sm font-semibold transition-colors duration-200 ${pathname === "/feedback"
-              ? "text-[#1D6FEB]"
-              : "text-slate-600 hover:text-[#1D6FEB] dark:text-muted-foreground dark:hover:text-[#1D6FEB]"
+            className={`px-3 py-1.5 text-sm transition-colors duration-200 ${pathname === "/feedback"
+              ? "text-[#1D6FEB] font-semibold"
+              : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200 font-medium"
               }`}
           >
             Feedback

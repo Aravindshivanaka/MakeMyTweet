@@ -151,6 +151,9 @@ export default function RootLayout({
         notoNastaliqUrdu.variable
       )}
     >
+      <head>
+        <meta name="trustpilot-one-time-domain-verification-id" content="333c2991-8f2b-41b7-811f-ea5cee94c681" />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground font-sans transition-colors duration-200">
         <script
           type="application/ld+json"

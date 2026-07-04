@@ -731,7 +731,7 @@ export default function Sidebar() {
     <div
       className="w-full h-full bg-[#FAFBFD] dark:bg-[#0F172A] border-r border-gray-100 dark:border-[#1E2D4A] shadow-sm shadow-slate-100/50 dark:shadow-[2px_0_8px_rgba(0,0,0,0.3)] p-4 flex flex-col gap-[12px] select-none transition-all duration-150 ease-in-out"
     >
-      <nav className="flex flex-col gap-[8px]" aria-label="Controls Navigation">
+      <nav className="flex flex-col gap-[14px]" aria-label="Controls Navigation">
 
         {/* 1. Profile Settings */}
         <SectionCard
@@ -743,7 +743,7 @@ export default function Sidebar() {
           <div className="flex flex-col gap-[10px]">
             {/* Profile image picker */}
             <div className="flex flex-col">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                 Profile Photo
               </span>
               <input
@@ -793,7 +793,7 @@ export default function Sidebar() {
             <div className="grid grid-cols-2 gap-4">
               {/* Display Name Input */}
               <div className="flex flex-col">
-                <label htmlFor="displayNameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="displayNameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Display Name
                 </label>
                 <div className="relative">
@@ -811,7 +811,7 @@ export default function Sidebar() {
 
               {/* Username Input */}
               <div className="flex flex-col">
-                <label htmlFor="usernameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="usernameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Username
                 </label>
                 <div className="relative">
@@ -899,7 +899,7 @@ export default function Sidebar() {
  
             {/* Logo Upload Placeholder/Active Card */}
             <div className="flex flex-col">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                 Upload Logo
               </span>
               <input
@@ -1018,7 +1018,7 @@ export default function Sidebar() {
             {/* Metrics inputs with corresponding left-aligned icons */}
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col">
-                <label htmlFor="input-Comments" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="input-Comments" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Comments
                 </label>
                 <div className="relative">
@@ -1038,7 +1038,7 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Retweets" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="input-Retweets" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Reposts
                 </label>
                 <div className="relative">
@@ -1058,7 +1058,7 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Likes" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="input-Likes" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Likes
                 </label>
                 <div className="relative">
@@ -1078,7 +1078,7 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Views" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="input-Views" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Views
                 </label>
                 <div className="relative">
@@ -1099,7 +1099,7 @@ export default function Sidebar() {
 
               {/* Bookmarks Control */}
               <div className="flex flex-col col-span-2">
-                <label htmlFor="input-Bookmarks" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="input-Bookmarks" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Bookmarks
                 </label>
                 <div className="relative">
@@ -1189,7 +1189,7 @@ export default function Sidebar() {
 
             {/* Date field (with increased contrast calendar icon styling) */}
             <div className="col-span-2 flex flex-col">
-              <label htmlFor="dateInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Date</label>
+              <label htmlFor="dateInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Date</label>
               <Input
                 id="dateInput"
                 type="date"
@@ -1201,7 +1201,7 @@ export default function Sidebar() {
 
             {/* Hour select */}
             <div className="flex flex-col">
-              <label htmlFor="hourSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Hour</label>
+              <label htmlFor="hourSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Hour</label>
               <select
                 id="hourSelect"
                 value={hour}
@@ -1216,7 +1216,7 @@ export default function Sidebar() {
 
             {/* Minute select */}
             <div className="flex flex-col">
-              <label htmlFor="minSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Min</label>
+              <label htmlFor="minSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Min</label>
               <select
                 id="minSelect"
                 value={minute}
@@ -1231,7 +1231,7 @@ export default function Sidebar() {
 
             {/* Meridiem select */}
             <div className="flex flex-col">
-              <label htmlFor="meridiemSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">AM/PM</label>
+              <label htmlFor="meridiemSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">AM/PM</label>
               <select
                 id="meridiemSelect"
                 value={meridiem}
@@ -1335,7 +1335,7 @@ export default function Sidebar() {
 
             {/* Custom Image Upload */}
             <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-              <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Custom Image Backdrop</label>
+              <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Custom Image Backdrop</label>
               <div className="flex flex-col gap-3">
                 <input
                   type="file"
@@ -1467,7 +1467,7 @@ export default function Sidebar() {
             {/* Custom Color Input */}
             {showBorder && (
               <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-                <label htmlFor="customBorderColorInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                <label htmlFor="customBorderColorInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
                   Custom Border Color
                 </label>
                 <div className="flex items-center gap-3">

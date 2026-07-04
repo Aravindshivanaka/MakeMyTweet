@@ -34,15 +34,15 @@ export default function RichBlueFrame({
   const backgroundPositionY = overridePositionY ?? store.backgroundPositionY;
 
   // Per-format layout rules — each format has unique card width, padding, and aspect ratio
-  let formatClasses = "max-w-[740px] aspect-[16/9] p-8";
-  let cardWidth = "80%";
+  let formatClasses = "max-w-[740px] aspect-[16/9] p-6";
+  let cardWidth = "90%";
 
   if (exportFormat === "square") {
-    formatClasses = "max-w-[640px] aspect-square p-8";
-    cardWidth = "85%";
+    formatClasses = "max-w-[640px] aspect-square p-6";
+    cardWidth = "92%";
   } else if (exportFormat === "story") {
-    formatClasses = "max-w-[440px] aspect-[9/16] p-8";
-    cardWidth = "85%";
+    formatClasses = "max-w-[440px] aspect-[9/16] p-6";
+    cardWidth = "92%";
   }
 
   const customStyles: React.CSSProperties = {};
@@ -70,7 +70,7 @@ export default function RichBlueFrame({
   return (
     <div 
       id="export-canvas"
-      className={`rounded-[32px] flex items-center justify-center w-full border border-slate-100 dark:border-[rgba(255,255,255,0.06)] shadow-xl shadow-slate-200/50 dark:shadow-2xl select-none transition-all duration-300 ${formatClasses} ${
+      className={`rounded-[32px] flex items-center justify-center w-full border border-slate-200 dark:border-white/10 shadow-xl shadow-slate-200/50 dark:shadow-2xl select-none transition-all duration-300 ${formatClasses} ${
         (showBackground && !isCustomBg) ? "bg-rich-blue-frame" : ""
       }`}
       style={customStyles}
