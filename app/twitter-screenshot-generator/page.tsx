@@ -107,6 +107,86 @@ export default function TwitterScreenshotGeneratorPage() {
           "@type": "Answer",
           "text": "Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic Twitter/X screenshots."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I change the language of the tweet mockup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can edit all tweet text, date, and metrics in any language by clicking on the text in the preview and typing your content directly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I toggle the verified badge on and off?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can turn the blue verified badge on or off, and switch between standard verified and gold/grey organization badges using the sidebar controls."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a limit to the number of screenshots I can generate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. There are no restrictions or daily limits. You can generate and download as many screenshots as you need."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I adjust the engagement counts for replies, retweets, and likes?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can click on any metric value or use the input fields in the sidebar to set custom reply, repost, like, and bookmark counts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the screenshot include the Twitter font?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The tool uses standard system fonts that mimic the official Twitter/X visual identity, including Chirp and system-fallback fonts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I crop or adjust my uploaded background image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. When you upload a custom background, you can use the built-in cropper tool to select the exact framing and position."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is it possible to generate a dark mode screenshot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can easily toggle between light mode, dim mode, and lights-out black mode using the theme selectors in the sidebar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I add a custom card or image attachment to the tweet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can upload an image attachment to the tweet preview card, allowing you to showcase media posts or link previews."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I change the color of the background gradient?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can choose from a variety of pre-configured gradient presets or select a solid background color to frame your screenshot."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do my downloaded screenshots contain metadata?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The exported PNG files contain standard image metadata, but do not contain any private user data or sensitive information."
+        }
       }
     ]
   };
@@ -314,6 +394,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <p className="text-muted-foreground leading-relaxed">
               Enter your tweet content, profile information, verified badges, engagement metrics, themes, and backgrounds.
             </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+              Use the sidebar panel to edit all details. You can upload custom avatars, add background gradients, select verified checkmark variants, and customize numeric statistics for replies, reposts, and likes.
+            </p>
           </div>
 
           {/* Step 2 */}
@@ -325,6 +408,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <p className="text-muted-foreground leading-relaxed">
               See every change in real time while adjusting your tweet until it matches exactly what you need.
             </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+              The mockup template reflects your customizations instantly. Observe exact text wrapping, handle placements, font scaling, and alignment choices directly inside your browser container.
+            </p>
           </div>
 
           {/* Step 3 */}
@@ -335,6 +421,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <h3 className="text-xl font-bold mb-3 text-foreground">Export Your Screenshot</h3>
             <p className="text-muted-foreground leading-relaxed">
               Download a high-quality PNG image or copy it directly to your clipboard for immediate use.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+              Click "Download PNG" to export a clean, high-resolution graphic with no watermarks, or choose "Copy Image" to quickly copy the mockup and paste it straight into your documents or emails.
             </p>
           </div>
         </div>
@@ -420,6 +509,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <p className="text-muted-foreground leading-relaxed flex-1">
               Create realistic tweet graphics for marketing campaigns, promotions, announcements, and brand storytelling.
             </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+              <strong>Example:</strong> Mock up customer testimonials or partner praise with tailored statistics to show clients, or draft viral campaign announcements before sharing.
+            </p>
           </div>
 
           {/* Use Case 2 */}
@@ -427,6 +519,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <h3 className="text-xl font-bold mb-3 text-foreground">Presentations</h3>
             <p className="text-muted-foreground leading-relaxed flex-1">
               Add professional Twitter/X screenshots to business presentations, client meetings, workshops, and reports.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+              <strong>Example:</strong> Embed clean slides containing tweets from industry experts or user quotes to highlight social sentiment during pitch decks.
             </p>
           </div>
 
@@ -436,6 +531,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <p className="text-muted-foreground leading-relaxed flex-1">
               Create tweet examples for online courses, tutorials, classroom demonstrations, and learning materials.
             </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+              <strong>Example:</strong> Display sample tweets to teach lessons on social media literacy, digital communications, or online research.
+            </p>
           </div>
 
           {/* Use Case 4 */}
@@ -443,6 +541,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <h3 className="text-xl font-bold mb-3 text-foreground">UI & Product Mockups</h3>
             <p className="text-muted-foreground leading-relaxed flex-1">
               Design realistic Twitter/X interfaces for prototypes, portfolios, product showcases, and concept demonstrations.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+              <strong>Example:</strong> Embed post designs in application layout mockups to demonstrate how standard social previews integrate into design components.
             </p>
           </div>
 
@@ -452,6 +553,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <p className="text-muted-foreground leading-relaxed flex-1">
               Use tweet screenshots to enhance blog posts, case studies, product reviews, and social media guides.
             </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+              <strong>Example:</strong> Create visual case study evidence or include sample product user quotes as graphics to break up long text blocks.
+            </p>
           </div>
 
           {/* Use Case 6 */}
@@ -459,6 +563,9 @@ export default function TwitterScreenshotGeneratorPage() {
             <h3 className="text-xl font-bold mb-3 text-foreground">Content Creation</h3>
             <p className="text-muted-foreground leading-relaxed flex-1">
               Generate authentic-looking tweet visuals for YouTube videos, Instagram posts, LinkedIn content, newsletters, and other digital media.
+            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+              <strong>Example:</strong> Compile structured quotes into 1:1 square layouts for Instagram or 16:9 for presentations to increase audience engagement.
             </p>
           </div>
         </div>
@@ -550,6 +657,86 @@ export default function TwitterScreenshotGeneratorPage() {
             <h3 className="text-lg font-bold mb-2 text-foreground">Who is this tool designed for?</h3>
             <p className="text-muted-foreground leading-relaxed">
               Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic Twitter/X screenshots.
+            </p>
+          </div>
+
+          {/* FAQ 11 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">How do I change the language of the tweet mockup?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              You can edit all tweet text, date, and metrics in any language by clicking on the text in the preview and typing your content directly.
+            </p>
+          </div>
+
+          {/* FAQ 12 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I toggle the verified badge on and off?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. You can turn the blue verified badge on or off, and switch between standard verified and gold/grey organization badges using the sidebar controls.
+            </p>
+          </div>
+
+          {/* FAQ 13 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Is there a limit to the number of screenshots I can generate?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              No. There are no restrictions or daily limits. You can generate and download as many screenshots as you need.
+            </p>
+          </div>
+
+          {/* FAQ 14 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I adjust the engagement counts for replies, retweets, and likes?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. You can click on any metric value or use the input fields in the sidebar to set custom reply, repost, like, and bookmark counts.
+            </p>
+          </div>
+
+          {/* FAQ 15 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Does the screenshot include the Twitter font?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. The tool uses standard system fonts that mimic the official Twitter/X visual identity, including Chirp and system-fallback fonts.
+            </p>
+          </div>
+
+          {/* FAQ 16 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I crop or adjust my uploaded background image?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. When you upload a custom background, you can use the built-in cropper tool to select the exact framing and position.
+            </p>
+          </div>
+
+          {/* FAQ 17 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Is it possible to generate a dark mode screenshot?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. You can easily toggle between light mode, dim mode, and lights-out black mode using the theme selectors in the sidebar.
+            </p>
+          </div>
+
+          {/* FAQ 18 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I add a custom card or image attachment to the tweet?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. You can upload an image attachment to the tweet preview card, allowing you to showcase media posts or link previews.
+            </p>
+          </div>
+
+          {/* FAQ 19 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Can I change the color of the background gradient?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              Yes. You can choose from a variety of pre-configured gradient presets or select a solid background color to frame your screenshot.
+            </p>
+          </div>
+
+          {/* FAQ 20 */}
+          <div>
+            <h3 className="text-lg font-bold mb-2 text-foreground">Do my downloaded screenshots contain metadata?</h3>
+            <p className="text-muted-foreground leading-relaxed">
+              The exported PNG files contain standard image metadata, but do not contain any private user data or sensitive information.
             </p>
           </div>
         </div>

@@ -107,6 +107,86 @@ export default function FakeTweetGeneratorPage() {
           "@type": "Answer",
           "text": "Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic fake tweets."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I change the language of the fake tweet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can edit all fake tweet text, dates, and engagement counts in any language by typing directly in the preview editor or using the sidebar inputs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I toggle the verified badge on a fake tweet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can toggle the blue verified checkmark, as well as gold and grey business/government badges, on any fake profile."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a limit to the number of fake tweets I can generate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. You can generate and download an unlimited number of fake tweet mockups for free with no daily limits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I set custom numbers for likes, replies, and reposts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Click on any metric number or use the sidebar inputs to enter custom numbers for replies, reposts, likes, views, and bookmarks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the generator use standard Twitter/X fonts?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The editor replicates the official typography, styling, and spacings to ensure your fake tweets look authentic."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I adjust or crop my uploaded profile picture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. When you upload a custom avatar, you can position and crop it using the built-in image cropper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I switch the fake tweet layout to dark mode?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The editor supports light, dim, and lights-out dark mode themes to match the different X appearance options."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I attach an image to my fake tweet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can attach a custom image directly to the body of the fake tweet to simulate a photo or media post."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I choose the background container style?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can select a solid background, a transparent background, or any of our custom gradient backdrops in the sidebar panels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Are these fake tweets suitable for memes and creative content?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The fake tweet generator is designed for creators, educators, and social media managers looking to build engaging visual mockups."
+        }
       }
     ]
   };
@@ -314,6 +394,9 @@ export default function FakeTweetGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed">
                 Enter your fake tweet content, profile information, verified badges, engagement metrics, themes, and backgrounds.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                Use the sidebar panel to edit all details. You can upload custom avatars, add background gradients, select verified checkmark variants, and customize numeric statistics for replies, reposts, and likes.
+              </p>
             </div>
 
             {/* Step 2 */}
@@ -325,6 +408,9 @@ export default function FakeTweetGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed">
                 See every change in real time while adjusting your fake tweet until it matches exactly what you need.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                The mockup template reflects your customizations instantly. Observe exact text wrapping, handle placements, font scaling, and alignment choices directly inside your browser container.
+              </p>
             </div>
 
             {/* Step 3 */}
@@ -335,6 +421,9 @@ export default function FakeTweetGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">Export Your Screenshot</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Download a high-quality PNG fake tweet image or copy it directly to your clipboard for immediate use.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                Click "Download PNG" to export a clean, high-resolution graphic with no watermarks, or choose "Copy Image" to quickly copy the mockup and paste it straight into your documents or emails.
               </p>
             </div>
           </div>
@@ -420,6 +509,9 @@ export default function FakeTweetGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Create realistic fake tweet graphics for marketing campaigns, promotions, announcements, and brand storytelling.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Mock up customer testimonials or partner praise with tailored statistics to show clients, or draft viral campaign announcements before sharing.
+              </p>
             </div>
 
             {/* Use Case 2 */}
@@ -427,6 +519,9 @@ export default function FakeTweetGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">Presentations</h3>
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Add professional fake tweet screenshots to business presentations, client meetings, workshops, and reports.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Embed clean slides containing tweets from industry experts or user quotes to highlight social sentiment during pitch decks.
               </p>
             </div>
 
@@ -436,6 +531,9 @@ export default function FakeTweetGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Create fake tweet examples for online courses, tutorials, classroom demonstrations, and learning materials.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Display sample tweets to teach lessons on social media literacy, digital communications, or online research.
+              </p>
             </div>
 
             {/* Use Case 4 */}
@@ -443,6 +541,9 @@ export default function FakeTweetGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">UI & Product Mockups</h3>
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Design realistic fake tweet interfaces for prototypes, portfolios, product showcases, and concept demonstrations.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Embed post designs in application layout mockups to demonstrate how standard social previews integrate into design components.
               </p>
             </div>
 
@@ -452,6 +553,9 @@ export default function FakeTweetGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Use fake tweet screenshots to enhance blog posts, case studies, product reviews, and social media guides.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Create visual case study evidence or include sample product user quotes as graphics to break up long text blocks.
+              </p>
             </div>
 
             {/* Use Case 6 */}
@@ -459,6 +563,9 @@ export default function FakeTweetGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">Content Creation</h3>
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Generate authentic-looking fake tweet visuals for YouTube videos, Instagram posts, LinkedIn content, newsletters, and other digital media.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Compile structured quotes into 1:1 square layouts for Instagram or 16:9 for presentations to increase audience engagement.
               </p>
             </div>
           </div>
@@ -550,6 +657,86 @@ export default function FakeTweetGeneratorPage() {
               <h3 className="text-lg font-bold mb-2 text-foreground">Who is this fake tweet tool designed for?</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic fake tweets.
+              </p>
+            </div>
+
+            {/* FAQ 11 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">How do I change the language of the fake tweet?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                You can edit all fake tweet text, dates, and engagement counts in any language by typing directly in the preview editor or using the sidebar inputs.
+              </p>
+            </div>
+
+            {/* FAQ 12 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I toggle the verified badge on a fake tweet?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. You can toggle the blue verified checkmark, as well as gold and grey business/government badges, on any fake profile.
+              </p>
+            </div>
+
+            {/* FAQ 13 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Is there a limit to the number of fake tweets I can generate?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                No. You can generate and download an unlimited number of fake tweet mockups for free with no daily limits.
+              </p>
+            </div>
+
+            {/* FAQ 14 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I set custom numbers for likes, replies, and reposts?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. Click on any metric number or use the sidebar inputs to enter custom numbers for replies, reposts, likes, views, and bookmarks.
+              </p>
+            </div>
+
+            {/* FAQ 15 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Does the generator use standard Twitter/X fonts?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. The editor replicates the official typography, styling, and spacings to ensure your fake tweets look authentic.
+              </p>
+            </div>
+
+            {/* FAQ 16 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I adjust or crop my uploaded profile picture?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. When you upload a custom avatar, you can position and crop it using the built-in image cropper.
+              </p>
+            </div>
+
+            {/* FAQ 17 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I switch the fake tweet layout to dark mode?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. The editor supports light, dim, and lights-out dark mode themes to match the different X appearance options.
+              </p>
+            </div>
+
+            {/* FAQ 18 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I attach an image to my fake tweet?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. You can attach a custom image directly to the body of the fake tweet to simulate a photo or media post.
+              </p>
+            </div>
+
+            {/* FAQ 19 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">How do I choose the background container style?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                You can select a solid background, a transparent background, or any of our custom gradient backdrops in the sidebar panels.
+              </p>
+            </div>
+
+            {/* FAQ 20 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Are these fake tweets suitable for memes and creative content?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. The fake tweet generator is designed for creators, educators, and social media managers looking to build engaging visual mockups.
               </p>
             </div>
           </div>

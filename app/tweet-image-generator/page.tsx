@@ -107,6 +107,86 @@ export default function TweetImageGeneratorPage() {
           "@type": "Answer",
           "text": "Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic tweet images."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I edit the text of the tweet image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can click directly on the tweet text in the preview area to type your content, or input it using the sidebar text field."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I toggle the verified checkmark on the tweet image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can turn the verified badge on or off, and switch between standard verified and gold/grey organization badges using the sidebar controls."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a limit to the number of tweet images I can export?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. There are no restrictions or daily limits. You can generate and download as many images as you need."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I customize the engagement statistics in the tweet image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can click on the reply, repost, like, view, and bookmark counts to set them to any custom numeric values."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the image display the official Twitter typography?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The generator mimics the official Chirp typography and fallback system fonts to ensure visual consistency."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I crop or adjust my uploaded profile picture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The built-in image cropper lets you adjust the positioning and aspect ratio of any uploaded avatar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a dark theme option for the tweet image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can toggle between light, dim, and lights-out dark mode presets using the sidebar theme controls."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I attach a media photo to the tweet image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can upload an image attachment to show up within the tweet card preview."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I change the outer frame background?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The sidebar contains background style controls, allowing you to choose between custom color gradients, solid backdrops, or transparent layouts."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do my exported tweet images contain any watermarks?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. All exported PNG files are clean and completely free of watermarks or branding overlays."
+        }
       }
     ]
   };
@@ -314,6 +394,9 @@ export default function TweetImageGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed">
                 Enter your tweet content, profile information, verified badges, engagement metrics, themes, and backgrounds.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                Use the sidebar panel to edit all details. You can upload custom avatars, add background gradients, select verified checkmark variants, and customize numeric statistics for replies, reposts, and likes.
+              </p>
             </div>
 
             {/* Step 2 */}
@@ -325,6 +408,9 @@ export default function TweetImageGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed">
                 See every change in real time while adjusting your tweet until it matches exactly what you need.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                The mockup template reflects your customizations instantly. Observe exact text wrapping, handle placements, font scaling, and alignment choices directly inside your browser container.
+              </p>
             </div>
 
             {/* Step 3 */}
@@ -335,6 +421,9 @@ export default function TweetImageGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">Export Your Image</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Download a high-quality PNG tweet image or copy it directly to your clipboard for immediate use.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3">
+                Click "Download PNG" to export a clean, high-resolution graphic with no watermarks, or choose "Copy Image" to quickly copy the mockup and paste it straight into your documents or emails.
               </p>
             </div>
           </div>
@@ -420,6 +509,9 @@ export default function TweetImageGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Create realistic tweet images for marketing campaigns, promotions, announcements, and brand storytelling.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Mock up customer testimonials or partner praise with tailored statistics to show clients, or draft viral campaign announcements before sharing.
+              </p>
             </div>
 
             {/* Use Case 2 */}
@@ -427,6 +519,9 @@ export default function TweetImageGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">Presentations</h3>
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Add professional tweet images to business presentations, client meetings, workshops, and reports.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Embed clean slides containing tweets from industry experts or user quotes to highlight social sentiment during pitch decks.
               </p>
             </div>
 
@@ -436,6 +531,9 @@ export default function TweetImageGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Create tweet examples for online courses, tutorials, classroom demonstrations, and learning materials.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Display sample tweets to teach lessons on social media literacy, digital communications, or online research.
+              </p>
             </div>
 
             {/* Use Case 4 */}
@@ -443,6 +541,9 @@ export default function TweetImageGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">UI & Product Mockups</h3>
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Design realistic tweet interfaces for prototypes, portfolios, product showcases, and concept demonstrations.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Embed post designs in application layout mockups to demonstrate how standard social previews integrate into design components.
               </p>
             </div>
 
@@ -452,6 +553,9 @@ export default function TweetImageGeneratorPage() {
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Use tweet images to enhance blog posts, case studies, product reviews, and social media guides.
               </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Create visual case study evidence or include sample product user quotes as graphics to break up long text blocks.
+              </p>
             </div>
 
             {/* Use Case 6 */}
@@ -459,6 +563,9 @@ export default function TweetImageGeneratorPage() {
               <h3 className="text-xl font-bold mb-3 text-foreground">Content Creation</h3>
               <p className="text-muted-foreground leading-relaxed flex-1">
                 Generate authentic-looking tweet visuals for YouTube videos, Instagram posts, LinkedIn content, newsletters, and other digital media.
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed mt-3 border-t border-slate-100 dark:border-[#1E2D4A]/50 pt-3">
+                <strong>Example:</strong> Compile structured quotes into 1:1 square layouts for Instagram or 16:9 for presentations to increase audience engagement.
               </p>
             </div>
           </div>
@@ -550,6 +657,86 @@ export default function TweetImageGeneratorPage() {
               <h3 className="text-lg font-bold mb-2 text-foreground">Who is this tool designed for?</h3>
               <p className="text-muted-foreground leading-relaxed">
                 Make My Tweet is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic tweet images.
+              </p>
+            </div>
+
+            {/* FAQ 11 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">How do I edit the text of the tweet image?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                You can click directly on the tweet text in the preview area to type your content, or input it using the sidebar text field.
+              </p>
+            </div>
+
+            {/* FAQ 12 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I toggle the verified checkmark on the tweet image?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. You can turn the verified badge on or off, and switch between standard verified and gold/grey organization badges using the sidebar controls.
+              </p>
+            </div>
+
+            {/* FAQ 13 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Is there a limit to the number of tweet images I can export?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                No. There are no restrictions or daily limits. You can generate and download as many images as you need.
+              </p>
+            </div>
+
+            {/* FAQ 14 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I customize the engagement statistics in the tweet image?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. You can click on the reply, repost, like, view, and bookmark counts to set them to any custom numeric values.
+              </p>
+            </div>
+
+            {/* FAQ 15 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Does the image display the official Twitter typography?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. The generator mimics the official Chirp typography and fallback system fonts to ensure visual consistency.
+              </p>
+            </div>
+
+            {/* FAQ 16 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I crop or adjust my uploaded profile picture?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. The built-in image cropper lets you adjust the positioning and aspect ratio of any uploaded avatar.
+              </p>
+            </div>
+
+            {/* FAQ 17 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Is there a dark theme option for the tweet image?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. You can toggle between light, dim, and lights-out dark mode presets using the sidebar theme controls.
+              </p>
+            </div>
+
+            {/* FAQ 18 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Can I attach a media photo to the tweet image?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Yes. You can upload an image attachment to show up within the tweet card preview.
+              </p>
+            </div>
+
+            {/* FAQ 19 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">How do I change the outer frame background?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                The sidebar contains background style controls, allowing you to choose between custom color gradients, solid backdrops, or transparent layouts.
+              </p>
+            </div>
+
+            {/* FAQ 20 */}
+            <div>
+              <h3 className="text-lg font-bold mb-2 text-foreground">Do my exported tweet images contain any watermarks?</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                No. All exported PNG files are clean and completely free of watermarks or branding overlays.
               </p>
             </div>
           </div>

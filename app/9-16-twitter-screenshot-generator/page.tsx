@@ -107,6 +107,86 @@ export default function NineSixteenTwitterScreenshotGeneratorPage() {
           "@type": "Answer",
           "text": "It is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic vertical Twitter/X screenshots."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I change the language of the 9:16 vertical tweet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can edit all text, dates, and engagement counts in any language by typing directly in the preview editor or using the sidebar inputs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I toggle the verified badge on a 9:16 story mockup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can toggle the blue verified checkmark, as well as gold and grey business/government badges, using the sidebar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a limit to how many 9:16 screenshots I can generate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. You can generate and download an unlimited number of 9:16 story screenshots for free with no daily limits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I set custom numbers for likes and reposts on the 9:16 layout?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Click on any metric number or use the sidebar inputs to enter custom numbers for replies, reposts, likes, views, and bookmarks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the 9:16 aspect ratio look on mobile devices?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 9:16 aspect ratio is optimized for vertical screens, ensuring your screenshots render beautifully as full-screen mobile stories."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I adjust or crop my uploaded profile picture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. When you upload a custom avatar, you can position and crop it using the built-in image cropper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I switch the 9:16 story layout to dark mode?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The editor supports light, dim, and lights-out dark mode themes to match the different X appearance options."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I attach an image to my 9:16 vertical screenshot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can attach a custom image directly to the body of the tweet to simulate a photo or media post in a vertical format."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I choose the background container style for stories?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can select a solid background, a transparent background, or any of our custom gradient backdrops in the sidebar panels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the 9:16 format suitable for Instagram Stories and TikTok?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The vertical aspect ratio is ideal for full-screen social media placements like Instagram Stories, TikTok, YouTube Shorts, and Reels."
+        }
       }
     ]
   };
@@ -173,9 +253,9 @@ export default function NineSixteenTwitterScreenshotGeneratorPage() {
           <h2 id="how-it-works-heading">How It Works</h2>
           <p>Generate vertical 9:16 tweet screenshots in three simple steps.</p>
           <ol>
-            <li>Select 9:16 layout format and enter your tweet details.</li>
-            <li>Preview changes in real time.</li>
-            <li>Export and download your custom PNG mockup.</li>
+            <li><strong>Select 9:16 layout format and enter your tweet details:</strong> Use the sidebar editor panels to customize the display name, username, profile photo, verified checkmarks, and tweet body. Specify your custom reposts and likes count.</li>
+            <li><strong>Preview changes in real time:</strong> See the typography, font scaling, outer layout bounds, and custom card media adjust instantly to check visual balance.</li>
+            <li><strong>Export and download your custom PNG mockup:</strong> Click 'Download PNG' or copy the generated story frame directly to your clipboard for instant social media usage.</li>
           </ol>
         </section>
 
@@ -196,10 +276,10 @@ export default function NineSixteenTwitterScreenshotGeneratorPage() {
           <h2 id="use-cases-heading">Example Use Cases</h2>
           <p>Get creative with 9:16 Twitter screenshots across digital media.</p>
           <ul>
-            <li>Instagram & Facebook Stories</li>
-            <li>TikTok Video Backgrounds</li>
-            <li>YouTube Shorts Mockups</li>
-            <li>Mobile App Prototyping</li>
+            <li><strong>Instagram & Facebook Stories:</strong> Share quote cards, brand reviews, or customer praise visually within vertical story feeds.</li>
+            <li><strong>TikTok Video Backgrounds:</strong> Use standard vertical tweet images as overlays or backdrops in visual storytelling videos.</li>
+            <li><strong>YouTube Shorts Mockups:</strong> Showcase screenshots in mobile shorts clips without cropping or losing pixel detail.</li>
+            <li><strong>Mobile App Prototyping:</strong> Preview social feed integration interfaces directly within portrait phone layouts.</li>
           </ul>
         </section>
 
@@ -227,6 +307,26 @@ export default function NineSixteenTwitterScreenshotGeneratorPage() {
             <p>You can generate screenshots optimized for square (1:1), portrait (9:16), and landscape (16:9) layouts.</p>
             <h3>Who is the 9:16 story format designed for?</h3>
             <p>It is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic vertical Twitter/X screenshots.</p>
+            <h3>How do I change the language of the 9:16 vertical tweet?</h3>
+            <p>You can edit all text, dates, and engagement counts in any language by typing directly in the preview editor or using the sidebar inputs.</p>
+            <h3>Can I toggle the verified badge on a 9:16 story mockup?</h3>
+            <p>Yes. You can toggle the blue verified checkmark, as well as gold and grey business/government badges, using the sidebar.</p>
+            <h3>Is there a limit to how many 9:16 screenshots I can generate?</h3>
+            <p>No. You can generate and download an unlimited number of 9:16 story screenshots for free with no daily limits.</p>
+            <h3>Can I set custom numbers for likes and reposts on the 9:16 layout?</h3>
+            <p>Yes. Click on any metric number or use the sidebar inputs to enter custom numbers for replies, reposts, likes, views, and bookmarks.</p>
+            <h3>How does the 9:16 aspect ratio look on mobile devices?</h3>
+            <p>The 9:16 aspect ratio is optimized for vertical screens, ensuring your screenshots render beautifully as full-screen mobile stories.</p>
+            <h3>Can I adjust or crop my uploaded profile picture?</h3>
+            <p>Yes. When you upload a custom avatar, you can position and crop it using the built-in image cropper.</p>
+            <h3>Can I switch the 9:16 story layout to dark mode?</h3>
+            <p>Yes. The editor supports light, dim, and lights-out dark mode themes to match the different X appearance options.</p>
+            <h3>Can I attach an image to my 9:16 vertical screenshot?</h3>
+            <p>Yes. You can attach a custom image directly to the body of the tweet to simulate a photo or media post in a vertical format.</p>
+            <h3>How do I choose the background container style for stories?</h3>
+            <p>You can select a solid background, a transparent background, or any of our custom gradient backdrops in the sidebar panels.</p>
+            <h3>Is the 9:16 format suitable for Instagram Stories and TikTok?</h3>
+            <p>Yes. The vertical aspect ratio is ideal for full-screen social media placements like Instagram Stories, TikTok, YouTube Shorts, and Reels.</p>
           </div>
         </section>
 

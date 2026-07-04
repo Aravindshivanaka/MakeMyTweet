@@ -107,6 +107,86 @@ export default function SixteenNineTwitterScreenshotGeneratorPage() {
           "@type": "Answer",
           "text": "It is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic landscape Twitter/X screenshots."
         }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I change the language of the 16:9 landscape tweet?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can edit all text, dates, and engagement counts in any language by typing directly in the preview editor or using the sidebar inputs."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I toggle the verified badge on a 16:9 mockup?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can toggle the blue verified checkmark, as well as gold and grey business/government badges, using the sidebar."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is there a limit to how many 16:9 screenshots I can generate?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. You can generate and download an unlimited number of 16:9 screenshots for free with no daily limits."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I set custom numbers for likes and reposts on the 16:9 layout?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Click on any metric number or use the sidebar inputs to enter custom numbers for replies, reposts, likes, views, and bookmarks."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does the 16:9 aspect ratio look on desktop presentations?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The 16:9 aspect ratio is optimized for widescreen monitors, making it perfect for slide decks, presentations, and website banners."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I adjust or crop my uploaded profile picture?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. When you upload a custom avatar, you can position and crop it using the built-in image cropper."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I switch the 16:9 layout to dark mode?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The editor supports light, dim, and lights-out dark mode themes to match the different X appearance options."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I attach an image to my 16:9 landscape screenshot?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. You can attach a custom image directly to the body of the tweet to simulate a photo or media post in a horizontal format."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I choose the background container style for landscape shots?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can select a solid background, a transparent background, or any of our custom gradient backdrops in the sidebar panels."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the 16:9 format suitable for LinkedIn banners and newsletters?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The horizontal aspect ratio is ideal for email newsletter banners, blog header images, and LinkedIn updates."
+        }
       }
     ]
   };
@@ -173,9 +253,9 @@ export default function SixteenNineTwitterScreenshotGeneratorPage() {
           <h2 id="how-it-works-heading">How It Works</h2>
           <p>Generate landscape 16:9 tweet screenshots in three simple steps.</p>
           <ol>
-            <li>Select 16:9 layout format and enter your tweet details.</li>
-            <li>Preview changes in real time.</li>
-            <li>Export and download your custom PNG mockup.</li>
+            <li><strong>Select 16:9 layout format and enter your tweet details:</strong> Use the sidebar editor panels to customize the display name, username, profile photo, verified checkmarks, and tweet body. Specify your custom reposts and likes count.</li>
+            <li><strong>Preview changes in real time:</strong> See the typography, font scaling, outer layout bounds, and custom card media adjust instantly to check visual balance.</li>
+            <li><strong>Export and download your custom PNG mockup:</strong> Click 'Download PNG' or copy the generated landscape frame directly to your clipboard for instant social media usage.</li>
           </ol>
         </section>
 
@@ -196,10 +276,10 @@ export default function SixteenNineTwitterScreenshotGeneratorPage() {
           <h2 id="use-cases-heading">Example Use Cases</h2>
           <p>Get creative with 16:9 Twitter screenshots across digital media.</p>
           <ul>
-            <li>LinkedIn Banner Mockups & Image Shares</li>
-            <li>Email Newsletter Headers</li>
-            <li>YouTube Video Thumbnails</li>
-            <li>Desktop Presentations & Pitch Decks</li>
+            <li><strong>LinkedIn Banner Mockups & Image Shares:</strong> Share quote cards, brand reviews, or customer praise visually within horizontal professional feeds.</li>
+            <li><strong>Email Newsletter Headers:</strong> Use widescreen landscape tweet layouts to introduce sections, display social proofs, or highlight viral quotes.</li>
+            <li><strong>YouTube Video Thumbnails:</strong> Embed high-quality widescreen X screenshots as graphics inside video cover thumbnails.</li>
+            <li><strong>Desktop Presentations & Pitch Decks:</strong> Embed high-resolution landscape slides in corporate presentations and client pitch decks.</li>
           </ul>
         </section>
 
@@ -227,6 +307,26 @@ export default function SixteenNineTwitterScreenshotGeneratorPage() {
             <p>You can generate screenshots optimized for square (1:1), portrait (9:16), and landscape (16:9) layouts.</p>
             <h3>Who is the 16:9 landscape format designed for?</h3>
             <p>It is designed for creators, marketers, businesses, agencies, designers, educators, and anyone who needs realistic landscape Twitter/X screenshots.</p>
+            <h3>How do I change the language of the 16:9 landscape tweet?</h3>
+            <p>You can edit all text, dates, and engagement counts in any language by typing directly in the preview editor or using the sidebar inputs.</p>
+            <h3>Can I toggle the verified badge on a 16:9 mockup?</h3>
+            <p>Yes. You can toggle the blue verified checkmark, as well as gold and grey business/government badges, using the sidebar.</p>
+            <h3>Is there a limit to how many 16:9 screenshots I can generate?</h3>
+            <p>No. You can generate and download an unlimited number of 16:9 screenshots for free with no daily limits.</p>
+            <h3>Can I set custom numbers for likes and reposts on the 16:9 layout?</h3>
+            <p>Yes. Click on any metric number or use the sidebar inputs to enter custom numbers for replies, reposts, likes, views, and bookmarks.</p>
+            <h3>How does the 16:9 aspect ratio look on desktop presentations?</h3>
+            <p>The 16:9 aspect ratio is optimized for widescreen monitors, making it perfect for slide decks, presentations, and website banners.</p>
+            <h3>Can I adjust or crop my uploaded profile picture?</h3>
+            <p>Yes. When you upload a custom avatar, you can position and crop it using the built-in image cropper.</p>
+            <h3>Can I switch the 16:9 layout to dark mode?</h3>
+            <p>Yes. The editor supports light, dim, and lights-out dark mode themes to match the different X appearance options.</p>
+            <h3>Can I attach an image to my 16:9 landscape screenshot?</h3>
+            <p>Yes. You can attach a custom image directly to the body of the tweet to simulate a photo or media post in a horizontal format.</p>
+            <h3>How do I choose the background container style for landscape shots?</h3>
+            <p>You can select a solid background, a transparent background, or any of our custom gradient backdrops in the sidebar panels.</p>
+            <h3>Is the 16:9 format suitable for LinkedIn banners and newsletters?</h3>
+            <p>Yes. The horizontal aspect ratio is ideal for email newsletter banners, blog header images, and LinkedIn updates.</p>
           </div>
         </section>
 
