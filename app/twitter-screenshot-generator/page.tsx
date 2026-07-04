@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     title: "Twitter Screenshot Generator",
     description: "Create realistic, high-quality Twitter screenshots and X mockups instantly. No watermarks, completely free.",
     url: "/twitter-screenshot-generator",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Twitter Screenshot Generator",
+    description: "Create realistic, high-quality Twitter screenshots and X mockups instantly. No watermarks, completely free.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -567,6 +574,17 @@ export default function TwitterScreenshotGeneratorPage() {
         <p className="text-sm text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
           Start creating professional Twitter/X screenshots for marketing, presentations, mockups, education, and content creation.
         </p>
+      </section>
+
+      {/* Related Tools */}
+      <section id="related-tools" className="mt-16 text-center" aria-labelledby="related-heading">
+        <h2 id="related-heading" className="text-xl font-bold mb-6 text-foreground">Related Tools</h2>
+        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-sm font-semibold">
+          <Link href="/fake-tweet-generator" className="text-[#1D6FEB] hover:underline">Fake Tweet Generator</Link>
+          <Link href="/9-16-twitter-screenshot-generator" className="text-[#1D6FEB] hover:underline">9:16 Twitter Screenshot Generator</Link>
+          <Link href="/16-9-twitter-screenshot-generator" className="text-[#1D6FEB] hover:underline">16:9 Twitter Screenshot Generator</Link>
+          <Link href="/tweet-image-generator" className="text-[#1D6FEB] hover:underline">Tweet Image Generator</Link>
+        </div>
       </section>
       </main>
 

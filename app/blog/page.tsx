@@ -5,15 +5,22 @@ import { ARTICLES } from "@/lib/blog";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Blog - Premium Tweet Screenshot Guides & Resources",
+  title: "Blog - Premium Tweet Screenshot Guides & Resources | Make My Tweet",
   description: "Learn how to create high-converting Twitter screenshots, social media mockups, and viral post graphics.",
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
-    title: "Blog - Premium Tweet Screenshot Guides & Resources",
+    title: "Blog - Premium Tweet Screenshot Guides & Resources | Make My Tweet",
     description: "Learn how to create high-converting Twitter screenshots, social media mockups, and viral post graphics.",
     url: "/blog",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog - Premium Tweet Screenshot Guides & Resources | Make My Tweet",
+    description: "Learn how to create high-converting Twitter screenshots, social media mockups, and viral post graphics.",
+    images: ["/og-image.png"],
   },
 };
 

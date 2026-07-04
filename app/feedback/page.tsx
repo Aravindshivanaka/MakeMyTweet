@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     title: "Feedback - Make My Tweet",
     description: "Share your feedback or suggest features to help improve Make My Tweet.",
     url: "/feedback",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Feedback - Make My Tweet",
+    description: "Share your feedback or suggest features to help improve Make My Tweet.",
+    images: ["/og-image.png"],
   },
 };
 

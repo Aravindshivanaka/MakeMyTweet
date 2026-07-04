@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     title: "Terms & Conditions - Make My Tweet",
     description: "Read the Terms & Conditions for using the Make My Tweet mockup tool.",
     url: "/terms-and-conditions",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms & Conditions - Make My Tweet",
+    description: "Read the Terms & Conditions for using the Make My Tweet mockup tool.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -64,7 +71,8 @@ const TERMS_SECTIONS: TermsSection[] = [
     title: "5. User Responsibility",
     paragraphs: [
       "You are solely and fully responsible for every screenshot you generate using Make My Tweet.",
-      "You assume all responsibility and risk associated with how you publish, distribute, or otherwise use the generated content. Make My Tweet and its creators do not review, approve, monitor, or endorse any user-generated mockups."
+      "You assume all responsibility and risk associated with how you publish, distribute, or otherwise use the generated content. Make My Tweet and its creators do not review, approve, monitor, or endorse any user-generated mockups.",
+      "Specifically, users are fully responsible for how they create, use, publish, and share screenshots generated using Make My Tweet."
     ]
   },
   {
@@ -96,7 +104,8 @@ const TERMS_SECTIONS: TermsSection[] = [
   {
     title: "10. Limitation of Liability",
     paragraphs: [
-      "To the maximum extent permitted by law, Make My Tweet and its creators shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages, or any losses, claims, legal disputes, or negative consequences arising out of your use, misuse, or inability to use the service, or from any content generated on our website."
+      "To the maximum extent permitted by law, Make My Tweet and its creators shall not be liable for any direct, indirect, incidental, special, consequential, or punitive damages, or any losses, claims, legal disputes, or negative consequences arising out of your use, misuse, or inability to use the service, or from any content generated on our website.",
+      "As a browser-based, client-side application, we are not liable for any local data loss, browser storage corruption, browser incompatibility, canvas rendering or export failures, or device performance issues resulting from the use of our tool."
     ]
   },
   {
@@ -145,7 +154,7 @@ export default function TermsAndConditionsPage() {
             Terms & <span className="text-[#1D6FEB]">Conditions</span>
           </h1>
           <p className="text-muted-foreground text-sm font-medium">
-            Last updated: July 3, 2026
+            Last updated: July 4, 2026
           </p>
         </div>
 

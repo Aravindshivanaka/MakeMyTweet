@@ -10,10 +10,10 @@ export default function Home() {
         <section aria-labelledby="hero-heading">
           <h2 id="hero-heading">Create Realistic X (Twitter) Mockups in Seconds</h2>
           <p>
-            Welcome to Make My Tweet, the ultimate premium tool for generating pixel-perfect Twitter screenshots. Whether you need a fake tweet generator for creative memes, or a professional X post generator for your marketing campaigns, our platform delivers unmatched fidelity.
+            Welcome to Make My Tweet, the ultimate premium tool for generating pixel-perfect Twitter screenshots. Whether you need a <Link href="/fake-tweet-generator">fake tweet generator</Link> for creative memes, a <Link href="/tweet-image-generator">tweet image generator</Link> for your social feeds, or a professional X post generator for your marketing campaigns, our platform delivers unmatched fidelity.
           </p>
           <p>
-            Start designing your mockup now with our <Link href="/">free tweet generator</Link> or our dedicated <Link href="/twitter-screenshot-generator">Twitter Screenshot Generator</Link> and experience the best-in-class layout accuracy.
+            Start designing your mockup now with our <Link href="/">free tweet generator</Link>, our dedicated <Link href="/twitter-screenshot-generator">Twitter Screenshot Generator</Link>, or experience the best-in-class layout accuracy.
           </p>
         </section>
 
@@ -22,13 +22,13 @@ export default function Home() {
           <ul>
             <li><strong>High-Quality Export:</strong> Download high-resolution PNGs with absolutely no watermarks.</li>
             <li><strong>Advanced Customization:</strong> Add verified badges, custom organization logos, and toggle engagement metrics.</li>
-            <li><strong>Multiple Formats:</strong> Export in square (1:1), landscape (16:9), and story (9:16) for seamless social sharing.</li>
+            <li><strong>Multiple Formats:</strong> Export in square (1:1), <Link href="/16-9-twitter-screenshot-generator">landscape (16:9)</Link>, and <Link href="/9-16-twitter-screenshot-generator">story (9:16)</Link> for seamless social sharing.</li>
             <li><strong>Theme Support:</strong> Perfectly replicated Dark Mode and Light Mode X designs with custom gradient backgrounds.</li>
           </ul>
         </section>
 
         <section aria-labelledby="trust-heading">
-          <h3 id="trust-heading">Why Trust Make My Tweet?</h3>
+          <h2 id="trust-heading">Why Trust Make My Tweet?</h2>
           <p>
             Our tool ensures your data remains secure and private, as all image generation happens instantly within your browser. Built for marketers, creators, businesses, agencies, educators, and social media managers who need realistic Twitter/X screenshots for marketing, presentations, mockups, and content creation. Read our <Link href="/faq">frequently asked questions</Link> or view our transparent <Link href="/privacy-policy">privacy policy</Link> to learn how you can create authentic social media content safely.
           </p>

@@ -13,6 +13,13 @@ export const metadata: Metadata = {
     title: "Frequently Asked Questions - Make My Tweet",
     description: "Find answers to common questions about features, formats, and customization options on Make My Tweet.",
     url: "/faq",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Frequently Asked Questions - Make My Tweet",
+    description: "Find answers to common questions about features, formats, and customization options on Make My Tweet.",
+    images: ["/og-image.png"],
   },
 };
 

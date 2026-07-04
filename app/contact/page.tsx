@@ -12,6 +12,13 @@ export const metadata: Metadata = {
     title: "Contact Us - Make My Tweet",
     description: "Get in touch with Make My Tweet support or follow our development updates on GitHub and LinkedIn.",
     url: "/contact",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Us - Make My Tweet",
+    description: "Get in touch with Make My Tweet support or follow our development updates on GitHub and LinkedIn.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -39,10 +46,10 @@ export default function ContactPage() {
             Send an Email
           </span>
           <a
-            href="mailto:support@tweetss.com"
+            href="mailto:support@makemytweet.com"
             className="text-lg md:text-xl font-bold text-[#1D6FEB] hover:text-[#3B82F6] hover:underline transition-colors duration-200"
           >
-            support@tweetss.com
+            support@makemytweet.com
           </a>
         </div>
 

@@ -12,6 +12,13 @@ export const metadata: Metadata = {
     title: "User Guide & Help Center - Make My Tweet",
     description: "Learn how to use Make My Tweet, upload profile photos, edit background images, copy to clipboard, and choose export aspect formats.",
     url: "/help",
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "User Guide & Help Center - Make My Tweet",
+    description: "Learn how to use Make My Tweet, upload profile photos, edit background images, copy to clipboard, and choose export aspect formats.",
+    images: ["/og-image.png"],
   },
 };
 
@@ -125,9 +132,9 @@ export default function HelpPage() {
         {/* Left column: Sticky Table of Contents Navigation */}
         <aside className="lg:w-64 shrink-0 lg:sticky lg:top-24 h-fit max-lg:mb-8">
           <div className="bg-panel-bg border border-[#1E2D4A] rounded-xl p-5">
-            <h2 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">
+            <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">
               Help Center Sections
-            </h2>
+            </div>
             <nav className="flex flex-col gap-2">
               {HELP_SECTIONS.map((section) => (
                 <a

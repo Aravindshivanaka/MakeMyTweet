@@ -21,15 +21,22 @@ export function generateMetadata({ params }: Props): Metadata {
   const article = ARTICLES.find((a) => a.slug === params.slug);
   if (!article) return {};
   return {
-    title: `${article.title} - Tweet SS Blog`,
+    title: `${article.title} | Make My Tweet Blog`,
     description: article.excerpt,
     alternates: {
       canonical: `/blog/${params.slug}`,
     },
     openGraph: {
-      title: `${article.title} - Tweet SS Blog`,
+      title: `${article.title} | Make My Tweet Blog`,
       description: article.excerpt,
       url: `/blog/${params.slug}`,
+      images: ["/og-image.png"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${article.title} | Make My Tweet Blog`,
+      description: article.excerpt,
+      images: ["/og-image.png"],
     },
   };
 }

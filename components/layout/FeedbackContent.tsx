@@ -32,7 +32,7 @@ export default function FeedbackContent() {
                 <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
-            <h2 className="text-2xl font-bold text-foreground mb-3">Thank You!</h2>
+            <h1 className="text-2xl font-bold text-foreground mb-3">Thank You!</h1>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Your feedback has been received. We appreciate you taking the time to help us improve Make My Tweet!
             </p>

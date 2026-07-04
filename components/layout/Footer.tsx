@@ -29,6 +29,34 @@ export default function Footer() {
           >
             Twitter Screenshot Generator
           </Link>
+          <span className="text-gray-200 dark:text-slate-800 select-none">|</span>
+          <Link
+            href="/fake-tweet-generator"
+            className="text-[10px] sm:text-[11px] text-slate-500 hover:text-[#1D6FEB] dark:text-slate-400 dark:hover:text-[#1D6FEB] font-semibold tracking-wider uppercase hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
+          >
+            Fake Tweet Generator
+          </Link>
+          <span className="text-gray-200 dark:text-slate-800 select-none">|</span>
+          <Link
+            href="/9-16-twitter-screenshot-generator"
+            className="text-[10px] sm:text-[11px] text-slate-500 hover:text-[#1D6FEB] dark:text-slate-400 dark:hover:text-[#1D6FEB] font-semibold tracking-wider uppercase hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
+          >
+            9:16 Twitter Screenshot Generator
+          </Link>
+          <span className="text-gray-200 dark:text-slate-800 select-none">|</span>
+          <Link
+            href="/16-9-twitter-screenshot-generator"
+            className="text-[10px] sm:text-[11px] text-slate-500 hover:text-[#1D6FEB] dark:text-slate-400 dark:hover:text-[#1D6FEB] font-semibold tracking-wider uppercase hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
+          >
+            16:9 Twitter Screenshot Generator
+          </Link>
+          <span className="text-gray-200 dark:text-slate-800 select-none">|</span>
+          <Link
+            href="/tweet-image-generator"
+            className="text-[10px] sm:text-[11px] text-slate-500 hover:text-[#1D6FEB] dark:text-slate-400 dark:hover:text-[#1D6FEB] font-semibold tracking-wider uppercase hover:underline cursor-pointer transition-all duration-200 whitespace-nowrap"
+          >
+            Tweet Image Generator
+          </Link>
         </div>
       </div>
 
