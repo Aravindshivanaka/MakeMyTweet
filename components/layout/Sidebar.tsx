@@ -736,14 +736,14 @@ export default function Sidebar() {
         {/* 1. Profile Settings */}
         <SectionCard
           id="profile-settings-section"
-          title="1. Profile Settings"
+          title="Profile"
           icon={<User className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Customize the user profile details and platform logo."
+          description="Name, handle, avatar, and platform logo."
         >
           <div className="flex flex-col gap-[10px]">
             {/* Profile image picker */}
             <div className="flex flex-col">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                 Profile Photo
               </span>
               <input
@@ -780,10 +780,10 @@ export default function Sidebar() {
                 {/* Upload action info */}
                 <div className="flex flex-col gap-1 min-w-0">
                   <span className="text-xs font-semibold text-slate-200 group-hover:text-[#1D6FEB] transition-colors">
-                    Upload new photo
+                    Upload photo
                   </span>
-                  <span className="text-[10px] text-slate-400 font-medium">
-                    Click to browse files (PNG, JPG)
+                  <span className="text-[10px] text-slate-400/80 font-normal">
+                    PNG or JPG
                   </span>
                 </div>
               </div>
@@ -793,7 +793,7 @@ export default function Sidebar() {
             <div className="grid grid-cols-2 gap-4">
               {/* Display Name Input */}
               <div className="flex flex-col">
-                <label htmlFor="displayNameInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                <label htmlFor="displayNameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                   Display Name
                 </label>
                 <div className="relative">
@@ -811,7 +811,7 @@ export default function Sidebar() {
 
               {/* Username Input */}
               <div className="flex flex-col">
-                <label htmlFor="usernameInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                <label htmlFor="usernameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                   Username
                 </label>
                 <div className="relative">
@@ -839,7 +839,7 @@ export default function Sidebar() {
 
             {/* Platform Logo Dropdown and Toggle */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="platformLogoSelect" className="text-[11px] font-medium uppercase text-slate-400">
+              <label htmlFor="platformLogoSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
                 Platform Logo
               </label>
               <div className="flex flex-row flex-wrap items-center gap-3 w-full">
@@ -873,13 +873,13 @@ export default function Sidebar() {
           id="organization-badge-section"
           title="Organization Badge"
           icon={<Award className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Enable organization badge and upload logo."
+          description="Square logo shown next to the verified badge."
         >
           <div className="flex flex-col gap-[10px]">
             {/* Enable Organization Badge Toggle */}
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-slate-300">
-                Enable Organization Badge
+              <span className="text-xs font-medium text-slate-300">
+                Show Badge
               </span>
               <button
                 type="button"
@@ -899,8 +899,8 @@ export default function Sidebar() {
  
             {/* Logo Upload Placeholder/Active Card */}
             <div className="flex flex-col">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
-                Upload Organization Logo
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                Upload Logo
               </span>
               <input
                 type="file"
@@ -908,7 +908,7 @@ export default function Sidebar() {
                 onChange={handleOrgLogoChange}
                 accept="image/png, image/jpeg, image/jpg, image/webp"
                 className="hidden"
-              />              {!organizationBadgeImage ? (
+              />              {!organizationBadgeImage ? (
                 <div
                   onClick={() => orgFileInputRef.current?.click()}
                   onKeyDown={(e) => {
@@ -974,8 +974,8 @@ export default function Sidebar() {
             </div>
  
             {/* Helper Text */}
-            <p className="text-[10px] text-slate-400 font-medium leading-normal italic">
-              This logo will appear next to the verified badge inside the tweet.
+            <p className="text-[10px] text-slate-400/70 font-normal leading-normal italic">
+              Verification badge appears next to display name, organization badge next to username.
             </p>
           </div>
         </SectionCard>
@@ -983,15 +983,15 @@ export default function Sidebar() {
         {/* 2. Tweet Content */}
         <SectionCard
           id="tweet-content-section"
-          title="2. Tweet Content"
+          title="Post"
           icon={<Pencil className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Write the mock post text."
+          description="The tweet body text."
         >
           <div className="flex flex-col gap-[10px]">
             <div className="flex flex-col gap-2">
               <textarea
                 id="tweetTextarea"
-                placeholder="Write your mock tweet content here..."
+                placeholder="What is happening?!"
                 value={tweetText}
                 onChange={(e) => { if (e.target.value.length <= 280) setTweetText(e.target.value); }}
                 onFocus={(e) => e.target.select()}
@@ -1008,9 +1008,9 @@ export default function Sidebar() {
         {/* 3. Engagement Controls */}
         <SectionCard
           id="engagement-controls-section"
-          title="3. Engagement Controls"
+          title="Metrics"
           icon={<BarChart2 className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Enable metrics and customize counter values."
+          description="Replies, reposts, likes, views, and bookmarks."
           headerToggle={{ checked: showMetrics, onChange: toggleMetrics, ariaLabel: "Toggle metrics visibility" }}
         >
           <div className="flex flex-col gap-[10px]">
@@ -1018,7 +1018,7 @@ export default function Sidebar() {
             {/* Metrics inputs with corresponding left-aligned icons */}
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col">
-                <label htmlFor="input-Comments" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                <label htmlFor="input-Comments" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                   Comments
                 </label>
                 <div className="relative">
@@ -1038,8 +1038,8 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Retweets" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
-                  Retweets
+                <label htmlFor="input-Retweets" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
+                  Reposts
                 </label>
                 <div className="relative">
                   <Repeat2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
@@ -1058,7 +1058,7 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Likes" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                <label htmlFor="input-Likes" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                   Likes
                 </label>
                 <div className="relative">
@@ -1078,7 +1078,7 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Views" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                <label htmlFor="input-Views" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                   Views
                 </label>
                 <div className="relative">
@@ -1099,7 +1099,7 @@ export default function Sidebar() {
 
               {/* Bookmarks Control */}
               <div className="flex flex-col col-span-2">
-                <label htmlFor="input-Bookmarks" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                <label htmlFor="input-Bookmarks" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                   Bookmarks
                 </label>
                 <div className="relative">
@@ -1121,8 +1121,8 @@ export default function Sidebar() {
 
             {/* Generate Sample Metrics */}
             <div className="flex flex-col gap-3 pt-3 border-t border-[#1E2D4A]">
-              <span className="text-[11px] font-medium uppercase text-slate-400">
-                Generate Sample Metrics
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                Quick Fill
               </span>
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -1130,14 +1130,14 @@ export default function Sidebar() {
                   onClick={handleGenerateRandomMetrics}
                   className="px-3 rounded-lg border border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/50 text-xs font-semibold text-slate-200 h-10 transition-all duration-150 ease-in-out cursor-pointer text-center flex items-center justify-center"
                 >
-                  Generate Random Metrics
+                  Randomize
                 </button>
                 <button
                   type="button"
                   onClick={handleClearMetrics}
                   className="px-3 rounded-lg border border-rose-950 bg-rose-950/20 hover:bg-rose-950/50 text-xs font-semibold text-rose-300 h-10 transition-all duration-150 ease-in-out cursor-pointer text-center flex items-center justify-center"
                 >
-                  Clear Metrics
+                  Reset
                 </button>
               </div>
             </div>
@@ -1147,15 +1147,15 @@ export default function Sidebar() {
         {/* 4. Timestamp Controls */}
         <SectionCard
           id="timestamp-controls-section"
-          title="4. Timestamp Controls"
+          title="Timestamp"
           icon={<Clock className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Adjust mock timestamp."
+          description="Date and time shown on the post."
           headerToggle={{ checked: showTimestamp, onChange: () => setShowTimestamp(!showTimestamp), ariaLabel: "Toggle timestamp visibility" }}
         >
           <div className="grid grid-cols-5 gap-2">
             {/* Show Date Toggle */}
             <div className="flex items-center justify-between border-b border-[#1E2D4A] pb-3 col-span-5">
-              <span className="text-xs font-semibold text-slate-300">
+              <span className="text-xs font-medium text-slate-300">
                 Show Date
               </span>
               <button
@@ -1172,7 +1172,7 @@ export default function Sidebar() {
 
             {/* Show Time Toggle */}
             <div className="flex items-center justify-between border-b border-[#1E2D4A] pb-3 col-span-5 mb-2">
-              <span className="text-xs font-semibold text-slate-300">
+              <span className="text-xs font-medium text-slate-300">
                 Show Time
               </span>
               <button
@@ -1189,7 +1189,7 @@ export default function Sidebar() {
 
             {/* Date field (with increased contrast calendar icon styling) */}
             <div className="col-span-2 flex flex-col">
-              <label htmlFor="dateInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Date</label>
+              <label htmlFor="dateInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Date</label>
               <Input
                 id="dateInput"
                 type="date"
@@ -1201,7 +1201,7 @@ export default function Sidebar() {
 
             {/* Hour select */}
             <div className="flex flex-col">
-              <label htmlFor="hourSelect" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Hour</label>
+              <label htmlFor="hourSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Hour</label>
               <select
                 id="hourSelect"
                 value={hour}
@@ -1216,7 +1216,7 @@ export default function Sidebar() {
 
             {/* Minute select */}
             <div className="flex flex-col">
-              <label htmlFor="minSelect" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Min</label>
+              <label htmlFor="minSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Min</label>
               <select
                 id="minSelect"
                 value={minute}
@@ -1231,7 +1231,7 @@ export default function Sidebar() {
 
             {/* Meridiem select */}
             <div className="flex flex-col">
-              <label htmlFor="meridiemSelect" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">AM/PM</label>
+              <label htmlFor="meridiemSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">AM/PM</label>
               <select
                 id="meridiemSelect"
                 value={meridiem}
@@ -1248,15 +1248,15 @@ export default function Sidebar() {
         {/* 5. Background Controls */}
         <SectionCard
           id="background-controls-section"
-          title="5. Background Controls"
+          title="Appearance"
           icon={<Image className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Theme, background toggles, color presets, or upload image."
+          description="Theme, backdrop color, and background image."
         >
           <div className="flex flex-col gap-3">
 
             {/* Card Theme (moved from Tweet Content & Theme) */}
             <div className="flex items-center justify-between pb-3 border-b border-[#1E2D4A]">
-              <span className="text-xs font-semibold text-slate-300">
+              <span className="text-xs font-medium text-slate-300">
                 Card Theme
               </span>
               <div className="grid grid-cols-2 gap-1.5">
@@ -1281,8 +1281,8 @@ export default function Sidebar() {
 
             {/* Tweet Card Background toggle */}
             <div className="flex items-center justify-between pb-3 border-b border-[#1E2D4A]">
-              <span className="text-xs font-semibold text-slate-300">
-                Tweet Card Background
+              <span className="text-xs font-medium text-slate-300">
+                Card Fill
               </span>
               <button
                 type="button"
@@ -1298,8 +1298,8 @@ export default function Sidebar() {
 
             {/* Tweet Background master toggle */}
             <div className="flex items-center justify-between pb-3 border-b border-[#1E2D4A]">
-              <span className="text-xs font-semibold text-slate-300">
-                Tweet Background
+              <span className="text-xs font-medium text-slate-300">
+                Backdrop
               </span>
               <button
                 type="button"
@@ -1335,7 +1335,7 @@ export default function Sidebar() {
 
             {/* Custom Image Upload */}
             <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-              <label className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">Custom Image Backdrop</label>
+              <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">Custom Image Backdrop</label>
               <div className="flex flex-col gap-3">
                 <input
                   type="file"
@@ -1348,7 +1348,7 @@ export default function Sidebar() {
                   <button
                     type="button"
                     onClick={() => bgFileInputRef.current?.click()}
-                    className="w-full px-3 rounded-lg border border-dashed border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/30 hover:border-[#1D6FEB] text-xs font-semibold text-slate-300 h-12 transition-all duration-150 ease-in-out cursor-pointer flex items-center justify-center gap-2"
+                    className="w-full px-3 rounded-lg border border-dashed border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/30 hover:border-[#1D6FEB] text-xs font-medium text-slate-300 h-12 transition-all duration-150 ease-in-out cursor-pointer flex items-center justify-center gap-2"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-slate-400">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 9 9M12 3v13.5" />
@@ -1402,9 +1402,9 @@ export default function Sidebar() {
         {/* 6. Tweet Card Border */}
         <SectionCard
           id="tweet-card-border-section"
-          title="6. Tweet Card Border"
+          title="Border"
           icon={<Square className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Apply a colorful border wrapper around the card."
+          description="Color accent around the tweet card."
           headerToggle={{ checked: showBorder, onChange: () => setShowBorder(!showBorder), ariaLabel: "Toggle card border wrapper" }}
         >
           <div className="flex flex-col gap-[10px]">
@@ -1412,8 +1412,8 @@ export default function Sidebar() {
             {/* Border Colors (Presets & Custom) */}
             {showBorder && (
               <div className="flex flex-col gap-3 pt-3 border-t border-[#1E2D4A]">
-                <span className="text-[11px] font-medium uppercase text-slate-400">
-                  Border Color Presets
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  Color
                 </span>
                 <div className="flex items-center gap-2 overflow-x-auto pb-1">
                   {[
@@ -1441,11 +1441,11 @@ export default function Sidebar() {
             {/* Border Size Slider */}
             <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
               <div className="flex justify-between items-center mb-1">
-                <span className="text-[11px] font-medium uppercase text-slate-400">
-                  BORDER SIZE
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                  Thickness
                 </span>
-                <span className="text-[11px] font-semibold text-slate-300">
-                  Border Size: {borderSize}px
+                <span className="text-[11px] font-medium text-slate-300">
+                  {borderSize}px
                 </span>
               </div>
               <input
@@ -1467,7 +1467,7 @@ export default function Sidebar() {
             {/* Custom Color Input */}
             {showBorder && (
               <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-                <label htmlFor="customBorderColorInput" className="text-[11px] font-medium uppercase text-slate-400 mb-1.5">
+                <label htmlFor="customBorderColorInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1.5">
                   Custom Border Color
                 </label>
                 <div className="flex items-center gap-3">
@@ -1491,9 +1491,9 @@ export default function Sidebar() {
         <SectionCard
           key={`export-format-${isDesktop}`}
           id="export-format-section"
-          title="7. Export Format"
+          title="Format"
           icon={<Maximize2 className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="Choose canvas layout dimensions."
+          description="Aspect ratio for the exported image."
           defaultCollapsed={!isDesktop}
         >
           <div className="grid grid-cols-3 gap-2">
@@ -1544,7 +1544,7 @@ export default function Sidebar() {
                   <span>Copied!</span>
                 </>
               ) : copyStatus === "error" ? (
-                <span>Failed - Try Again</span>
+                <span>Failed. Try again.</span>
               ) : (
                 <>
                   <Copy className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] mr-3 shrink-0" strokeWidth={2} />
@@ -1578,7 +1578,7 @@ export default function Sidebar() {
                   <span>Downloaded!</span>
                 </>
               ) : downloadStatus === "error" ? (
-                <span>Failed - Try Again</span>
+                <span>Failed. Try again.</span>
               ) : (
                 <>
                   <Download className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] mr-3 shrink-0" strokeWidth={2} />
@@ -1598,7 +1598,7 @@ export default function Sidebar() {
             {/* Header */}
             <div className="px-6 py-4 border-b border-[#1E2D4A] flex justify-between items-center">
               <h3 className="text-sm font-bold text-slate-200">
-                {cropType === "profile" ? "Crop Profile Photo" : "Crop Organization Logo"}
+                {cropType === "profile" ? "Crop profile photo" : "Crop organization logo"}
               </h3>
               <button
                 type="button"
@@ -1682,12 +1682,12 @@ export default function Sidebar() {
                 </div>
                 <div className="flex flex-col gap-1 min-w-0">
                   <span className="text-xs font-semibold text-slate-200">
-                    {cropType === "profile" ? "Avatar Preview" : "Logo Preview"}
+                    Preview
                   </span>
                   <span className="text-[10px] text-slate-400">
                     {cropType === "profile" 
-                      ? "Drag the crop circle to center your avatar."
-                      : "Drag the crop square to center your organization logo."}
+                      ? "Drag to position your avatar."
+                      : "Drag to position your logo."}
                   </span>
                 </div>
               </div>
@@ -1713,7 +1713,7 @@ export default function Sidebar() {
                 onClick={handleSaveCrop}
                 className="px-4 py-2 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110 text-xs font-semibold text-white transition-all duration-200 cursor-pointer"
               >
-                Save Crop
+                Apply
               </button>
             </div>
           </div>
@@ -1726,7 +1726,7 @@ export default function Sidebar() {
           <div className="bg-[#0B0F19] border border-[#1E2D4A] rounded-2xl w-full max-w-lg overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
             {/* Header */}
             <div className="px-6 py-4 border-b border-[#1E2D4A] flex justify-between items-center">
-              <h3 className="text-sm font-bold text-slate-200">Edit Background Position</h3>
+              <h3 className="text-sm font-bold text-slate-200">Reposition background</h3>
               <button
                 type="button"
                 onClick={handleCancelBgEdit}
@@ -1780,9 +1780,9 @@ export default function Sidebar() {
               {/* Instructions and preview values */}
               <div className="flex flex-col gap-2 p-4 bg-[#111827]/50 border border-[#1E2D4A] rounded-xl">
                 <div className="flex flex-col gap-1 min-w-0">
-                  <span className="text-xs font-semibold text-slate-200">Visual Background Editor</span>
+                  <span className="text-xs font-semibold text-slate-200">Background editor</span>
                   <p className="text-[10px] text-slate-400 leading-normal">
-                    Drag the preview to reposition the background image. Use your mouse wheel or pinch to zoom.
+                    Drag to reposition background. Scroll to zoom.
                   </p>
                   <div className="flex gap-4 mt-2 text-[10px] font-mono text-slate-400">
                     <span>Zoom: {Math.round(tempScale)}%</span>

@@ -255,7 +255,7 @@ export default function BackgroundCropperModal({
       >
         {/* Header with aspect ratio buttons */}
         <div className="px-6 py-4 border-b border-[#1E2D4A]">
-          <h3 className="text-sm font-bold text-slate-200 mb-3">Crop Background Image</h3>
+          <h3 className="text-sm font-bold text-slate-200 mb-3">Crop background</h3>
           <div className="grid grid-cols-3 gap-2">
             {aspectOptions.map((option) => (
               <button
@@ -342,11 +342,11 @@ export default function BackgroundCropperModal({
                       {/* We want the frame's background to be transparent, so we override it */}
                       <style dangerouslySetInnerHTML={{ __html: `
                         #export-canvas {
-                          background: transparent !important;
-                          background-color: transparent !important;
-                          background-image: none !important;
-                          box-shadow: none !important;
-                          border: none !important;
+                           background: transparent !important;
+                           background-color: transparent !important;
+                           background-image: none !important;
+                           box-shadow: none !important;
+                           border: none !important;
                         }
                       `}} />
                       <TweetCard
@@ -401,7 +401,7 @@ export default function BackgroundCropperModal({
                 cursor: "pointer",
               }}
             >
-              {showTweetPreview ? "Hide Tweet" : "Show Tweet"}
+              {showTweetPreview ? "Hide preview" : "Show preview"}
             </button>
           </div>
 
@@ -463,7 +463,7 @@ export default function BackgroundCropperModal({
             }}
             className="hover:brightness-110 hover:shadow-md hover:shadow-blue-500/10 hover:-translate-y-0.5"
           >
-            OK
+            Apply
           </button>
         </div>
       </div>
