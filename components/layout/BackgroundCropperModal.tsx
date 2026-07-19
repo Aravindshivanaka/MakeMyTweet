@@ -37,7 +37,7 @@ export default function BackgroundCropperModal({
     username,
     profileImage,
     selectedLogo,
-    showLogo,
+    verificationBadge,
     tweetText,
     tweetTheme,
     showMetrics,
@@ -353,10 +353,9 @@ export default function BackgroundCropperModal({
                         displayName={displayName || "Display Name"}
                         username={username || "username"}
                         profileImage={profileImage}
-                        isVerified={true}
+                        verificationBadge={verificationBadge}
                         showOptionalBadge={false}
                         selectedLogo={selectedLogo}
-                        showLogo={showLogo}
                         timestamp={formatTimestamp()}
                         showDate={showDate}
                         showTime={showTime}

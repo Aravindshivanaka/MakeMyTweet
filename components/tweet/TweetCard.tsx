@@ -8,10 +8,9 @@ interface TweetCardProps {
   displayName?: string;
   username?: string;
   profileImage?: string | null;
-  isVerified?: boolean;
+  verificationBadge?: "none" | "blue" | "gold";
   showOptionalBadge?: boolean;
-  selectedLogo?: "x" | "twitter" | "grok";
-  showLogo?: boolean;
+  selectedLogo?: "none" | "x" | "twitter" | "grok";
   timestamp?: string;
   showDate?: boolean;
   showTime?: boolean;
@@ -19,6 +18,7 @@ interface TweetCardProps {
   tweetText?: string;
   fontSize?: number;
   hasMedia?: boolean;
+  tweetImage?: string | null;
   showMetrics?: boolean;
   comments?: number;
   retweets?: number;
@@ -39,10 +39,9 @@ export default function TweetCard({
   displayName,
   username,
   profileImage,
-  isVerified,
+  verificationBadge,
   showOptionalBadge,
   selectedLogo,
-  showLogo = true,
   timestamp,
   showDate = true,
   showTime = true,
@@ -50,6 +49,7 @@ export default function TweetCard({
   tweetText,
   fontSize,
   hasMedia,
+  tweetImage = null,
   showMetrics,
   comments,
   retweets,
@@ -100,10 +100,9 @@ export default function TweetCard({
         displayName={displayName}
         username={username}
         profileImage={profileImage}
-        isVerified={isVerified}
+        verificationBadge={verificationBadge}
         showOptionalBadge={showOptionalBadge}
         selectedLogo={selectedLogo}
-        showLogo={showLogo}
         exportFormat={exportFormat}
         tweetTheme={tweetTheme}
         organizationBadgeEnabled={organizationBadgeEnabled}
@@ -122,6 +121,24 @@ export default function TweetCard({
 
       {/* Optional media area */}
       <MediaContainer hasMedia={hasMedia} />
+
+      {/* Optional tweet image attachment */}
+      {tweetImage && (
+        <div className="mt-[12px]">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={tweetImage}
+            alt="Tweet attachment"
+            style={{
+              width: "100%",
+              maxHeight: "350px",
+              objectFit: "cover",
+              borderRadius: "16px",
+              display: "block",
+            }}
+          />
+        </div>
+      )}
 
       {/* Row 4: Timestamp on its own line — gray muted small */}
       {showTimestamp && (showDate || showTime) && timestamp && (

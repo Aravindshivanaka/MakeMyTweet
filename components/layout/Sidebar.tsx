@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import SectionCard from "./SectionCard";
 import { Input } from "@/components/ui/input";
 import { useAppStore } from "@/store/use-app-store";
@@ -90,8 +90,8 @@ export default function Sidebar() {
     setProfileImage,
     selectedLogo,
     setSelectedLogo,
-    showLogo,
-    setShowLogo,
+    verificationBadge,
+    setVerificationBadge,
     tweetText,
     setTweetText,
     characterCount,
@@ -151,7 +151,13 @@ export default function Sidebar() {
     setOrganizationBadgeEnabled,
     organizationBadgeImage,
     setOrganizationBadgeImage,
+    tweetImage,
+    setTweetImage,
   } = useAppStore();
+
+  const [isDisplayNameFocused, setIsDisplayNameFocused] = useState(false);
+  const [isUsernameFocused, setIsUsernameFocused] = useState(false);
+  const [isPostContentFocused, setIsPostContentFocused] = useState(false);
 
   const backdropPresets = [
     { name: "Deep Navy", value: "#0F2356" },
@@ -167,6 +173,7 @@ export default function Sidebar() {
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const orgFileInputRef = React.useRef<HTMLInputElement>(null);
   const bgFileInputRef = React.useRef<HTMLInputElement>(null);
+  const tweetImageFileInputRef = React.useRef<HTMLInputElement>(null);
 
   // Crop local state
   const [rawImageForCrop, setRawImageForCrop] = React.useState<string | null>(null);
@@ -741,129 +748,360 @@ export default function Sidebar() {
           description="Name, handle, avatar, and platform logo."
         >
           <div className="flex flex-col gap-[10px]">
-            {/* Profile image picker */}
-            <div className="flex flex-col">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                Profile Photo
+            {/* Top Row: Photo (Left) + Name/Username (Right) */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              {/* LEFT COLUMN: Profile Photo */}
+              <div className="flex flex-col shrink-0">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                  Profile Photo
+                </span>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleAvatarChange}
+                  accept="image/*"
+                  className="hidden"
+                />
+                <div className="flex flex-col items-center">
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    className="group relative flex flex-col items-center gap-2 p-3 rounded-xl border border-dashed border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/30 hover:border-[#1D6FEB] transition-all duration-200 cursor-pointer select-none w-full sm:w-[110px]"
+                  >
+                    {/* Prominent Avatar Preview */}
+                    <div className="relative w-16 h-16 rounded-full overflow-hidden bg-slate-800 border-2 border-[#1E2D4A] group-hover:border-[#1D6FEB] transition-colors shrink-0 flex items-center justify-center">
+                      {profileImage ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={profileImage}
+                          alt="Profile preview"
+                          width={64}
+                          height={64}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <span className="text-slate-500 dark:text-slate-300 font-bold text-lg">U</span>
+                      )}
+                      {/* Subtle hover overlay */}
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <span className="text-[10px] text-white font-semibold">Change</span>
+                      </div>
+                    </div>
+
+                    {/* Upload action info */}
+                    <span className="text-[11px] font-semibold text-slate-200 group-hover:text-[#1D6FEB] transition-colors text-center leading-tight">
+                      Upload
+                    </span>
+                  </div>
+
+                  {/* Remove Link */}
+                  {profileImage && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setProfileImage(null);
+                        if (fileInputRef.current) fileInputRef.current.value = "";
+                      }}
+                      className="text-[11px] text-rose-400 hover:text-rose-300 hover:underline transition-colors mt-2"
+                    >
+                      Remove
+                    </button>
+                  )}
+                </div>
+              </div>
+
+              {/* RIGHT COLUMN: Display Name & Username */}
+              <div className="flex flex-col gap-3 flex-1 min-w-0">
+                {/* Display Name Input */}
+                <div className="flex flex-col">
+                  <label htmlFor="displayNameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                    Display Name
+                  </label>
+                  <div className="relative">
+                    <Input
+                      id="displayNameInput"
+                      placeholder="Display Name"
+                      value={displayName}
+                      onChange={(e) => setDisplayName(e.target.value)}
+                      onFocus={(e) => {
+                        e.target.select();
+                        setIsDisplayNameFocused(true);
+                      }}
+                      onBlur={() => setIsDisplayNameFocused(false)}
+                      className="pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
+                    />
+                    {!isDisplayNameFocused && (
+                      <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" />
+                    )}
+                  </div>
+                </div>
+
+                {/* Username Input */}
+                <div className="flex flex-col">
+                  <label htmlFor="usernameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
+                    Username
+                  </label>
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1D6FEB] text-sm font-semibold">
+                      @
+                    </span>
+                    <Input
+                      id="usernameInput"
+                      placeholder="username"
+                      value={username}
+                      onChange={(e) => {
+                        const cleaned = e.target.value
+                          .toLowerCase()
+                          .replace(/\s+/g, "")
+                          .replace(/[^a-z0-9_-]/g, "");
+                        setUsername(cleaned);
+                      }}
+                      onFocus={(e) => {
+                        e.target.select();
+                        setIsUsernameFocused(true);
+                      }}
+                      onBlur={() => setIsUsernameFocused(false)}
+                      className="pl-7 pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
+                    />
+                    {!isUsernameFocused && (
+                      <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Verification Badge & Platform Logo — side by side */}
+            <div className="grid grid-cols-2 gap-4">
+              {/* Verification Badge Selector */}
+              <div className="flex flex-col gap-1.5">
+                <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  Verification Badge
+                </label>
+                <div className="flex items-center gap-1 h-10 p-1 rounded-md bg-[#111827] border border-[#1E2D4A]">
+                  {/* None */}
+                  <button
+                    type="button"
+                    onClick={() => setVerificationBadge("none")}
+                    className={`flex-1 h-full flex items-center justify-center rounded transition-all duration-150 cursor-pointer ${verificationBadge === "none" ? "bg-[#1D6FEB]/10 ring-1 ring-[#1D6FEB]" : "hover:bg-[#1E2D4A]/40"}`}
+                    aria-label="No verification badge"
+                    title="None"
+                  >
+                    <span className="text-slate-400 text-base font-medium leading-none select-none">⦸</span>
+                  </button>
+                  {/* Blue */}
+                  <button
+                    type="button"
+                    onClick={() => setVerificationBadge("blue")}
+                    className={`flex-1 h-full flex items-center justify-center rounded transition-all duration-150 cursor-pointer ${verificationBadge === "blue" ? "bg-[#1D6FEB]/10 ring-1 ring-[#1D6FEB]" : "hover:bg-[#1E2D4A]/40"}`}
+                    aria-label="Blue verification badge"
+                    title="Blue"
+                  >
+                    <svg className="w-[16px] h-[16px] text-[#1D9BF0] fill-current" viewBox="0 0 22 22">
+                      <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.143.271.586.702 1.084 1.24 1.438.54.354 1.167.551 1.813.568.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.225 1.261.272 1.894.142.634-.13 1.219-.437 1.69-.882.445-.47.749-1.055.878-1.69.13-.634.085-1.29-.138-1.893.587-.274 1.087-.705 1.443-1.245.355-.54.554-1.17.573-1.817zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z" />
+                    </svg>
+                  </button>
+                  {/* Gold */}
+                  <button
+                    type="button"
+                    onClick={() => setVerificationBadge("gold")}
+                    className={`flex-1 h-full flex items-center justify-center rounded transition-all duration-150 cursor-pointer ${verificationBadge === "gold" ? "bg-[#1D6FEB]/10 ring-1 ring-[#1D6FEB]" : "hover:bg-[#1E2D4A]/40"}`}
+                    aria-label="Gold verification badge"
+                    title="Gold"
+                  >
+                    <svg className="w-[16px] h-[16px] fill-[#F1C40F]" viewBox="0 0 22 22">
+                      <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.143.271.586.702 1.084 1.24 1.438.54.354 1.167.551 1.813.568.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.225 1.261.272 1.894.142.634-.13 1.219-.437 1.69-.882.445-.47.749-1.055.878-1.69.13-.634.085-1.29-.138-1.893.587-.274 1.087-.705 1.443-1.245.355-.54.554-1.17.573-1.817zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Platform Logo Selector */}
+              <div className="flex flex-col gap-1.5">
+                <div className="flex items-center justify-between">
+                  <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                    Platform Logo
+                  </label>
+                </div>
+                <div className="flex items-center gap-1 h-10 p-1 rounded-md bg-[#111827] border border-[#1E2D4A]">
+                  {/* None */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedLogo("none")}
+                    className={`flex-1 h-full flex items-center justify-center rounded transition-all duration-150 cursor-pointer ${selectedLogo === "none" ? "bg-[#1D6FEB]/10 ring-1 ring-[#1D6FEB]" : "hover:bg-[#1E2D4A]/40"}`}
+                    aria-label="No platform logo"
+                    title="None"
+                  >
+                    <span className="text-slate-400 text-base font-medium leading-none select-none">⦸</span>
+                  </button>
+                  {/* X Logo */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedLogo("x")}
+                    className={`flex-1 h-full flex items-center justify-center rounded transition-all duration-150 cursor-pointer ${selectedLogo === "x" ? "bg-[#1D6FEB]/10 ring-1 ring-[#1D6FEB]" : "hover:bg-[#1E2D4A]/40"}`}
+                    aria-label="X Logo"
+                    title="X Logo"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current text-slate-300">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                    </svg>
+                  </button>
+                  {/* Twitter Bird */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedLogo("twitter")}
+                    className={`flex-1 h-full flex items-center justify-center rounded transition-all duration-150 cursor-pointer ${selectedLogo === "twitter" ? "bg-[#1D6FEB]/10 ring-1 ring-[#1D6FEB]" : "hover:bg-[#1E2D4A]/40"}`}
+                    aria-label="Twitter Bird Logo"
+                    title="Twitter Bird Logo"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-[#1D9BF0]">
+                      <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+                    </svg>
+                  </button>
+                  {/* Grok */}
+                  <button
+                    type="button"
+                    onClick={() => setSelectedLogo("grok")}
+                    className={`flex-1 h-full flex items-center justify-center rounded transition-all duration-150 cursor-pointer ${selectedLogo === "grok" ? "bg-[#1D6FEB]/10 ring-1 ring-[#1D6FEB]" : "hover:bg-[#1E2D4A]/40"}`}
+                    aria-label="Grok Logo"
+                    title="Grok Logo"
+                  >
+                    <svg viewBox="0 0 24 24" className="w-[14px] h-[14px] fill-current text-slate-300">
+                      <path d="M9.27 15.29l7.978-5.897c.391-.29.95-.177 1.137.272.98 2.369.542 5.215-1.41 7.169-1.951 1.954-4.667 2.382-7.149 1.406l-2.711 1.257c3.889 2.661 8.611 2.003 11.562-.953 2.341-2.344 3.066-5.539 2.388-8.42l.006.007c-.983-4.232.242-5.924 2.75-9.383.06-.082.12-.164.179-.248l-3.301 3.305v-.01L9.267 15.292M7.623 16.723c-2.792-2.67-2.31-6.801.071-9.184 1.761-1.763 4.647-2.483 7.166-1.425l2.705-1.25a7.808 7.808 0 00-1.829-1A8.975 8.975 0 005.984 5.83c-2.533 2.536-3.33 6.436-1.962 9.764 1.022 2.487-.653 4.246-2.34 6.022-.599.63-1.199 1.259-1.682 1.925l7.62-6.815" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Post Content */}
+            <div className="flex flex-col gap-2 pt-4 mt-2 border-t border-[#1E2D4A]/50">
+              <label htmlFor="tweetTextarea" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Post Content
+              </label>
+              <div className="relative">
+                <textarea
+                  id="tweetTextarea"
+                  placeholder="What is happening?!"
+                  value={tweetText}
+                  onChange={(e) => { if (e.target.value.length <= 280) setTweetText(e.target.value); }}
+                  onFocus={(e) => {
+                    e.target.select();
+                    setIsPostContentFocused(true);
+                  }}
+                  onBlur={() => setIsPostContentFocused(false)}
+                  maxLength={280}
+                  className="w-full min-h-[90px] p-3.5 pr-9 rounded-lg bg-[#111827] border border-[#1E2D4A] text-white text-sm focus:border-[#1D6FEB] focus:ring-0 focus:outline-none transition-all duration-150 ease-in-out resize-none"
+                />
+                {!isPostContentFocused && (
+                  <Pencil className="absolute right-3 top-3.5 w-4 h-4 text-slate-500 dark:text-slate-400 pointer-events-none" />
+                )}
+              </div>
+              <div className="text-[11px] text-right font-semibold text-[#64748B] dark:text-slate-400">
+                <span className={characterCount >= 260 ? (characterCount >= 280 ? 'text-red-500' : 'text-amber-500') : ''}>{characterCount}</span> / 280
+              </div>
+            </div>
+
+            {/* Image Attachment */}
+            <div className="flex flex-col pt-2 mt-1 border-t border-[#1E2D4A]/50">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                Attached Image
               </span>
               <input
                 type="file"
-                ref={fileInputRef}
-                onChange={handleAvatarChange}
-                accept="image/*"
+                ref={tweetImageFileInputRef}
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const fileType = file.type.toLowerCase();
+                    const fileName = file.name.toLowerCase();
+                    const isAllowed =
+                      fileType === "image/png" ||
+                      fileType === "image/jpeg" ||
+                      fileType === "image/jpg" ||
+                      fileType === "image/webp" ||
+                      fileName.endsWith(".png") ||
+                      fileName.endsWith(".jpg") ||
+                      fileName.endsWith(".jpeg") ||
+                      fileName.endsWith(".webp");
+
+                    if (!isAllowed) {
+                      alert("Unsupported file format. Please upload PNG, JPG, or WebP images.");
+                      if (tweetImageFileInputRef.current) tweetImageFileInputRef.current.value = "";
+                      return;
+                    }
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setTweetImage(reader.result as string);
+                    };
+                    reader.readAsDataURL(file);
+                  }
+                }}
+                accept="image/png, image/jpeg, image/jpg, image/webp"
                 className="hidden"
               />
-              <div
-                onClick={() => fileInputRef.current?.click()}
-                className="group relative flex items-center gap-4 p-4 rounded-xl border border-dashed border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/30 hover:border-[#1D6FEB] transition-all duration-200 cursor-pointer select-none"
-              >
-                {/* Prominent Avatar Preview */}
-                <div className="relative w-16 h-16 rounded-full overflow-hidden bg-slate-800 border-2 border-[#1E2D4A] group-hover:border-[#1D6FEB] transition-colors shrink-0 flex items-center justify-center">
-                  {profileImage ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+              {!tweetImage ? (
+                <div
+                  onClick={() => tweetImageFileInputRef.current?.click()}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      tweetImageFileInputRef.current?.click();
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  className="group relative flex items-center gap-3 py-2 px-3 rounded-xl border border-dashed border-[#1E2D4A] bg-[#111827] hover:bg-[#1E2D4A]/30 hover:border-[#1D6FEB] focus:outline-none focus:border-[#1D6FEB] focus:bg-[#1E2D4A]/20 transition-all duration-200 cursor-pointer select-none"
+                >
+                  {/* Visual Placeholder Icon */}
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-slate-800 border-2 border-[#1E2D4A] group-hover:border-[#1D6FEB] transition-colors shrink-0 flex items-center justify-center">
+                    <Image className="w-6 h-6 text-slate-500 dark:text-slate-300" strokeWidth={1.5} />
+                  </div>
+
+                  {/* Info Text */}
+                  <div className="flex flex-col gap-1 min-w-0">
+                    <span className="text-xs font-semibold text-slate-200 group-hover:text-[#1D6FEB] transition-colors">
+                      Upload Image
+                    </span>
+                    <span className="text-[10px] text-slate-400 font-medium">
+                      PNG, JPG, or WebP
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-center gap-3 p-3 bg-[#111827] border border-[#1E2D4A] rounded-xl">
+                  {/* Thumbnail preview */}
+                  <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-slate-800 border border-[#1E2D4A] shrink-0 flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={profileImage}
-                      alt="Profile preview"
+                      src={tweetImage}
+                      alt="Tweet image preview"
                       width={64}
                       height={64}
                       className="w-full h-full object-cover"
                     />
-                  ) : (
-                    <span className="text-slate-500 font-bold text-lg">U</span>
-                  )}
-                  {/* Subtle hover overlay */}
-                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <span className="text-[10px] text-white font-semibold">Change</span>
+                  </div>
+
+                  <div className="flex flex-col gap-2 min-w-0 flex-1">
+                    <button
+                      type="button"
+                      onClick={() => tweetImageFileInputRef.current?.click()}
+                      className="px-3 py-1.5 rounded-lg bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110 text-[11px] font-bold text-white transition-all duration-200 cursor-pointer text-center w-full"
+                    >
+                      Change Image
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setTweetImage(null);
+                        if (tweetImageFileInputRef.current) tweetImageFileInputRef.current.value = "";
+                      }}
+                      className="text-[10px] text-rose-400 hover:text-rose-300 hover:underline cursor-pointer transition-all duration-200 ease-in-out text-center"
+                    >
+                      Remove Image
+                    </button>
                   </div>
                 </div>
-
-                {/* Upload action info */}
-                <div className="flex flex-col gap-1 min-w-0">
-                  <span className="text-xs font-semibold text-slate-200 group-hover:text-[#1D6FEB] transition-colors">
-                    Upload photo
-                  </span>
-                  <span className="text-[10px] text-slate-400/80 font-normal">
-                    PNG or JPG
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Display Name & Username Inputs */}
-            <div className="grid grid-cols-2 gap-4">
-              {/* Display Name Input */}
-              <div className="flex flex-col">
-                <label htmlFor="displayNameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                  Display Name
-                </label>
-                <div className="relative">
-                  <Input
-                    id="displayNameInput"
-                    placeholder="Display Name"
-                    value={displayName}
-                    onChange={(e) => setDisplayName(e.target.value)}
-                    onFocus={(e) => e.target.select()}
-                    className="pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
-                  />
-                  <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
-                </div>
-              </div>
-
-              {/* Username Input */}
-              <div className="flex flex-col">
-                <label htmlFor="usernameInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
-                  Username
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#1D6FEB] text-sm font-semibold">
-                    @
-                  </span>
-                  <Input
-                    id="usernameInput"
-                    placeholder="username"
-                    value={username}
-                    onChange={(e) => {
-                      const cleaned = e.target.value
-                        .toLowerCase()
-                        .replace(/\s+/g, "")
-                        .replace(/[^a-z0-9_-]/g, "");
-                      setUsername(cleaned);
-                    }}
-                    onFocus={(e) => e.target.select()}
-                    className="pl-7 pr-9 bg-[#111827] border-[#1E2D4A] text-white focus:border-[#1D6FEB] focus:ring-0 text-sm h-10 transition-all duration-150 ease-in-out"
-                  />
-                  <Pencil className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
-                </div>
-              </div>
-            </div>
-
-            {/* Platform Logo Dropdown and Toggle */}
-            <div className="flex flex-col gap-1.5">
-              <label htmlFor="platformLogoSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-                Platform Logo
-              </label>
-              <div className="flex flex-row flex-wrap items-center gap-3 w-full">
-                <select
-                  id="platformLogoSelect"
-                  value={selectedLogo}
-                  onChange={(e) => setSelectedLogo(e.target.value as "x" | "twitter" | "grok")}
-                  className="flex-1 min-w-[120px] h-10 px-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-slate-300 text-sm focus:border-[#1D6FEB] focus:outline-none cursor-pointer transition-all duration-150 ease-in-out"
-                >
-                  <option value="x">X Logo</option>
-                  <option value="twitter">Twitter Bird Logo</option>
-                  <option value="grok">Grok Logo</option>
-                </select>
-                <button
-                  type="button"
-                  onClick={() => setShowLogo(!showLogo)}
-                  className={`relative w-9 h-5 rounded-full transition-colors duration-300 ease-in-out cursor-pointer shrink-0 ${showLogo ? "bg-[#1D6FEB]" : "bg-slate-700 dark:bg-slate-500"
-                    }`}
-                  aria-label="Toggle platform logo visibility"
-                >
-                  <div className={`absolute top-0.5 left-0.5 w-4 h-4 bg-white rounded-full shadow-sm transition-transform duration-300 ease-in-out ${showLogo ? "translate-x-4" : "translate-x-0"
-                    }`} />
-                </button>
-              </div>
+              )}
             </div>
           </div>
         </SectionCard>
@@ -899,7 +1137,7 @@ export default function Sidebar() {
  
             {/* Logo Upload Placeholder/Active Card */}
             <div className="flex flex-col">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                 Upload Logo
               </span>
               <input
@@ -923,7 +1161,7 @@ export default function Sidebar() {
                 >
                   {/* Visual Placeholder Icon */}
                   <div className="relative w-16 h-16 rounded-lg overflow-hidden bg-slate-800 border-2 border-[#1E2D4A] group-hover:border-[#1D6FEB] transition-colors shrink-0 flex items-center justify-center">
-                    <span className="text-slate-500 font-bold text-lg">L</span>
+                    <span className="text-slate-500 dark:text-slate-300 font-bold text-lg">L</span>
                   </div>
 
                   {/* Info Text */}
@@ -980,31 +1218,6 @@ export default function Sidebar() {
           </div>
         </SectionCard>
 
-        {/* 2. Tweet Content */}
-        <SectionCard
-          id="tweet-content-section"
-          title="Post"
-          icon={<Pencil className="w-[18px] h-[18px] md:w-[20px] md:h-[20px] shrink-0" strokeWidth={2} />}
-          description="The tweet body text."
-        >
-          <div className="flex flex-col gap-[10px]">
-            <div className="flex flex-col gap-2">
-              <textarea
-                id="tweetTextarea"
-                placeholder="What is happening?!"
-                value={tweetText}
-                onChange={(e) => { if (e.target.value.length <= 280) setTweetText(e.target.value); }}
-                onFocus={(e) => e.target.select()}
-                maxLength={280}
-                className="w-full min-h-[90px] p-3 rounded-md bg-[#111827] border border-[#1E2D4A] text-white text-sm focus:border-[#1D6FEB] focus:outline-none resize-none"
-              />
-              <div className="text-[11px] text-right font-semibold text-[#64748B]">
-                <span className={characterCount >= 260 ? (characterCount >= 280 ? 'text-red-500' : 'text-amber-500') : ''}>{characterCount}</span> / 280
-              </div>
-            </div>
-          </div>
-        </SectionCard>
-
         {/* 3. Engagement Controls */}
         <SectionCard
           id="engagement-controls-section"
@@ -1018,11 +1231,11 @@ export default function Sidebar() {
             {/* Metrics inputs with corresponding left-aligned icons */}
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col">
-                <label htmlFor="input-Comments" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Comments" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   Comments
                 </label>
                 <div className="relative">
-                  <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <MessageCircle className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <Input
                     id="input-Comments"
                     placeholder="0"
@@ -1038,11 +1251,11 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Retweets" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Retweets" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   Reposts
                 </label>
                 <div className="relative">
-                  <Repeat2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Repeat2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <Input
                     id="input-Retweets"
                     placeholder="0"
@@ -1058,11 +1271,11 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Likes" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Likes" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   Likes
                 </label>
                 <div className="relative">
-                  <Heart className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Heart className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <Input
                     id="input-Likes"
                     placeholder="0"
@@ -1078,11 +1291,11 @@ export default function Sidebar() {
               </div>
 
               <div className="flex flex-col">
-                <label htmlFor="input-Views" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Views" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   Views
                 </label>
                 <div className="relative">
-                  <BarChart2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <BarChart2 className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <Input
                     id="input-Views"
                     placeholder="0"
@@ -1099,11 +1312,11 @@ export default function Sidebar() {
 
               {/* Bookmarks Control */}
               <div className="flex flex-col col-span-2">
-                <label htmlFor="input-Bookmarks" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="input-Bookmarks" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   Bookmarks
                 </label>
                 <div className="relative">
-                  <Bookmark className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+                  <Bookmark className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
                   <Input
                     id="input-Bookmarks"
                     placeholder="0"
@@ -1121,7 +1334,7 @@ export default function Sidebar() {
 
             {/* Generate Sample Metrics */}
             <div className="flex flex-col gap-3 pt-3 border-t border-[#1E2D4A]">
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                 Quick Fill
               </span>
               <div className="grid grid-cols-2 gap-2">
@@ -1135,7 +1348,7 @@ export default function Sidebar() {
                 <button
                   type="button"
                   onClick={handleClearMetrics}
-                  className="px-3 rounded-lg border border-rose-950 bg-rose-950/20 hover:bg-rose-950/50 text-xs font-semibold text-rose-300 h-10 transition-all duration-150 ease-in-out cursor-pointer text-center flex items-center justify-center"
+                  className="px-3 rounded-lg border border-rose-950 bg-rose-950/20 hover:bg-rose-950/50 text-xs font-semibold text-rose-600 dark:text-rose-300 h-10 transition-all duration-150 ease-in-out cursor-pointer text-center flex items-center justify-center"
                 >
                   Reset
                 </button>
@@ -1189,7 +1402,7 @@ export default function Sidebar() {
 
             {/* Date field (with increased contrast calendar icon styling) */}
             <div className="col-span-2 flex flex-col">
-              <label htmlFor="dateInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Date</label>
+              <label htmlFor="dateInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Date</label>
               <Input
                 id="dateInput"
                 type="date"
@@ -1201,7 +1414,7 @@ export default function Sidebar() {
 
             {/* Hour select */}
             <div className="flex flex-col">
-              <label htmlFor="hourSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Hour</label>
+              <label htmlFor="hourSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Hour</label>
               <select
                 id="hourSelect"
                 value={hour}
@@ -1216,7 +1429,7 @@ export default function Sidebar() {
 
             {/* Minute select */}
             <div className="flex flex-col">
-              <label htmlFor="minSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Min</label>
+              <label htmlFor="minSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Min</label>
               <select
                 id="minSelect"
                 value={minute}
@@ -1231,7 +1444,7 @@ export default function Sidebar() {
 
             {/* Meridiem select */}
             <div className="flex flex-col">
-              <label htmlFor="meridiemSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">AM/PM</label>
+              <label htmlFor="meridiemSelect" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">AM/PM</label>
               <select
                 id="meridiemSelect"
                 value={meridiem}
@@ -1270,7 +1483,7 @@ export default function Sidebar() {
                     onClick={() => setTweetTheme(theme as "light" | "dark")}
                     className={`py-1.5 px-4 rounded-lg border text-xs font-semibold transition-all duration-200 cursor-pointer ${tweetTheme === theme
                       ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] border-[#1D6FEB] text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:hover:brightness-110"
-                      : "bg-[#111827] border-[#1E2D4A] text-slate-700 dark:text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
+                      : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
                       }`}
                   >
                     {label}
@@ -1335,7 +1548,7 @@ export default function Sidebar() {
 
             {/* Custom Image Upload */}
             <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-              <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">Custom Image Backdrop</label>
+              <label className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">Custom Image Backdrop</label>
               <div className="flex flex-col gap-3">
                 <input
                   type="file"
@@ -1412,7 +1625,7 @@ export default function Sidebar() {
             {/* Border Colors (Presets & Custom) */}
             {showBorder && (
               <div className="flex flex-col gap-3 pt-3 border-t border-[#1E2D4A]">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Color
                 </span>
                 <div className="flex items-center gap-2 overflow-x-auto pb-1">
@@ -1441,7 +1654,7 @@ export default function Sidebar() {
             {/* Border Size Slider */}
             <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
               <div className="flex justify-between items-center mb-1">
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
                   Thickness
                 </span>
                 <span className="text-[11px] font-medium text-slate-300">
@@ -1467,7 +1680,7 @@ export default function Sidebar() {
             {/* Custom Color Input */}
             {showBorder && (
               <div className="flex flex-col gap-2 mt-2 pt-2 border-t border-[#1E2D4A]">
-                <label htmlFor="customBorderColorInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                <label htmlFor="customBorderColorInput" className="text-[11px] font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-1">
                   Custom Border Color
                 </label>
                 <div className="flex items-center gap-3">
@@ -1508,7 +1721,7 @@ export default function Sidebar() {
                 onClick={() => setExportFormat(format as "story" | "square" | "landscape")}
                 className={`py-2 rounded-lg border text-xs font-semibold transition-all duration-200 ease-in-out cursor-pointer ${exportFormat === format
                   ? "bg-gradient-to-b from-[#3b82f6] to-[#1D6FEB] border-[#1D6FEB] text-white hover:-translate-y-0.5 hover:shadow-md hover:shadow-blue-500/10 active:translate-y-0 dark:border-[#1D6FEB] dark:hover:brightness-110"
-                  : "bg-[#111827] border-[#1E2D4A] text-slate-700 dark:text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
+                  : "bg-[#111827] border-[#1E2D4A] text-slate-300 hover:bg-[#1E2D4A]/40 hover:text-[#1D6FEB] hover:border-[#1D6FEB]/50"
                   }`}
               >
                 {label}
@@ -1677,7 +1890,7 @@ export default function Sidebar() {
                       }}
                     />
                   ) : (
-                    <span className="text-slate-500 font-bold text-lg">{cropType === "profile" ? "U" : "L"}</span>
+                    <span className="text-slate-500 dark:text-slate-300 font-bold text-lg">{cropType === "profile" ? "U" : "L"}</span>
                   )}
                 </div>
                 <div className="flex flex-col gap-1 min-w-0">

@@ -2,12 +2,14 @@ export interface ProfileSliceState {
   displayName: string;
   username: string;
   profileImage: string | null;
+  verificationBadge: "none" | "blue" | "gold";
 }
 
 export interface ProfileSliceActions {
   setDisplayName: (name: string) => void;
   setUsername: (username: string) => void;
   setProfileImage: (image: string | null) => void;
+  setVerificationBadge: (badge: "none" | "blue" | "gold") => void;
 }
 
 export interface TweetSliceState {
@@ -28,15 +30,13 @@ export interface TweetSliceActions {
 }
 
 export interface LogoSliceState {
-  selectedLogo: "x" | "twitter" | "grok";
-  showLogo: boolean;
+  selectedLogo: "none" | "x" | "twitter" | "grok";
   organizationBadgeEnabled: boolean;
   organizationBadgeImage: string | null;
 }
 
 export interface LogoSliceActions {
-  setSelectedLogo: (logo: "x" | "twitter" | "grok") => void;
-  setShowLogo: (show: boolean) => void;
+  setSelectedLogo: (logo: "none" | "x" | "twitter" | "grok") => void;
   setOrganizationBadgeEnabled: (enabled: boolean) => void;
   setOrganizationBadgeImage: (image: string | null) => void;
 }
@@ -109,6 +109,14 @@ export interface ExportSliceActions {
   setExportFormat: (format: "story" | "square" | "landscape") => void;
 }
 
+export interface TweetImageSliceState {
+  tweetImage: string | null;
+}
+
+export interface TweetImageSliceActions {
+  setTweetImage: (image: string | null) => void;
+}
+
 export type RootStoreState =
   ProfileSliceState &
   TweetSliceState &
@@ -116,7 +124,8 @@ export type RootStoreState =
   MetricsSliceState &
   TimestampSliceState &
   BackgroundSliceState &
-  ExportSliceState;
+  ExportSliceState &
+  TweetImageSliceState;
 
 export type RootStoreActions =
   ProfileSliceActions &
@@ -125,6 +134,7 @@ export type RootStoreActions =
   MetricsSliceActions &
   TimestampSliceActions &
   BackgroundSliceActions &
-  ExportSliceActions;
+  ExportSliceActions &
+  TweetImageSliceActions;
 
 export type RootStore = RootStoreState & RootStoreActions;

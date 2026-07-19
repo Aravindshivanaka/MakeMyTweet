@@ -62,7 +62,7 @@ export default function ContactPage() {
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             {/* LinkedIn Button */}
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/make-my-tweet/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex-1 inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-[#0A66C2] hover:brightness-110 hover:shadow-[0_0_12px_rgba(10,102,194,0.4)] text-white rounded-xl font-semibold text-sm transition-all duration-200 shadow-md shadow-[#0A66C2]/10"

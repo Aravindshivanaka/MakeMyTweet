@@ -9,13 +9,11 @@ export const createLogoSlice: StateCreator<
 > = (set) => ({
   // State
   selectedLogo: "x",
-  showLogo: true,
-  organizationBadgeEnabled: false,
-  organizationBadgeImage: null,
+  organizationBadgeEnabled: true,
+  organizationBadgeImage: "/images/default-avatar.webp",
 
   // Actions
   setSelectedLogo: (selectedLogo) => set({ selectedLogo }),
-  setShowLogo: (showLogo) => set({ showLogo }),
   setOrganizationBadgeEnabled: (organizationBadgeEnabled) => set({ organizationBadgeEnabled }),
   setOrganizationBadgeImage: (organizationBadgeImage) => set({ organizationBadgeImage }),
 });

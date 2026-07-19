@@ -53,12 +53,12 @@ export default function Footer() {
       className="relative w-full h-12 bg-white/80 dark:bg-[#0B1220] border-t border-gray-100 dark:border-[rgba(255,255,255,0.06)] backdrop-blur-md px-6 flex items-center justify-between shrink-0 select-none z-45"
     >
       {/* Left: Trademark text / Logo hint */}
-      <div className="text-[10px] sm:text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-500 uppercase select-none">
+      <div className="text-[10px] sm:text-[11px] font-semibold tracking-wider text-slate-400 dark:text-slate-400 uppercase select-none">
         © 2026 Make My Tweet
       </div>
 
       {/* Center: Quiet features */}
-      <div className="flex items-center justify-center gap-6 text-[10px] text-slate-400 dark:text-slate-500 font-semibold tracking-wider uppercase max-lg:hidden">
+      <div className="flex items-center justify-center gap-6 text-[10px] text-slate-400 dark:text-slate-400 font-semibold tracking-wider uppercase max-lg:hidden">
         {features.map((feature, idx) => (
           <div key={idx} className="flex items-center gap-1.5 whitespace-nowrap">
             <span className="text-[#1D6FEB] text-xs">{feature.icon}</span>

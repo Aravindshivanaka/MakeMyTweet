@@ -12,7 +12,7 @@ export default function PreviewWorkspace() {
     username,
     profileImage,
     selectedLogo,
-    showLogo,
+    verificationBadge,
     tweetText,
     tweetTheme,
     showMetrics,
@@ -42,6 +42,7 @@ export default function PreviewWorkspace() {
     backgroundPositionY,
     organizationBadgeEnabled,
     organizationBadgeImage,
+    tweetImage,
   } = useAppStore();
 
   const [isMobile, setIsMobile] = React.useState(false);
@@ -81,13 +82,36 @@ export default function PreviewWorkspace() {
     story: 440,
   };
   const canvasNaturalWidth = DESIGN_MAX_WIDTH[exportFormat];
-  const canvasNaturalHeight =
+  const defaultCanvasHeight =
     exportFormat === "square" ? canvasNaturalWidth                       // 1:1
     : exportFormat === "story" ? Math.round((canvasNaturalWidth * 16) / 9) // 9:16
     : Math.round((canvasNaturalWidth * 9) / 16);                          // 16:9
+
+  const [actualCanvasHeight, setActualCanvasHeight] = React.useState<number | null>(null);
+
+  const canvasNaturalHeight = actualCanvasHeight && actualCanvasHeight > defaultCanvasHeight 
+    ? actualCanvasHeight 
+    : defaultCanvasHeight;
+
   const canvasNatural = { w: canvasNaturalWidth, h: canvasNaturalHeight };
 
   const [viewport, setViewport] = React.useState<{ w: number; h: number } | null>(null);
+
+  React.useEffect(() => {
+    const sizerArea = sizerAreaRef.current;
+    if (!sizerArea) return;
+    
+    // We observe the canvas inside our specific workspace instance
+    const exportCanvas = sizerArea.querySelector("#export-canvas") as HTMLElement;
+    if (!exportCanvas) return;
+    
+    const observer = new ResizeObserver(() => {
+      setActualCanvasHeight(exportCanvas.offsetHeight);
+    });
+    observer.observe(exportCanvas);
+    setActualCanvasHeight(exportCanvas.offsetHeight);
+    return () => observer.disconnect();
+  }, [exportFormat, tweetText, tweetImage, showBackground, backgroundType, showMetrics, organizationBadgeEnabled]);
 
   React.useEffect(() => {
     const sizerArea = sizerAreaRef.current;
@@ -232,10 +256,9 @@ export default function PreviewWorkspace() {
         displayName={displayName || "Display Name"}
         username={username || "username"}
         profileImage={profileImage}
-        isVerified={true}
+        verificationBadge={verificationBadge}
         showOptionalBadge={false}
         selectedLogo={selectedLogo}
-        showLogo={showLogo}
         timestamp={formatTimestamp()}
         showDate={showDate}
         showTime={showTime}
@@ -257,6 +280,7 @@ export default function PreviewWorkspace() {
         showCardBackground={showCardBackground}
         organizationBadgeEnabled={organizationBadgeEnabled}
         organizationBadgeImage={organizationBadgeImage}
+        tweetImage={tweetImage}
       />
     </RichBlueFrame>
   );

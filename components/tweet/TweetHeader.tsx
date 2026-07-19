@@ -4,10 +4,9 @@ interface TweetHeaderProps {
   displayName?: string;
   username?: string;
   profileImage?: string | null;
-  isVerified?: boolean;
+  verificationBadge?: "none" | "blue" | "gold";
   showOptionalBadge?: boolean;
-  selectedLogo?: "x" | "twitter" | "grok";
-  showLogo?: boolean;
+  selectedLogo?: "none" | "x" | "twitter" | "grok";
   exportFormat?: "story" | "square" | "landscape";
   tweetTheme?: "light" | "dark";
   organizationBadgeEnabled?: boolean;
@@ -18,10 +17,9 @@ export default function TweetHeader({
   displayName = "Display Name",
   username = "username",
   profileImage = null,
-  isVerified = true,
+  verificationBadge = "blue",
   showOptionalBadge = false,
   selectedLogo = "x",
-  showLogo = true,
   exportFormat = "landscape",
   tweetTheme = "light",
   organizationBadgeEnabled = false,
@@ -61,7 +59,7 @@ export default function TweetHeader({
   const logoColorClass = isDark ? "text-[#71767b]" : "text-[#536471]";
 
   return (
-    <div className={`flex items-start ${gapClass} w-full`}>
+    <div className={`flex items-center  ${gapClass} w-full`}>
       {/* Avatar */}
       <div className={`${avatarSize} rounded-full overflow-hidden ${isDark ? "bg-[#2f3336]" : "bg-[#cfd9de]"} flex-shrink-0 flex items-center justify-center`}>
         {profileImage ? (
@@ -87,10 +85,10 @@ export default function TweetHeader({
           </span>
 
           {/* Verification Badge */}
-          {isVerified && (
+          {verificationBadge !== "none" && (
             <svg
               aria-label="Verified account"
-              className="w-[18.75px] h-[18.75px] text-[#1D9BF0] fill-current flex-shrink-0 mt-[2.5px]"
+              className={`w-[18.75px] h-[18.75px] fill-current flex-shrink-0 mt-[2.5px] ${verificationBadge === "gold" ? "text-[#F1C40F]" : "text-[#1D9BF0]"}`}
               viewBox="0 0 22 22"
             >
               <path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.855-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.69-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.636.433 1.221.878 1.69.47.446 1.055.752 1.69.883.635.13 1.294.083 1.902-.143.271.586.702 1.084 1.24 1.438.54.354 1.167.551 1.813.568.647-.016 1.276-.213 1.817-.567s.972-.854 1.245-1.44c.604.225 1.261.272 1.894.142.634-.13 1.219-.437 1.69-.882.445-.47.749-1.055.878-1.69.13-.634.085-1.29-.138-1.893.587-.274 1.087-.705 1.443-1.245.355-.54.554-1.17.573-1.817zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z" />
@@ -131,7 +129,7 @@ export default function TweetHeader({
       </div>
 
       {/* Platform Logo — top-right corner */}
-      {showLogo && (
+      {selectedLogo !== "none" && (
         <div className={`flex-shrink-0 ${logoColorClass} ${logoSize}`}>
           {selectedLogo === "x" ? (
             <svg viewBox="0 0 24 24" className="w-full h-full fill-current">

@@ -8,6 +8,7 @@ import { createMetricsSlice } from "./slices/metrics-slice";
 import { createTimestampSlice } from "./slices/timestamp-slice";
 import { createBackgroundSlice } from "./slices/background-slice";
 import { createExportSlice } from "./slices/export-slice";
+import { createTweetImageSlice } from "./slices/tweet-image-slice";
 
 export const useAppStore = create<RootStore>()(
   devtools((...args) => ({
@@ -18,6 +19,7 @@ export const useAppStore = create<RootStore>()(
     ...createTimestampSlice(...args),
     ...createBackgroundSlice(...args),
     ...createExportSlice(...args),
+    ...createTweetImageSlice(...args),
   }))
 );
 export default useAppStore;
